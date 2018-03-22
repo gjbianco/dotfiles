@@ -1,0 +1,20 @@
+[user]
+	name = Guy Bianco IV
+	email = gjbiancoiv@gmail.com
+[core]
+	excludesfile = ~/.gitignore_global
+	autocrlf = input
+[alias]
+	st = status
+	ci = commit
+	br = branch
+	co = checkout
+	graph-simple = log --graph --simplify-by-decoration --pretty=format:'%d' --all	
+	graph = log --graph
+	cp = cherry-pick
+	last = for-each-ref --count=10 --sort=-committerdate refs/heads/ --format="%(refname:short)"
+	contributors = shortlog -sn
+[merge]
+        keepBackup = false
+[push]
+	default = simple
