@@ -34,7 +34,7 @@ set hidden
 set number
 set relativenumber
 set backspace=indent,eol,start " make backspace outside of current insert session
-let mapleader = ","
+let mapleader = " " " set leader to space
 
 set autoindent
 set tabstop=2
