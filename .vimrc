@@ -10,14 +10,17 @@ endif
 
 call plug#begin()
 
-Plug 'mattn/emmet-vim'
+" Plug 'mattn/emmet-vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'jiangmiao/auto-pairs'
 Plug 'ap/vim-buftabline'
 Plug 'editorconfig/editorconfig-vim'
 
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-vinegar'
 
 call plug#end()
 
@@ -43,6 +46,11 @@ set expandtab
 set path+=** " recurse :find
 set wildmenu " tab multiple matches
 nnoremap <leader>p :find<space>
+
+" netrw
+nnoremap <leader>n :e.<CR>
+nnoremap <leader>b :Explore<CR>
+cnoremap E Explore
 
 " enable buftabline indicators
 let g:buftabline_indicators = 1
