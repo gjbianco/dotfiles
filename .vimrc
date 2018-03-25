@@ -1,161 +1,67 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible
+" filetype off
 
-" ----- START VUNDLE ------
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" auto install vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+call plug#begin()
 
-" emmet code generation
-Plugin 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'jiangmiao/auto-pairs'
+Plug 'ap/vim-buftabline'
+Plug 'editorconfig/editorconfig-vim'
 
-" surround.vim
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
 
-" HTML tag matching
-Plugin 'valloric/MatchTagAlways'
-
-" commenting command
-Plugin 'tpope/vim-commentary'
-
-" git info in gutter
-Plugin 'airblade/vim-gitgutter'
-
-" themes
-" Plugin 'chriskempson/base16-vim'
-Plugin 'chr4/jellygrass.vim'
-
-" CtrlP fuzzy search file open
-" Plugin 'kien/ctrlp.vim'
-
-" bracket/parens autocompletion
-Plugin 'jiangmiao/auto-pairs'
-
-" enhance javascript syntax
-" Plugin 'jelera/vim-javascript-syntax'
-
-" tabline for buffers
-Plugin 'ap/vim-buftabline'
-
-" JS indenting (plus a couple of extra visual features)
-" Plugin 'pangloss/vim-javascript'
-" Plugin 'nathanaelkane/vim-indent-guides'
-
-" nerdtree
-Plugin 'scrooloose/nerdtree'
-
-" nerdtree git plugin
-" Plugin 'Xuyuanp/nerdtree-git-plugin'
-
-" EditorConfig
-Plugin 'editorconfig/editorconfig-vim'
-
-" PICO-8 syntax
-" Plugin 'justinj/vim-pico8-syntax'
-
-" autosave files
-" Plugin 'vim-scripts/vim-auto-save'
-
-" minimap plugin
-" Plugin 'severin-lemaignan/vim-minimap'
-
-call vundle#end()            " required
-filetype plugin indent on    " required
-
-" ------ END VUNDLE --------
+call plug#end()
 
 " colors
 set background=dark
 set t_Co=256
 
 syntax on
-" set cursorline
 set mouse=a
-set autoindent
+set hidden
 set number
+set relativenumber
 set backspace=indent,eol,start " make backspace outside of current insert session
 let mapleader = ","
-let g:vim_json_syntax_conceal = 0
+
+set autoindent
+set tabstop=2
+set shiftwidth=2
+set smarttab
+set expandtab
 
 " fuzzy finder
 set path+=** " recurse :find
 set wildmenu " tab multiple matches
 nnoremap <leader>p :find<space>
 
-" yank to system clipboard
-" set clipboard=unnamed
-
-" vim-javascript configuration
-let javascript_enable_domhtmlcss = 1
-
-" check linter on file open
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_javascript_checkers = ['eslint']
-" let g:syntastic_html_checkers=['']
-
 " enable buftabline indicators
 let g:buftabline_indicators = 1
-
-" ctrl p configuration
-nmap <C-e> :CtrlPBuffer<CR>
-let g:ctrlp_match_window_bottom = 0
-let g:ctrlp_match_window_reversed = 0
-let g:ctrlp_custom_ignore = '\v\~$|\.(o|swp|pyc|wav|mp3|ogg|blend)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|__init__\.py|node_modules'
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_dotfiles = 0
-let g:ctrlp_switch_buffer = 0
-
-" autosave configuration
-" let g:auto_save = 1 " enable autosave on vim startup
-" let g:auto_save_in_insert_mode = 0 " do not save while in insert mode
 
 " git gutter configuration
 set updatetime=250
 let g:gitgutter_realtime = 1
 let g:gitgutter_eater = 1
 
-nnoremap <leader>n :NERDTreeToggle<cr>
-
-" nerdtree git plugin config
-" let g:NERDTreeIndicatorMapCustom = {
-"     \ "Modified"  : "✹",
-"     \ "Staged"    : "✚",
-"     \ "Untracked" : "✭",
-"     \ "Renamed"   : "➜",
-"     \ "Unmerged"  : "═",
-"     \ "Deleted"   : "✖",
-"     \ "Dirty"     : "✗",
-"     \ "Clean"     : "✔︎",
-"     \ "Unknown"   : "?"
-"     \ 
-" }
-
 " handle JSON syntax without plugin
 autocmd BufNewFile,BufRead *.json set ft=javascript
 
-" tabs
-set tabstop=2
-set shiftwidth=2
-set smarttab
-set expandtab
-
 set ssop-=options    " do not store global and local values in a session
 set ssop-=folds      " do not store folds
-
-set hidden
 
 nnoremap <leader>e :bnext<CR>
 nnoremap <leader>w :bprev<CR>
 "nnoremap <leader>q :bdelete<CR>
 nnoremap <leader>q :bp<cr>:bd #<cr>
-
-" fix colors
-" if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
-"   set t_Co=256
-" endif
 
 function! s:DiffWithSaved()
   let filetype=&ft
