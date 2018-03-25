@@ -29,26 +29,26 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'chr4/jellygrass.vim'
 
 " CtrlP fuzzy search file open
-Plugin 'kien/ctrlp.vim'
+" Plugin 'kien/ctrlp.vim'
 
 " bracket/parens autocompletion
 Plugin 'jiangmiao/auto-pairs'
 
 " enhance javascript syntax
-Plugin 'jelera/vim-javascript-syntax'
+" Plugin 'jelera/vim-javascript-syntax'
 
 " tabline for buffers
 Plugin 'ap/vim-buftabline'
 
 " JS indenting (plus a couple of extra visual features)
-Plugin 'pangloss/vim-javascript'
-Plugin 'nathanaelkane/vim-indent-guides'
+" Plugin 'pangloss/vim-javascript'
+" Plugin 'nathanaelkane/vim-indent-guides'
 
 " nerdtree
 Plugin 'scrooloose/nerdtree'
 
 " nerdtree git plugin
-Plugin 'Xuyuanp/nerdtree-git-plugin'
+" Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 " EditorConfig
 Plugin 'editorconfig/editorconfig-vim'
@@ -79,6 +79,11 @@ set number
 set backspace=indent,eol,start " make backspace outside of current insert session
 let mapleader = ","
 let g:vim_json_syntax_conceal = 0
+
+" fuzzy finder
+set path+=** " recurse :find
+set wildmenu " tab multiple matches
+nnoremap <leader>p :find<space>
 
 " yank to system clipboard
 " set clipboard=unnamed
