@@ -13,6 +13,7 @@ export PATH=~/bin:$PATH
 
 alias ytdl="youtube-dl -f best --no-check-certificate"
 alias cow="fortune | cowsay"
+alias v=vim
 
 if [ -e /usr/share/terminfo/x/xterm-256color ]; then
         export TERM='xterm-256color'
