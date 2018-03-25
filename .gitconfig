@@ -18,3 +18,5 @@
         keepBackup = false
 [push]
 	default = simple
+[color]
+	ui = auto
