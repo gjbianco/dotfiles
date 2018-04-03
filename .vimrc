@@ -16,6 +16,10 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'ap/vim-buftabline'
 Plug 'editorconfig/editorconfig-vim'
 
+" afterglow theme
+Plug 'danilo-augusto/vim-afterglow'
+
+" all hail Pope Tim
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-commentary'
@@ -27,6 +31,7 @@ call plug#end()
 " colors
 set background=dark
 set t_Co=256
+colorscheme afterglow
 
 syntax on
 set mouse=a
