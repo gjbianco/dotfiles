@@ -76,3 +76,6 @@ Session.vim
 # Sublime Text Projects *
 *.sublime-project
 *.sublime-workspace
+
+# VSCode
+.vscode
