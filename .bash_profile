@@ -11,10 +11,14 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 export EDITOR=vim
 export PATH=~/bin:$PATH
 
+export ANSIBLE_NOCOWS=1
+
 alias ytdl="youtube-dl -f best --no-check-certificate"
 alias cow="fortune | cowsay"
 alias v=vim
 alias tmux="TERM=screen-256color-bce tmux"
+
+# source ~/bin/oc_completion.sh
 
 function setjdk() {
   if [ $# -ne 0 ]; then
@@ -36,3 +40,7 @@ if [ -e /usr/share/terminfo/x/xterm-256color ]; then
 else
         export TERM='xterm-color'
 fi
+
+export NVM_DIR="/Users/guybiancoiv/.nvm"
+ # [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+ . "$(brew --prefix nvm)/nvm.sh"
