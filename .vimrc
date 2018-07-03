@@ -16,6 +16,10 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'ap/vim-buftabline'
 Plug 'editorconfig/editorconfig-vim'
 
+Plug 'pearofducks/ansible-vim'
+Plug 'pangloss/vim-javascript'
+" Plug 'sheerun/vim-polyglot'
+
 " afterglow theme
 Plug 'danilo-augusto/vim-afterglow'
 
