@@ -19,9 +19,30 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'pearofducks/ansible-vim'
 Plug 'pangloss/vim-javascript'
 " Plug 'sheerun/vim-polyglot'
+Plug 'nathanaelkane/vim-indent-guides'
 
 " afterglow theme
 Plug 'danilo-augusto/vim-afterglow'
+
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'branch': 'release/1.x',
+  \ 'for': [
+    \ 'javascript',
+    \ 'typescript',
+    \ 'css',
+    \ 'less',
+    \ 'scss',
+    \ 'json',
+    \ 'graphql',
+    \ 'markdown',
+    \ 'vue',
+    \ 'lua',
+    \ 'php',
+    \ 'python',
+    \ 'ruby',
+    \ 'html',
+    \ 'swift' ] }
 
 " all hail Pope Tim
 Plug 'tpope/vim-surround'
@@ -41,7 +62,7 @@ syntax on
 set mouse=a
 set hidden
 set number
-set relativenumber
+" set relativenumber
 set backspace=indent,eol,start " make backspace outside of current insert session
 let mapleader = "," " set leader to space
 
@@ -60,6 +81,14 @@ nnoremap <leader>p :find<space>
 nnoremap <leader>n :e.<CR>
 nnoremap <leader>b :Explore<CR>
 cnoremap E Explore
+
+" toggle indent guidelines
+nnoremap <leader>i :IndentGuidesToggle<CR>
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_guide_size=1
+let g:indent_guides_start_level=1
+hi IndentGuidesOdd  ctermbg=darkgrey
+hi IndentGuidesEven ctermbg=grey
 
 " enable buftabline indicators
 let g:buftabline_indicators = 1
