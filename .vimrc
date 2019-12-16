@@ -1,5 +1,4 @@
 set nocompatible
-" filetype off
 
 " auto install vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -10,19 +9,17 @@ endif
 
 call plug#begin()
 
-" Plug 'mattn/emmet-vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'jiangmiao/auto-pairs'
+" visual
+Plug 'danilo-augusto/vim-afterglow'
 Plug 'ap/vim-buftabline'
-Plug 'editorconfig/editorconfig-vim'
+Plug 'scrooloose/nerdtree'
 
-Plug 'pearofducks/ansible-vim'
-Plug 'pangloss/vim-javascript'
-" Plug 'sheerun/vim-polyglot'
 Plug 'nathanaelkane/vim-indent-guides'
 
-" afterglow theme
-Plug 'danilo-augusto/vim-afterglow'
+" general editing
+Plug 'jiangmiao/auto-pairs'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'godlygeek/tabular'
 
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
@@ -46,10 +43,8 @@ Plug 'prettier/vim-prettier', {
 
 " all hail Pope Tim
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-vinegar'
 
 call plug#end()
 
@@ -72,31 +67,13 @@ set shiftwidth=2
 set smarttab
 set expandtab
 
-" fuzzy finder
-set path+=** " recurse :find
-set wildmenu " tab multiple matches
-nnoremap <leader>p :find<space>
-
-" netrw
-nnoremap <leader>n :e.<CR>
-nnoremap <leader>b :Explore<CR>
-cnoremap E Explore
-
-" toggle indent guidelines
-nnoremap <leader>i :IndentGuidesToggle<CR>
-let g:indent_guides_auto_colors = 0
-let g:indent_guides_guide_size=1
-let g:indent_guides_start_level=1
-hi IndentGuidesOdd  ctermbg=darkgrey
-hi IndentGuidesEven ctermbg=grey
+" nerdtree
+nnoremap <leader>n :NERDTreeToggle<CR>
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeAutoDeleteBuffer = 1
 
 " enable buftabline indicators
 let g:buftabline_indicators = 1
-
-" git gutter configuration
-set updatetime=250
-let g:gitgutter_realtime = 1
-let g:gitgutter_eater = 1
 
 " handle JSON syntax without plugin
 autocmd BufNewFile,BufRead *.json set ft=javascript
@@ -108,42 +85,3 @@ nnoremap <leader>e :bnext<CR>
 nnoremap <leader>w :bprev<CR>
 "nnoremap <leader>q :bdelete<CR>
 nnoremap <leader>q :bp<cr>:bd #<cr>
-
-function! s:DiffWithSaved()
-  let filetype=&ft
-  diffthis
-  vnew | r # | normal! 1Gdd
-  diffthis
-  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
-endfunction
-com! DiffSaved call s:DiffWithSaved()
-
-function! DoPrettyXML()
-  " save the filetype so we can restore it later
-  let l:origft = &ft
-  set ft=
-  " delete the xml header if it exists. This will
-  " permit us to surround the document with fake tags
-  " without creating invalid xml.
-  1s/<?xml .*?>//e
-  " insert fake tags around the entire document.
-  " This will permit us to pretty-format excerpts of
-  " XML that may contain multiple top-level elements.
-  0put ='<PrettyXML>'
-  $put ='</PrettyXML>'
-  silent %!xmllint --format -
-  " xmllint will insert an <?xml?> header. it's easy enough to delete
-  " if you don't want it.
-  " delete the fake tags
-  2d
-  $d
-  " restore the 'normal' indentation, which is one extra level
-  " too deep due to the extra tags we wrapped around the document.
-  silent %<
-  " back to home
-  1
-  " restore the filetype
-  exe "set ft=" . l:origft
-endfunction
-command! PrettyXML call DoPrettyXML()
-
