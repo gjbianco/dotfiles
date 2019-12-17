@@ -70,6 +70,9 @@ set shiftwidth=2
 set smarttab
 set expandtab
 
+" toggle hlsearch
+nnoremap <leader>h :set invhlsearch<CR>
+
 " nerdtree
 nnoremap <leader>n :NERDTreeToggle<CR>
 let g:NERDTreeMinimalUI = 1
