@@ -21,6 +21,9 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'godlygeek/tabular'
 
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'branch': 'release/1.x',
@@ -74,6 +77,20 @@ let g:NERDTreeAutoDeleteBuffer = 1
 
 " enable buftabline indicators
 let g:buftabline_indicators = 1
+
+" goyo and limelight
+nnoremap <leader>g :Goyo<CR>
+nnoremap <leader>l :Limelight!!<CR>
+autocmd! User GoyoEnter call EnterGoyo()
+autocmd! User GoyoLeave call ExitGoyo()
+function EnterGoyo()
+  Limelight
+  set showtabline=0
+endfunction
+function ExitGoyo()
+  Limelight!
+  set showtabline=2
+endfunction
 
 " handle JSON syntax without plugin
 autocmd BufNewFile,BufRead *.json set ft=javascript
