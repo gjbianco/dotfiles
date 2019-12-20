@@ -1,5 +1,6 @@
+
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
@@ -12,6 +13,8 @@ export ANSIBLE_RETRY_FILES_ENABLED=false
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home
+export PATH=$PATH:$JAVA_HOME/bin
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -40,10 +43,10 @@ DISABLE_AUTO_UPDATE="true"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -97,10 +100,19 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-export NVM_DIR="/Users/guybiancoiv/.nvm"
+export NVM_DIR="/Users/guy/.nvm"
 export NODE_VERSION="v8.11.1"
  # [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-# . "$(brew --prefix nvm)/nvm.sh" # fix for homebrew
 # . "$NVM_DIR/nvm.sh" --no-use # fix slowdown
-. "$(brew --prefix nvm)/nvm.sh" --no-use
+# . "$(brew --prefix nvm)/nvm.sh" --no-use
+. "$(brew --prefix nvm)/nvm.sh"
 export PATH="${PATH}:${NVM_DIR}/versions/node/${NODE_VERSION}/bin"
+
+# export WORKON_HOME=~/.virtualenvs
+# source /usr/local/bin/virtualenvwrapper.sh
+
+###-tns-completion-start-###
+if [ -f /Users/guy/.tnsrc ]; then 
+    source /Users/guy/.tnsrc 
+fi
+###-tns-completion-end-###

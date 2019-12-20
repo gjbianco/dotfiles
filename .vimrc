@@ -9,10 +9,14 @@ endif
 
 call plug#begin()
 
+" languages
+Plug 'digitaltoad/vim-pug'
+
 " visual
 Plug 'danilo-augusto/vim-afterglow'
 Plug 'ap/vim-buftabline'
 Plug 'scrooloose/nerdtree'
+Plug 'kien/ctrlp.vim'
 
 Plug 'nathanaelkane/vim-indent-guides'
 
@@ -54,7 +58,8 @@ call plug#end()
 " colors
 set background=dark
 set t_Co=256
-colorscheme afterglow
+" colorscheme afterglow
+colorscheme default
 
 syntax on
 set mouse=a
@@ -66,6 +71,9 @@ set backspace=indent,eol,start " make backspace outside of current insert sessio
 
 let mapleader = "," " set leader to space
 
+" MacOSX/Linux"
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,node_modules,yarn.lock,package-lock.json
+
 set linebreak
 set autoindent
 set tabstop=2
@@ -75,6 +83,9 @@ set expandtab
 
 " toggle hlsearch
 nnoremap <leader>h :set invhlsearch<CR>
+
+" CtrlP
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 " nerdtree
 nnoremap <leader>n :NERDTreeToggle<CR>

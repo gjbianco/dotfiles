@@ -18,6 +18,7 @@ alias ytdl="youtube-dl -f best --no-check-certificate"
 # alias cow="fortune | cowsay"
 # alias v=vim
 alias tmux="TERM=screen-256color-bce tmux"
+alias rscp='rsync --archive --xattrs --acls --progress --rsh="ssh"'
 
 # source ~/bin/oc_completion.sh
 
@@ -42,6 +43,10 @@ else
         export TERM='xterm-color'
 fi
 
-export NVM_DIR="/Users/guybiancoiv/.nvm"
- # [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
- . "$(brew --prefix nvm)/nvm.sh"
+# export WORKON_HOME=~/.virtualenvs
+# source /usr/local/bin/virtualenvwrapper.sh
+
+# export NVM_DIR="/Users/guybiancoiv/.nvm"
+#  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+#  . "$(brew --prefix nvm)/nvm.sh"
+
