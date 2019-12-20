@@ -59,11 +59,14 @@ colorscheme afterglow
 syntax on
 set mouse=a
 set hidden
+
 set number
 " set relativenumber
 set backspace=indent,eol,start " make backspace outside of current insert session
+
 let mapleader = "," " set leader to space
 
+set linebreak
 set autoindent
 set tabstop=2
 set shiftwidth=2
@@ -82,6 +85,7 @@ let g:NERDTreeAutoDeleteBuffer = 1
 let g:buftabline_indicators = 1
 
 " goyo and limelight
+let g:goyo_height = '95%'
 nnoremap <leader>g :Goyo<CR>
 nnoremap <leader>l :Limelight!!<CR>
 autocmd! User GoyoEnter call EnterGoyo()
