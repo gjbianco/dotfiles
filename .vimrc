@@ -95,12 +95,17 @@ let g:NERDTreeAutoDeleteBuffer = 1
 " enable buftabline indicators
 let g:buftabline_indicators = 1
 
-" goyo and limelight
+" goyo
 let g:goyo_height = '95%'
 nnoremap <leader>g :Goyo<CR>
-nnoremap <leader>l :Limelight!!<CR>
 autocmd! User GoyoEnter call EnterGoyo()
 autocmd! User GoyoLeave call ExitGoyo()
+
+" limelight
+nnoremap <leader>l :Limelight!!<CR>
+let g:limelight_conceal_ctermfg = 'darkgrey'
+
+" configure how goyo enters and exits
 function EnterGoyo()
   Limelight
   set showtabline=0
