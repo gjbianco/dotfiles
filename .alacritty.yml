@@ -1,0 +1,46 @@
+window:
+  dimensions:
+    columns: 0
+    lines: 0
+  decorations: buttonless
+scrolling:
+  history: 0 # disable scroll
+font:
+  size: 12.0
+  normal:
+    family: Hack Nerd Font Mono
+    style: Regular
+  bold:
+    family: Hack Nerd Font Mono
+    style: Bold
+  # Thin stroke font rendering (macOS only)
+  #
+  # Thin strokes are suitable for retina displays, but for non-retina screens
+  # it is recommended to set `use_thin_strokes` to `false`
+  #
+  # macOS >= 10.14.x:
+  #
+  # If the font quality on non-retina display looks bad then set
+  # `use_thin_strokes` to `true` and enable font smoothing by running the
+  # following command:
+  #   `defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO`
+  #
+  # This is a global setting and will require a log out or restart to take
+  # effect.
+  use_thin_strokes: true
+mouse:
+  hide_when_typing: true
+# TODO colors
+key_bindings:
+  - key: K
+    mods: Command
+    action: None
+  - key: W
+    mods: Command
+    action: None
+  - key: N
+    mods: Command
+    action: SpawnNewInstance
+  - key: F
+    mods: Command
+    action: ToggleFullscreen
