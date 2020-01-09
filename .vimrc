@@ -115,6 +115,15 @@ function ExitGoyo()
   set showtabline=2
 endfunction
 
+" handle colors different in vimdiff
+if &diff
+  " colorscheme evening
+  highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+  highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+  highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+  highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
+endif
+
 " handle JSON syntax without plugin
 autocmd BufNewFile,BufRead *.json set ft=javascript
 
