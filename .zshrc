@@ -49,25 +49,24 @@ export ANSIBLE_NOCOWS=1
 export ANSIBLE_RETRY_FILES_ENABLED=false
 
 # virtualenvwrapper
-export WORKON_HOME=~/virtualenvs
-source /usr/bin/virtualenvwrapper.sh
+# export WORKON_HOME=~/virtualenvs
+# source /usr/bin/virtualenvwrapper.sh
 
 # FZF
 FZF_DEFAULT_COMMAND="fd --type f"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # nvm
-export NVM_DIR="/home/guy/.nvm"
-export NODE_VERSION="v8.11.1"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-# . "$NVM_DIR/nvm.sh" --no-use # fix slowdown
-# . "$(brew --prefix nvm)/nvm.sh" # fix for homebrew
-# . "$(brew --prefix nvm)/nvm.sh" --no-use
-export PATH="${PATH}:${NVM_DIR}/versions/node/${NODE_VERSION}/bin"
+export NVM_DIR="$HOME/.nvm"
+# export NODE_VERSION="v8.11.1"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use  # This loads nvm without use
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# export PATH="${PATH}:${NVM_DIR}/versions/node/${NODE_VERSION}/bin"
 
 # aliases
 alias ytdl="youtube-dl -f best --no-check-certificate"
 # alias tmux="TERM=screen-256color-bce tmux"
 alias rscp='rsync --archive --xattrs --acls --progress --rsh="ssh"'
 
-source ~/.oc-zsh-completion.sh
+# source ~/.oc-zsh-completion.sh
