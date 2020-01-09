@@ -40,7 +40,7 @@ schemes:
 
     # Normal colors
     normal:
-      black:   '0x1c1c1c'
+      black:   '0x2c2c2c'
       red:     '0xbc5653'
       green:   '0x909d63'
       yellow:  '0xebc17a'
