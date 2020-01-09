@@ -42,11 +42,9 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# ssh
-export SSH_KEY_PATH="~/.ssh/rsa_id"
-
 export ANSIBLE_NOCOWS=1
 export ANSIBLE_RETRY_FILES_ENABLED=false
+export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # virtualenvwrapper
 # export WORKON_HOME=~/virtualenvs
