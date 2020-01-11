@@ -11,14 +11,16 @@ call plug#begin()
 
 " languages
 Plug 'digitaltoad/vim-pug'
+Plug 'rust-lang/rust.vim'
 
 " visual
 Plug 'danilo-augusto/vim-afterglow'
+Plug 'nathanaelkane/vim-indent-guides'
+
+" navigation
 Plug 'ap/vim-buftabline'
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim'
-
-Plug 'nathanaelkane/vim-indent-guides'
 
 " general editing
 Plug 'jiangmiao/auto-pairs'
@@ -69,9 +71,8 @@ set number
 " set relativenumber
 set backspace=indent,eol,start " make backspace outside of current insert session
 
-let mapleader = "," " set leader to space
 
-" MacOSX/Linux"
+" MacOSX/Linux
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,node_modules,yarn.lock,package-lock.json
 
 set linebreak
@@ -81,8 +82,13 @@ set shiftwidth=2
 set smarttab
 set expandtab
 
+let mapleader = "," " set leader to space
+
 " toggle hlsearch
 nnoremap <leader>h :set invhlsearch<CR>
+
+" replace
+nnoremap <leader>r :%s///g<Left><Left>
 
 " CtrlP
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
