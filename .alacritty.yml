@@ -4,6 +4,8 @@ window:
     columns: 0
     lines: 0
 
+background_opacity: 0.94
+
 font:
   size: 14.0
 
