@@ -6,6 +6,9 @@ set -x PATH $PATH:$HOME/bin
 # work with bash source scripts
 fundle plugin 'edc/bass'
 
+# add !! syntax
+fundle plugin 'oh-my-fish/plugin-bang-bang'
+
 # end fundle plugins ------
 fundle init # --profile # show plugin load time
 
