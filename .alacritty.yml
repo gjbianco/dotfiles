@@ -1,26 +1,29 @@
 window:
-  decorations: buttonless
   dimensions:
-    columns: 0
-    lines: 0
+    columns: 80
+    lines: 25
+  decorations: none
+  position:
+    x: 550
+    y: 300
 
 background_opacity: 0.94
 
 font:
-  size: 14.0
+  size: 12.0
 
 key_bindings:
   - key: K
-    mods: Command
+    mods: Control
     action: None
   - key: W
-    mods: Command
+    mods: Control
     action: None
   - key: N
-    mods: Command
+    mods: Control
     action: SpawnNewInstance
   - key: F
-    mods: Command
+    mods: Control | Alt
     action: ToggleFullscreen
 
 schemes:
