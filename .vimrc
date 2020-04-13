@@ -10,8 +10,8 @@ endif
 call plug#begin()
 
 " languages
-Plug 'digitaltoad/vim-pug'
-Plug 'rust-lang/rust.vim'
+" Plug 'digitaltoad/vim-pug'
+" Plug 'rust-lang/rust.vim'
 
 " visual
 Plug 'danilo-augusto/vim-afterglow'
