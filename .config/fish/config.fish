@@ -1,6 +1,8 @@
 set -x EDITOR vim
 set -x PATH $PATH:$HOME/bin
 
+alias use="nvm use default"
+
 # fundle plugins ----------
 
 # work with bash source scripts
