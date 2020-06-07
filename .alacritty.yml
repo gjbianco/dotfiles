@@ -1,8 +1,8 @@
 window:
   decorations: buttonless
   dimensions:
-    columns: 0
-    lines: 0
+    columns: 80
+    lines: 24
 
 background_opacity: 0.94
 
