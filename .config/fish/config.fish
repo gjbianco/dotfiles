@@ -11,8 +11,6 @@ fundle plugin 'edc/bass'
 # add !! syntax
 fundle plugin 'oh-my-fish/plugin-bang-bang'
 
-fundle plugin 'jorgebucaran/fish-spark'
-
 # end fundle plugins ------
 fundle init # --profile # show plugin load time
 
