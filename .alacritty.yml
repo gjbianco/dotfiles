@@ -7,7 +7,7 @@ window:
 background_opacity: 0.94
 
 font:
-  size: 14.0
+  size: 13.0
 
 key_bindings:
   - key: K
