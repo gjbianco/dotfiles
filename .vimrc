@@ -9,17 +9,16 @@ endif
 
 call plug#begin()
 
-" languages
-" Plug 'digitaltoad/vim-pug'
-" Plug 'rust-lang/rust.vim'
+" themes
+Plug 'morhetz/gruvbox'
 
 " visual
-Plug 'danilo-augusto/vim-afterglow'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'airblade/vim-gitgutter'
 
 " navigation
 Plug 'ap/vim-buftabline'
-Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-vinegar'
 Plug 'kien/ctrlp.vim'
 
 " general editing
@@ -57,20 +56,11 @@ Plug 'tpope/vim-repeat'
 
 call plug#end()
 
-" colors
-set background=dark
-set t_Co=256
-" colorscheme afterglow
-colorscheme default
-
 syntax on
 set mouse=a
-set hidden
-
 set number
 " set relativenumber
-set backspace=indent,eol,start " make backspace outside of current insert session
-
+set backspace=indent,eol,start
 
 " MacOSX/Linux
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,node_modules,yarn.lock,package-lock.json
@@ -91,12 +81,13 @@ nnoremap <leader>h :set invhlsearch<CR>
 nnoremap <leader>r :%s///g<Left><Left>
 
 " CtrlP
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)|node_modules$'
 
-" nerdtree
-nnoremap <leader>n :NERDTreeToggle<CR>
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeAutoDeleteBuffer = 1
+" netrw / vinegar
+nnoremap <leader>n :Explore<CR>
+" nnoremap <leader>n :Rexplore<CR>
+" let g:netrw_liststyle = 3
+let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 
 " enable buftabline indicators
 let g:buftabline_indicators = 1
@@ -140,3 +131,9 @@ nnoremap <leader>e :bnext<CR>
 nnoremap <leader>w :bprev<CR>
 "nnoremap <leader>q :bdelete<CR>
 nnoremap <leader>q :bp<cr>:bd #<cr>
+
+" colors
+set background=dark
+set t_Co=256
+colorscheme gruvbox
+hi Normal guibg=NONE ctermbg=NONE
