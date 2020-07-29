@@ -3,6 +3,7 @@ set -x PATH $PATH:$HOME/bin
 
 alias use="nvm use default"
 alias pm="podman-machine"
+alias typetest="gotta-go-fast -pr ~/bin/christmas_carol.txt --min-paragraph-len 200"
 
 # fundle plugins ----------
 
