@@ -17,6 +17,8 @@ Plug 'morhetz/gruvbox'
 " visual
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'airblade/vim-gitgutter'
+" Plug 'itchyny/lightline.vim'
+Plug 'itchyny/vim-gitbranch'
 
 " navigation
 Plug 'ap/vim-buftabline'
@@ -24,7 +26,6 @@ Plug 'tpope/vim-vinegar'
 Plug 'kien/ctrlp.vim'
 
 " general editing
-Plug 'jiangmiao/auto-pairs'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'godlygeek/tabular'
 
@@ -74,10 +75,49 @@ set shiftwidth=2
 set smarttab
 set expandtab
 
+function! StatuslineGit()
+  let l:branchname = gitbranch#name()
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
+function! SubbedCWD()
+  return substitute(getcwd(), $HOME, '~', '')
+endfunction
+
+set statusline=
+set statusline+=%#PmenuSel# " blue
+" set statusline+=%#DiffAdd# " green
+set statusline+=%{StatuslineGit()} " seems to be an expensive call
+set statusline+=%#StatusLineNC#
+set statusline+=\ %{SubbedCWD()}
+set statusline+=\ %{coc#status()}
+set statusline+=%=
+set statusline+=\ %y
+set statusline+=\ %l:%c
+set statusline+=\ 
+
+" set noshowmode
+" let g:lightline = {
+"   \ 'colorscheme': 'srcery_drk',
+"   \ 'active': {
+"   \   'left': [ [ 'mode', 'paste' ],
+"   \             [ 'gitbranch', 'readonly' ],
+"   \             [ 'cwd' ] ],
+"   \   'right': [ [],
+"   \              [ 'lineinfo' ],
+"   \              [ 'filetype' ] ]
+"   \ },
+"   \ 'component_function': {
+"   \   'cocstatus': 'coc#status',
+"   \   'gitbranch': 'gitbranch#name',
+"   \   'cwd': 'getcwd'
+"   \ },
+" \ }
+
 let mapleader = "," " set leader to space
 
 " toggle hlsearch
-nnoremap <leader>h :set invhlsearch<CR>
+nnoremap <leader>hl :set invhlsearch<CR>
 
 " replace
 nnoremap <leader>r :%s///g<Left><Left>
@@ -106,12 +146,13 @@ let g:limelight_conceal_ctermfg = 'darkgrey'
 
 " configure how goyo enters and exits
 function EnterGoyo()
-  Limelight
+  " Limelight
   set showtabline=0
 endfunction
 function ExitGoyo()
-  Limelight!
+  " Limelight!
   set showtabline=2
+  hi Normal guibg=NONE ctermbg=NONE
 endfunction
 
 " handle colors different in vimdiff
@@ -139,13 +180,12 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFil
 
 " coc settings
 let g:coc_global_extensions = [
-  \ 'coc-snippets',
   \ 'coc-pairs',
-  \ 'coc-tsserver',
-  \ 'coc-eslint', 
   \ 'coc-prettier', 
   \ 'coc-json', 
+  \ 'coc-emmet',
   \ ]
+  " \ 'coc-tsserver',
 
 " begin coc readme settings ---------------
 " TextEdit might fail if hidden is not set.
@@ -173,6 +213,7 @@ if has("patch-8.1.1564")
 else
   set signcolumn=yes
 endif
+set scl=no
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -252,7 +293,7 @@ nmap <leader>a  <Plug>(coc-codeaction-selected)
 " Remap keys for applying codeAction to the current buffer.
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>cf  <Plug>(coc-fix-current)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -282,7 +323,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics.
