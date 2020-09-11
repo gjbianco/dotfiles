@@ -3,7 +3,10 @@ set -x PATH $PATH:$HOME/bin
 
 alias use="nvm use default"
 alias pm="podman-machine"
+alias vim="nvim"
 alias typetest="gotta-go-fast -pr ~/bin/christmas_carol.txt --min-paragraph-len 200"
+alias recent="ls -lhtr | tail"
+alias adoc="asciidoctor-pdf"
 
 # fundle plugins ----------
 
