@@ -1,36 +1,53 @@
-" auto install vim-plug
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+" auto install
+if empty(glob('~/.vim/pack/minpac/opt/minpac/autoload/minpac/impl.vim'))
+  silent !git clone https://github.com/k-takata/minpac.git
+        \ ~/.vim/pack/minpac/opt/minpac
+endif
+if empty(glob('~/.vim/autoload/plugpac.vim'))
+  silent !curl -fLo ~/.vim/autoload/plugpac.vim --create-dirs
+        \ https://raw.githubusercontent.com/bennyyip/plugpac.vim/master/plugpac.vim
 endif
 
-call plug#begin()
+call plugpac#begin()
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Pack 'k-takata/minpac', {'type': 'opt'}
+
+Pack 'neoclide/coc.nvim', {'branch': 'release'}
 
 " themes
-Plug 'morhetz/gruvbox'
+Pack 'morhetz/gruvbox'
 
 " visual
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'airblade/vim-gitgutter'
-" Plug 'itchyny/lightline.vim'
-Plug 'itchyny/vim-gitbranch'
+Pack 'nathanaelkane/vim-indent-guides'
+Pack 'airblade/vim-gitgutter'
+" Pack 'itchyny/lightline.vim'
+Pack 'itchyny/vim-gitbranch'
 
 " navigation
-Plug 'ap/vim-buftabline'
-Plug 'tpope/vim-vinegar'
-Plug 'kien/ctrlp.vim'
+Pack 'ap/vim-buftabline'
+Pack 'tpope/vim-vinegar'
+Pack 'tpope/vim-projectionist'
+Pack 'kien/ctrlp.vim'
+Pack 'preservim/nerdtree'
+
+" javascript/frontend
+Pack 'pangloss/vim-javascript'
+Pack 'leafgarland/typescript-vim'
+Pack 'peitalin/vim-jsx-typescript'
+" Pack 'styled-components/vim-styled-components', { 'branch': 'main' }
+" Pack 'jparise/vim-graphql'
+
+" asciidoc
+Pack 'habamax/vim-asciidoctor'
 
 " general editing
-Plug 'editorconfig/editorconfig-vim'
-Plug 'godlygeek/tabular'
+Pack 'editorconfig/editorconfig-vim'
+Pack 'godlygeek/tabular'
 
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
+Pack 'junegunn/goyo.vim'
+Pack 'junegunn/limelight.vim'
 
-Plug 'prettier/vim-prettier', {
+Pack 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'branch': 'release/1.x',
   \ 'for': [
@@ -51,11 +68,12 @@ Plug 'prettier/vim-prettier', {
     \ 'swift' ] }
 
 " all hail Pope Tim
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-repeat'
+Pack 'tpope/vim-surround'
+Pack 'tpope/vim-commentary'
+Pack 'tpope/vim-repeat'
+Pack 'tpope/vim-unimpaired'
 
-call plug#end()
+call plugpac#end()
 
 syntax on
 set mouse=a
@@ -87,11 +105,12 @@ set statusline+=%#PmenuSel# " blue
 " set statusline+=%#DiffAdd# " green
 set statusline+=%{StatuslineGit()} " seems to be an expensive call
 set statusline+=%#StatusLineNC#
-set statusline+=\ %{SubbedCWD()}
+set statusline+=%{expand('%:t')}
 set statusline+=\ %{coc#status()}
 set statusline+=%=
-set statusline+=\ %y
-set statusline+=\ %l:%c
+set statusline+=\ %{SubbedCWD()}
+set statusline+=\ %y    " filetype
+set statusline+=\ %l:%c " lines:chars
 set statusline+=\ 
 
 " set noshowmode
@@ -114,11 +133,21 @@ set statusline+=\
 
 let mapleader = "," " set leader to space
 
+" close all but current buffer
+command! BufOnly silent! execute "%bd|e#|bd#"
+
+" save to hastebin (requires haste-client)
+command! Haste execute ":w !cat | haste"
+command! HasteCopy silent! execute ":w !cat | haste | pbcopy"
+
 " toggle hlsearch
 nnoremap <leader>hl :set invhlsearch<CR>
 
 " replace
 nnoremap <leader>r :%s///g<Left><Left>
+
+" make
+nnoremap <leader>m :make<CR><CR>
 
 " CtrlP
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)|node_modules$'
@@ -163,7 +192,7 @@ if &diff
 endif
 
 " handle JSON syntax without plugin
-autocmd BufNewFile,BufRead *.json set ft=javascript
+" autocmd BufNewFile,BufRead *.json set ft=javascript
 
 set ssop-=options    " do not store global and local values in a session
 set ssop-=folds      " do not store folds
@@ -172,6 +201,31 @@ nnoremap <leader>e :bnext<CR>
 nnoremap <leader>w :bprev<CR>
 "nnoremap <leader>q :bdelete<CR>
 nnoremap <leader>q :bp<cr>:bd #<cr>
+
+" terminal mode bindings
+if has('nvim')
+  tnoremap <Esc> <C-\><C-n>
+  tnoremap <C-v><Esc> <Esc>
+  " hightlight! link TermCursor Cursor
+  " hightlight! TermCursorNC guibg=green guifg=white ctermbg=1 ctermfg=15
+endif
+
+" asciidoc config
+function! AsciidoctorMappings()
+  nnoremap <buffer> <leader>op :AsciidoctorOpenPDF<CR><CR>
+  nnoremap <buffer> <leader>oh :AsciidoctorOpenHTML<CR><CR>
+  nnoremap <buffer> <leader>ch :Asciidoctor2HTML<CR>
+  compiler asciidoctor2pdf
+endfunction
+
+augroup asciidoctor
+  au!
+  au BufEnter *.adoc,*.asciidoc call AsciidoctorMappings()
+augroup END
+
+" enable if JS/TS syntax highlighting gets out of sync
+" autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+" autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 
 " prettier command for coc
 command! -nargs=0 Prettier :CocCommand prettier.formatFil
@@ -182,8 +236,23 @@ let g:coc_global_extensions = [
   \ 'coc-prettier', 
   \ 'coc-json', 
   \ 'coc-emmet',
+  \ 'coc-tsserver'
   \ ]
-  " \ 'coc-tsserver',
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+  let g:coc_global_extensions += ['coc-prettier']
+endif
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+  let g:coc_global_extensions += ['coc-eslint']
+endif
+
+nnoremap <silent> K :call CocAction('doHover')<CR>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gr <Plug>(coc-references)
+nmap <leader>do <Plug>(coc-codeaction)
+nmap <leader>rn <Plug>(coc-rename)
 
 " begin coc readme settings ---------------
 " TextEdit might fail if hidden is not set.
