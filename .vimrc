@@ -91,6 +91,7 @@ set shiftwidth=2
 set smarttab
 set expandtab
 
+" begin custom statusline ------------------
 function! StatuslineGit()
   let l:branchname = gitbranch#name()
   return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
@@ -131,6 +132,8 @@ set statusline+=\
 "   \ },
 " \ }
 
+" end custom statusline ------------------
+
 let mapleader = "," " set leader to space
 
 " close all but current buffer
@@ -160,6 +163,14 @@ let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 
 " enable buftabline indicators
 let g:buftabline_indicators = 1
+
+" highlight TODO
+augroup HiglightTODO
+  autocmd!
+  autocmd WinEnter,VimEnter * :silent! call matchadd('Todo', 'TODO', -1)
+  autocmd WinEnter,VimEnter * :silent! call matchadd('Fixme', 'FIXME', -1)
+  autocmd WinEnter,VimEnter * :silent! call matchadd('Note', 'NOTE', -1)
+augroup END
 
 " goyo
 let g:goyo_height = '95%'
@@ -414,5 +425,7 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " colors
 set background=dark
 set t_Co=256
+" fix spell colors for gruvbox
+let g:gruvbox_guisp_fallback = "bg"
 colorscheme gruvbox
 hi Normal guibg=NONE ctermbg=NONE
