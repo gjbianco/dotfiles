@@ -28,12 +28,15 @@ Pack 'ap/vim-buftabline'
 Pack 'tpope/vim-vinegar'
 Pack 'tpope/vim-projectionist'
 Pack 'kien/ctrlp.vim'
-Pack 'preservim/nerdtree'
+Pack 'iberianpig/ranger-explorer.vim'
+Pack 'rbgrouleff/bclose.vim' " needed for ranger
+" Pack 'preservim/nerdtree'
 
 " javascript/frontend
 Pack 'pangloss/vim-javascript'
 Pack 'leafgarland/typescript-vim'
-Pack 'peitalin/vim-jsx-typescript'
+" Pack 'peitalin/vim-jsx-typescript'
+Pack 'HerringtonDarkholme/yats.vim'
 " Pack 'styled-components/vim-styled-components', { 'branch': 'main' }
 " Pack 'jparise/vim-graphql'
 
@@ -90,6 +93,9 @@ set tabstop=2
 set shiftwidth=2
 set smarttab
 set expandtab
+
+" Jenkinsfile VIM syntax highlighting
+au BufNewFile,BufRead Jenkinsfile setf groovy
 
 " begin custom statusline ------------------
 function! StatuslineGit()
@@ -322,6 +328,7 @@ if exists('*complete_info')
 else
   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
+inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -421,6 +428,10 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " end coc readme settings ------------------
+
+" ranger config
+nnoremap <Leader>n :RangerOpenCurrentDir<CR>
+nnoremap <Leader>f :RangerOpenProjectRootDir<CR>
 
 " colors
 set background=dark
