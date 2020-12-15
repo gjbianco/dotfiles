@@ -1,3 +1,7 @@
+# publican generated files?
+.fop
+?
+
 # Compiled source #
 ###################
 *.com
@@ -72,6 +76,7 @@ MANIFEST.MF
 ###############
 *.swp
 Session.vim
+*.vim
 
 # Sublime Text Projects *
 *.sublime-project
