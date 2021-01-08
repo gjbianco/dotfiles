@@ -28,8 +28,9 @@ Pack 'ap/vim-buftabline'
 Pack 'tpope/vim-vinegar'
 Pack 'tpope/vim-projectionist'
 Pack 'kien/ctrlp.vim'
-Pack 'iberianpig/ranger-explorer.vim'
-Pack 'rbgrouleff/bclose.vim' " needed for ranger
+Pack 'ptzz/lf.vim'
+" Pack 'iberianpig/ranger-explorer.vim'
+Pack 'rbgrouleff/bclose.vim' " needed for ranger/lf
 " Pack 'preservim/nerdtree'
 
 " javascript/frontend
@@ -253,8 +254,9 @@ let g:coc_global_extensions = [
   \ 'coc-prettier', 
   \ 'coc-json', 
   \ 'coc-emmet',
-  \ 'coc-tsserver'
+  \ 'coc-tsserver',
   \ ]
+  " \ 'coc-deno'
 
 if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
   let g:coc_global_extensions += ['coc-prettier']
@@ -430,8 +432,14 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " end coc readme settings ------------------
 
 " ranger config
-nnoremap <Leader>n :RangerOpenCurrentDir<CR>
-nnoremap <Leader>f :RangerOpenProjectRootDir<CR>
+" nnoremap <Leader>n :RangerOpenCurrentDir<CR>
+" nnoremap <Leader>f :RangerOpenProjectRootDir<CR>
+
+" lf config
+let g:lf_map_keys = 0
+map <leader>n :Lf<CR>
+map <leader>pn :LfWorkingDirectory<CR>
+let g:lf_replace_netrw = 1 " open lf when vim opens a directory
 
 " colors
 set background=dark
