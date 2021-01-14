@@ -33,6 +33,8 @@ Pack 'ptzz/lf.vim'
 Pack 'rbgrouleff/bclose.vim' " needed for ranger/lf
 " Pack 'preservim/nerdtree'
 
+Pack 'fatih/vim-go'
+
 " javascript/frontend
 Pack 'pangloss/vim-javascript'
 Pack 'leafgarland/typescript-vim'
@@ -255,6 +257,7 @@ let g:coc_global_extensions = [
   \ 'coc-json', 
   \ 'coc-emmet',
   \ 'coc-tsserver',
+  \ 'coc-go',
   \ ]
   " \ 'coc-deno'
 
@@ -431,6 +434,21 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " end coc readme settings ------------------
 
+" vim-go config
+let g:go_auto_type_info = 1 " enable type near status
+let g:go_code_completion_enabled = 0 " disable completion
+let g:go_doc_keywordprg_enabled = 0  " disable |K| shortcut
+" highlighting
+let g:go_highlight_extra_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_parameters = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_variable_declarations = 1
+let g:go_highlight_variable_assignments = 1
+
 " ranger config
 " nnoremap <Leader>n :RangerOpenCurrentDir<CR>
 " nnoremap <Leader>f :RangerOpenProjectRootDir<CR>
@@ -440,6 +458,12 @@ let g:lf_map_keys = 0
 map <leader>n :Lf<CR>
 map <leader>pn :LfWorkingDirectory<CR>
 let g:lf_replace_netrw = 1 " open lf when vim opens a directory
+
+" split navigation
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " colors
 set background=dark
