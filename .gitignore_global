@@ -77,6 +77,8 @@ MANIFEST.MF
 *.swp
 Session.vim
 *.vim
+# explicitly allow tracking of ~/.vim/
+!.vim
 
 # Sublime Text Projects *
 *.sublime-project
