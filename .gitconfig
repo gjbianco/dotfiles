@@ -19,3 +19,5 @@
 	ui = auto
 [pull]
 	rebase = false
+[diff]
+	tool = vimdiff
