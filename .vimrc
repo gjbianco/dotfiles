@@ -100,6 +100,9 @@ set expandtab
 " Jenkinsfile VIM syntax highlighting
 au BufNewFile,BufRead Jenkinsfile setf groovy
 
+" TOML vim syntax highlighting
+au BufNewFile,BufRead *.toml setf config
+
 " begin custom statusline ------------------
 function! StatuslineGit()
   let l:branchname = gitbranch#name()
