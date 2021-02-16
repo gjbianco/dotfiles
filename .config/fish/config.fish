@@ -16,8 +16,13 @@ fundle plugin 'edc/bass'
 # add !! syntax
 fundle plugin 'oh-my-fish/plugin-bang-bang'
 
+# fishmarks (like bashmarks)
+fundle plugin 'techwizrd/fishmarks'
+
 # end fundle plugins ------
 fundle init # --profile # show plugin load time
+
+. ~/.config/fish/fundle/techwizrd/fishmarks/marks.fish
 
 # auto run nvm use and make it "quiet"
 # nvm use default >> /dev/null
