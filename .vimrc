@@ -26,11 +26,11 @@ Pack 'itchyny/vim-gitbranch'
 " navigation
 Pack 'ap/vim-buftabline'
 Pack 'tpope/vim-vinegar'
-Pack 'tpope/vim-projectionist'
 Pack 'kien/ctrlp.vim'
-Pack 'ptzz/lf.vim'
+Pack 'ptzz/lf.vim', {'rev': 'v1.3~1'}
 " Pack 'iberianpig/ranger-explorer.vim'
-Pack 'rbgrouleff/bclose.vim' " needed for ranger/lf
+" Pack 'voldikss/vim-floaterm' " required for LF
+Pack 'rbgrouleff/bclose.vim' " required for LF
 " Pack 'preservim/nerdtree'
 
 Pack 'fatih/vim-go'
@@ -78,6 +78,8 @@ Pack 'tpope/vim-surround'
 Pack 'tpope/vim-commentary'
 Pack 'tpope/vim-repeat'
 Pack 'tpope/vim-unimpaired'
+Pack 'tpope/vim-projectionist'
+Pack 'tpope/vim-fugitive'
 
 call plugpac#end()
 
@@ -158,6 +160,16 @@ command! HasteCopy silent! execute ":w !cat | haste | pbcopy"
 " toggle hlsearch
 nnoremap <leader>hl :set invhlsearch<CR>
 
+" toggle sign column
+function! ToggleSignColumn()
+	if(&signcolumn == "no")
+		set signcolumn=yes
+	else
+		set signcolumn=no
+	endif
+endfunction
+nnoremap <leader>s :call ToggleSignColumn()<CR>
+
 " replace
 nnoremap <leader>r :%s///g<Left><Left>
 
@@ -227,7 +239,7 @@ nnoremap <leader>q :bp<cr>:bd #<cr>
 
 " terminal mode bindings
 if has('nvim')
-  tnoremap <Esc> <C-\><C-n>
+  " tnoremap <Esc> <C-\><C-n>
   tnoremap <C-v><Esc> <Esc>
   " hightlight! link TermCursor Cursor
   " hightlight! TermCursorNC guibg=green guifg=white ctermbg=1 ctermfg=15
@@ -346,8 +358,9 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap git :G
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
