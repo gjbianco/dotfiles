@@ -4,6 +4,12 @@ nohup.out
 .fop
 ?
 
+# SSH Keys #
+id_rsa
+id_rsa.pub
+id_dsa
+id_dsa.pub
+
 # Compiled source #
 ###################
 *.com
