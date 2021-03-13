@@ -55,7 +55,10 @@ set smarttab
 set expandtab
 set ssop-=options " do not store global and local values in a session
 set ssop-=folds   " do not store folds
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,node_modules,yarn.lock,package-lock.json " MacOSX/Linux
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,node_modules/**,.git/**,yarn.lock,package-lock.json " MacOSX/Linux
+set wildignore+=build/** " assume build/ contains artifacts
+set ignorecase
+set smartcase
 
 " custom type remappings
 au BufNewFile,BufRead Jenkinsfile setf groovy
@@ -75,7 +78,8 @@ function! ToggleSignColumn()
 endfunction
 
 " custom mappings
-nmap git :G
+nmap git :Git
+nmap <leader>bg :Git blame<CR>
 map <leader>n :Lf<CR>
 map <leader>pn :LfWorkingDirectory<CR>
 nnoremap <C-J> <C-W><C-J>
