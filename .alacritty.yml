@@ -8,6 +8,9 @@ window:
 
 background_opacity: 0.94
 
+scrolling:
+  history: 0
+
 font:
   size: 13.0
 
