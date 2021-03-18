@@ -12,6 +12,7 @@
     "max-length": 250
   },
   "battery": {
+    "interval": 30,
     "format": "{icon}  {capacity}%",
     "full-at": 99,
     "format-icons": ["", "", "", "", ""]
@@ -36,9 +37,10 @@
   "network": {
     "interface": "wlp*",
     "format-ethernet": "eth",
-    "format-wifi": "  {essid}",
-    "tooltip-format": "{ifname} ({signalStrength}%): {ipaddr}/{cidr}",
-    /* "format-disconnected": "", */
+    "format-wifi": "",
+    /* "tooltip-format": "{ifname} ({signalStrength}%): {ipaddr}/{cidr}", */
+    "tooltip-format": "{essid} ({signalStrength}%): {ipaddr}/{cidr}",
+    "format-disconnected": "NC",
     "on-click": "nm-connection-editor",
   },
   "pulseaudio": {
