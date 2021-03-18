@@ -93,6 +93,15 @@ input "type:keyboard" {
     # Lock the screen
     bindsym $mod+z exec $lock
 
+    # Make a screenshot & copy to clipboard (of a selectable area via Shift+Print)
+    # bindsym --to-code Print exec grim - | wl-copy --type image/png && notify-send "Screenshot taken" || notify-send "Failed to take screenshot"
+    # bindsym --to-code Shift+Print exec grim -g "$(slurp)" - | wl-copy --type image/png && notify-send "Screenshot taken" || notify-send "Failed to take screenshot"
+    # bindsym Print exec grim -t png -g "$(slurp)" "$HOME/Pictures/$(date +%F\ %T).png" && notify-send "Screenshot taken" || notify-send "Failed to take screenshot"
+    bindsym Print exec grim -t png "$HOME/Pictures/$(date +%F\ %T).png" && \
+                        notify-send "Screenshot taken" -u low || \
+                        notify-send "Failed to take screenshot" -u critical
+
+
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
