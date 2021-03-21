@@ -1,0 +1,26 @@
+#vim: filetype=muttrc
+
+# pull passwords from GPG encrypted file
+source "gpg -dq $HOME/.my-pwds.gpg |"
+
+set imap_user = "gjbiancoiv@gmail.com"
+set imap_pass = $my_gmail_pass
+
+set folder = "imaps://imap.gmail.com:993"
+
+# set smtp_authenticators = "plain"
+# set ssl_force_tls = yes
+set smtp_url = "smtp://gjbiancoiv@smtp.gmail.com:587"
+set smtp_pass = $my_gmail_pass
+
+# Location of inbox
+set spoolfile = "+INBOX"
+# Location of drafts
+set postponed = "+[GMail]/Drafts"
+
+# Activate caching to improve speed
+set header_cache = "~/.mutt/cache/headers"
+set message_cachedir = "~/.mutt/cache/bodies"
+
+# Disable saving outgoing mail -- Gmail saves them by default
+set record = ""

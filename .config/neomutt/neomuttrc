@@ -1,0 +1,13 @@
+source ~/.config/neomutt/settings
+source ~/.config/neomutt/mappings
+# source ~/.config/neomutt/colors
+
+# accounts
+source ~/.config/neomutt/accounts/gmail
+folder-hook $folder 'source ~/.config/neomutt/accounts/gmail'
+
+# source ~/.config/neomutt/accounts/redhat
+# folder-hook $folder 'source ~/.config/neomutt/accounts/redhat'
+
+# source ~/.config/neomutt/accounts/guysh
+# folder-hook $folder 'source ~/.config/neomutt/accounts/guysh'

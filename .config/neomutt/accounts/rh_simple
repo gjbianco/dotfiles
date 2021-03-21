@@ -1,0 +1,3 @@
+set imap_user=gbianco@REDHAT.COM 
+set spoolfile=imaps://mail.corp.redhat.com/INBOX 
+set folder=imaps://mail.corp.redhat.com/
