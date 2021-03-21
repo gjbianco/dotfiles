@@ -60,6 +60,11 @@ exec dunst
 
 ### Input configuration
 
+# only lock if undocked
+set $laptop eDP-1
+bindswitch --reload --locked lid:on output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
+
 # input "2:14:SynPS/2_Synaptics_TouchPad" {
 input "type:touchpad" {
     dwt enabled
@@ -101,6 +106,8 @@ input "type:keyboard" {
                         notify-send "Screenshot taken" -u low || \
                         notify-send "Failed to take screenshot" -u critical
 
+    # open video from clipboard in mpv
+    bindsym $mod+m exec mpv "$(wl-paste)"
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
