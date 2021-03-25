@@ -65,13 +65,23 @@ set $laptop eDP-1
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
 
-# input "2:14:SynPS/2_Synaptics_TouchPad" {
+# settings for all pointers
+input "type:pointer" {
+    dwt enabled
+    natural_scroll disabled
+    accel_profile "flat" # disable acceleration
+    pointer_accel 0.7 # mouse sensitivity (between -1 and 1)
+}
+
+# settings for all touchpads
 input "type:touchpad" {
     dwt enabled
     tap enabled
     natural_scroll enabled
     middle_emulation enabled
+    accel_profile "adaptive" # enable acceleration
 }
+# input "2:14:SynPS/2_Synaptics_TouchPad" {
 
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
