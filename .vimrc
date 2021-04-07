@@ -90,9 +90,8 @@ nnoremap <leader>e :bnext<CR>
 nnoremap <leader>w :bprev<CR>
 nnoremap <leader>q :bp<cr>:bd #<cr>
 nnoremap <leader>s :call ToggleSignColumn()<CR>
-nnoremap <leader>r :%s///g<Left><Left>
+nnoremap <leader>r :%s///g<Left><Left><Left>
 nnoremap <leader>m :make<CR><CR>
-nnoremap <leader>hl :set invhlsearch<CR>
 nnoremap <leader>t :IndentGuidesToggle<CR>
 nnoremap <leader>g :Goyo<CR>
 nnoremap <leader>l :Limelight!!<CR>
