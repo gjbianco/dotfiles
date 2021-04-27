@@ -12,6 +12,7 @@ call plugpac#begin()
 Pack 'k-takata/minpac', {'type': 'opt'}
 Pack 'neoclide/coc.nvim', {'branch': 'release'}
 Pack 'editorconfig/editorconfig-vim'
+Pack 'vim-airline/vim-airline'
 
 " visual
 Pack 'morhetz/gruvbox'
@@ -22,7 +23,7 @@ Pack 'junegunn/goyo.vim'
 Pack 'junegunn/limelight.vim'
 
 " navigation
-Pack 'ap/vim-buftabline'
+" Pack 'ap/vim-buftabline'
 Pack 'kien/ctrlp.vim'
 Pack 'ptzz/lf.vim', {'rev': 'v1.3~1'}
 Pack 'rbgrouleff/bclose.vim' " required for LF
@@ -64,6 +65,7 @@ set smartcase
 au BufNewFile,BufRead Jenkinsfile setf groovy
 au BufNewFile,BufRead *.toml setf config
 au BufNewFile,BufRead Containerfile setf Dockerfile
+au BufNewFile,BufRead *.fish setf sh
 
 let mapleader = "," " set leader to space
 
@@ -82,6 +84,7 @@ nmap git :Git
 nmap <leader>bg :Git blame<CR>
 map <leader>n :Lf<CR>
 map <leader>pn :LfWorkingDirectory<CR>
+" map <leader>adoc :!mkdir /tmp/course-tmp<CR> | :w %f /tmp/course-tmp/section.adoc<CR> | :!podman run -v /tmp/course-tmp:/tmp/build/external/:z flamel:latest<CR>
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
@@ -113,7 +116,7 @@ augroup END
 
 " plugin config
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)|node_modules$'
-let g:buftabline_indicators = 1
+" let g:buftabline_indicators = 1
 let g:go_auto_type_info = 1 " enable type near status
 let g:go_code_completion_enabled = 0 " disable completion
 let g:go_doc_keywordprg_enabled = 0  " disable |K| shortcut
@@ -184,21 +187,31 @@ function! StatuslineGit()
   return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
 endfunction
 
-function! SubbedCWD()
-  return substitute(getcwd(), $HOME, '~', '')
-endfunction
+" function! SubbedCWD()
+"   return substitute(getcwd(), $HOME, '~', '')
+" endfunction
 
-set statusline=
-set statusline+=%#PmenuSel# " blue
-set statusline+=%{StatuslineGit()}
-set statusline+=%#StatusLineNC#
-set statusline+=%{expand('%:t')}
-set statusline+=\ %{coc#status()}
-set statusline+=%=
-set statusline+=\ %{SubbedCWD()}
-set statusline+=\ %y    " filetype
-set statusline+=\ %l:%c " lines:chars
-set statusline+=\ 
+" set statusline=
+" set statusline+=%#PmenuSel# " blue
+" set statusline+=%{StatuslineGit()}
+" set statusline+=%#StatusLineNC#
+" set statusline+=%{expand('%:t')}
+" set statusline+=\ %{coc#status()}
+" set statusline+=%=
+" set statusline+=\ %{SubbedCWD()}
+" set statusline+=\ %y    " filetype
+" set statusline+=\ %l:%c " lines:chars
+" set statusline+=\ 
+
+let g:airline_section_b = '%{StatuslineGit()}'
+let g:airline_section_y = '%{coc#status()}'
+let g:airline_section_z = '%l:%c' " lines:chars
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#right_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " end custom statusline ------------------
 
