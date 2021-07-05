@@ -42,6 +42,9 @@ Pack 'habamax/vim-asciidoctor'
 Pack 'pangloss/vim-javascript'
 Pack 'leafgarland/typescript-vim'
 Pack 'HerringtonDarkholme/yats.vim'
+" Pack 'pappasam/coc-jedi', { 'do': {-> system('npm install && npm run build') } }
+" Pack 'pappasam/coc-jedi', { 'do': {-> system('yarn install --frozen-lockfile && yarn build') } }
+Pack 'Vimjas/vim-python-pep8-indent'
 call plugpac#end()
 
 syntax on
@@ -63,11 +66,14 @@ set smartcase
 
 " custom type remappings
 au BufNewFile,BufRead Jenkinsfile setf groovy
+au BufNewFile,BufRead Jenkinsfile-curriculum setf groovy
 au BufNewFile,BufRead *.toml setf config
+au BufNewFile,BufRead *.service setf config
 au BufNewFile,BufRead Containerfile setf Dockerfile
 au BufNewFile,BufRead *.fish setf sh
+au BufNewFile,BufRead Vagrantfile setf ruby
 
-let mapleader = "," " set leader to space
+let mapleader = ","
 
 " custom functions/commands
 command! BufOnly silent! execute "%bd|e#|bd#" " close all but current buffer
@@ -295,14 +301,6 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 " end coc readme settings ------------------
 
