@@ -41,12 +41,20 @@ output * bg /usr/share/backgrounds/fedora-workstation/paisaje.jpg fill
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
+# DP-2
+output 'Unknown ASUS VG249 0x0000A245' resolution 1920x1080@144Hz transform 270 pos 0,0
+
+# acer monitor
+output DP-1 resolution 2560x1440@144Hz pos 1080,0
+
+# HDMI-A-2
+output 'Dell Inc. DELL P2419H 5QK9ZR2' resolution 1920x1080@75Hz transform 90 pos 3640,0
+
 ### Idle configuration
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
-#
 exec swayidle -w \
          timeout 300 $lock \
          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
