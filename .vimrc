@@ -78,6 +78,21 @@ function! ToggleSignColumn()
 	endif
 endfunction
 
+" vimdiff config
+if &diff
+  " colorscheme evening
+  " handle colors different in vimdiff
+  highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+  highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+  highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+  highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
+
+  " git mergetool commands
+  map <leader>1 :diffget LOCAL<CR>
+  map <leader>2 :diffget BASE<CR>
+  map <leader>3 :diffget REMOTE<CR>
+endif
+
 " custom mappings
 nmap git :Git
 nmap <leader>bg :Git blame<CR>
@@ -116,6 +131,7 @@ augroup END
 " plugin config
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)|node_modules$'
 let g:buftabline_indicators = 1
+
 let g:go_auto_type_info = 1 " enable type near status
 let g:go_code_completion_enabled = 0 " disable completion
 let g:go_doc_keywordprg_enabled = 0  " disable |K| shortcut
@@ -170,15 +186,6 @@ augroup asciidoctor
   au!
   au BufEnter *.adoc,*.asciidoc call AsciidoctorMappings()
 augroup END
-
-" handle colors different in vimdiff
-if &diff
-  " colorscheme evening
-  highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-  highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-  highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-  highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
-endif
 
 " begin custom statusline ------------------
 function! StatuslineGit()
