@@ -41,6 +41,7 @@ Pack 'habamax/vim-asciidoctor'
 Pack 'pangloss/vim-javascript'
 Pack 'leafgarland/typescript-vim'
 Pack 'HerringtonDarkholme/yats.vim'
+Pack 'cespare/vim-toml'
 call plugpac#end()
 
 syntax on
@@ -62,7 +63,7 @@ set smartcase
 
 " custom type remappings
 au BufNewFile,BufRead Jenkinsfile setf groovy
-au BufNewFile,BufRead *.toml setf config
+" au BufNewFile,BufRead *.toml setf config
 au BufNewFile,BufRead Containerfile setf Dockerfile
 
 let mapleader = "," " set leader to space
