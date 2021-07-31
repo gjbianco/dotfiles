@@ -15,6 +15,8 @@
   adoc = files origin/master **/*.adoc
 [merge]
   keepBackup = false
+	tool = vimdiff
+	conflictstyle = diff3
 [push]
 	default = simple
 [color]
@@ -25,3 +27,5 @@
 	tool = vimdiff
 [init]
 	defaultBranch = main
+[mergetool]
+	prompt = true
