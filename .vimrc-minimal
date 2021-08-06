@@ -1,0 +1,98 @@
+" auto install minpac plugin manager
+if empty(glob('~/.vim/pack/minpac/opt/minpac/autoload/minpac/impl.vim'))
+  silent !git clone https://github.com/k-takata/minpac.git ~/.vim/pack/minpac/opt/minpac
+endif
+packadd minpac
+call minpac#init()
+
+call minpac#add('k-takata/minpac', {'type': 'opt'})
+call minpac#add('morhetz/gruvbox')
+call minpac#add('ap/vim-buftabline')
+call minpac#add('kien/ctrlp.vim')
+call minpac#add('airblade/vim-gitgutter')
+call minpac#add('itchyny/vim-gitbranch')
+
+" all hail Pope Tim
+call minpac#add('tpope/vim-surround')
+call minpac#add('tpope/vim-commentary')
+call minpac#add('tpope/vim-repeat')
+call minpac#add('tpope/vim-unimpaired')
+
+" language-specific plugins
+" call minpac#add('habamax/vim-asciidoctor')
+" call minpac#add('HerringtonDarkholme/yats.vim')
+" call minpac#add('cespare/vim-toml')
+
+" custom filetype syntax mappings
+au BufNewFile,BufRead Jenkinsfile setf groovy
+au BufNewFile,BufRead Containerfile setf Dockerfile
+
+let mapleader = "," " set leader key
+let g:gruvbox_guisp_fallback = "bg" " fix spell colors for gruvbox
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)|node_modules$'
+let g:buftabline_indicators = 1
+
+syntax on           " syntax highlighting
+set mouse=a         " use mouse controls
+set number          " line numbers
+set linebreak       " AKA wordwrap
+set autoindent      " \
+set tabstop=2       "  \
+set shiftwidth=2    "   } indentation
+set smarttab        "  /
+set expandtab       " /
+set ssop-=options   " do not store global and local values in a session
+set ssop-=folds     " do not store folds
+set ignorecase      " case insensitive search
+set smartcase       " smart sensitive search
+set background=dark " \
+colorscheme gruvbox "  } colors
+set t_Co=256        " /
+set backspace=indent,eol,start
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,node_modules/**,.git/**,yarn.lock,package-lock.json,build/**
+hi Normal guibg=NONE ctermbg=NONE
+
+" custom statusline
+function! StatuslineGit()
+  let l:branchname = gitbranch#name()
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+function! SubbedCWD()
+  return substitute(getcwd(), $HOME, '~', '')
+endfunction
+set statusline=%#PmenuSel#%{StatuslineGit()}%#StatusLineNC#
+set statusline+=%{expand('%:t')}%=\ %{SubbedCWD()}\ %y\ %l:%c
+
+" Ctrl+hjkl to navigate splits
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" navigate buffers
+nnoremap <leader>e :bnext<CR>
+nnoremap <leader>w :bprev<CR>
+nnoremap <leader>q :bp<cr>:bd #<cr>
+
+" toggle showing gitgutter
+function! ToggleSignColumn()
+	if(&signcolumn == "no")
+		set signcolumn=yes
+	else
+		set signcolumn=no
+	endif
+endfunction
+nnoremap <leader>s :call ToggleSignColumn()<CR>
+
+" vimdiff config
+if &diff
+  highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+  highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+  highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+  highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
+
+  " git mergetool commands
+  map <leader>1 :diffget LOCAL<CR>
+  map <leader>2 :diffget BASE<CR>
+  map <leader>3 :diffget REMOTE<CR>
+endif
