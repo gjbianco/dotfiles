@@ -10,9 +10,10 @@ call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
 call minpac#add('editorconfig/editorconfig-vim')
 call minpac#add('ap/vim-buftabline')
 call minpac#add('kien/ctrlp.vim')
-call minpac#add('mcchrish/nnn.vim')
 call minpac#add('morhetz/gruvbox')
 call minpac#add('junegunn/goyo.vim')
+call minpac#add('ptzz/lf.vim', {'rev': 'v1.3~1'})
+call minpac#add('rbgrouleff/bclose.vim') " required for LF
 
 " git
 call minpac#add('airblade/vim-gitgutter')
@@ -42,9 +43,9 @@ au BufNewFile,BufRead Containerfile setf Dockerfile
 let mapleader = "," " set leader to space
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)|node_modules$'
 let g:buftabline_indicators = 1
-let g:nnn#command = 'nnn -C'
-let g:nnn#layout = { 'window': { 'width': 0.5, 'height': 0.25 } }
 let g:gruvbox_guisp_fallback = "bg" " fix spell colors for gruvbox
+let g:lf_map_keys = 0
+let g:lf_replace_netrw = 1 " open lf when vim opens a directory
 let g:rustfmt_autosave = 1
 let g:goyo_height = '95%'
 let g:coc_global_extensions = [
@@ -100,7 +101,8 @@ function! ToggleSignColumn()
 	endif
 endfunction
 
-nnoremap <leader>pn :NnnPicker<CR>
+nnoremap <leader>n :Lf<CR>
+nnoremap <leader>pn :LfWorkingDirectory<CR>
 nnoremap <leader>g :Goyo<CR>
 nnoremap <leader>s :call ToggleSignColumn()<CR>
 
@@ -122,10 +124,10 @@ augroup HiglightTODO
   autocmd WinEnter,VimEnter * :silent! call matchadd('Fixme', 'FIXME', -1)
   autocmd WinEnter,VimEnter * :silent! call matchadd('Note', 'NOTE', -1)
 augroup END
-augroup asciidoctor
-  au!
-  au BufEnter *.adoc,*.asciidoc call AsciidoctorMappings()
-augroup END
+" augroup asciidoctor
+"   au!
+"   au BufEnter *.adoc,*.asciidoc call AsciidoctorMappings()
+" augroup END
 
 " terminal mode bindings
 if has('nvim')
