@@ -34,6 +34,7 @@ call minpac#add('leafgarland/typescript-vim')
 call minpac#add('HerringtonDarkholme/yats.vim')
 call minpac#add('cespare/vim-toml')
 call minpac#add('rust-lang/rust.vim')
+call minpac#add('vim-python/python-syntax')
 
 " custom filetype syntax mappings
 au BufNewFile,BufRead Jenkinsfile setf groovy
@@ -47,6 +48,7 @@ let g:gruvbox_guisp_fallback = "bg" " fix spell colors for gruvbox
 let g:lf_map_keys = 0
 let g:lf_replace_netrw = 1 " open lf when vim opens a directory
 let g:rustfmt_autosave = 1
+let g:python_highlight_all = 1
 let g:goyo_height = '95%'
 let g:coc_global_extensions = [
   \ 'coc-pairs',
@@ -54,7 +56,8 @@ let g:coc_global_extensions = [
   \ 'coc-json', 
   \ 'coc-emmet',
   \ 'coc-tsserver',
-  \ 'coc-rls'
+  \ 'coc-rls',
+  \ 'coc-pyright'
   \ ]
 
 syntax on           " syntax highlighting
