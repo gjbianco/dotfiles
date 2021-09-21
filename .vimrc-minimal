@@ -11,6 +11,7 @@ call minpac#add('ap/vim-buftabline')
 call minpac#add('kien/ctrlp.vim')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('itchyny/vim-gitbranch')
+call minpac#add('preservim/nerdtree')
 
 " all hail Pope Tim
 call minpac#add('tpope/vim-surround')
@@ -31,6 +32,7 @@ let mapleader = "," " set leader key
 let g:gruvbox_guisp_fallback = "bg" " fix spell colors for gruvbox
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)|node_modules$'
 let g:buftabline_indicators = 1
+nnoremap <leader>n :NERDTreeToggle<CR>
 
 syntax on           " syntax highlighting
 set mouse=a         " use mouse controls
