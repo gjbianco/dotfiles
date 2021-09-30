@@ -4,9 +4,9 @@ if empty(glob('~/.vim/pack/minpac/opt/minpac/autoload/minpac/impl.vim'))
 endif
 packadd minpac
 call minpac#init()
-
 call minpac#add('k-takata/minpac', {'type': 'opt'})
-call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
+
+" navigation
 call minpac#add('editorconfig/editorconfig-vim')
 call minpac#add('ap/vim-buftabline')
 call minpac#add('kien/ctrlp.vim')
@@ -26,11 +26,13 @@ call minpac#add('tpope/vim-repeat')
 call minpac#add('tpope/vim-unimpaired')
 " minpac#add('tpope/vim-projectionist')
 
-" language-specific plugins
+" language plugins
+call minpac#add('dense-analysis/ale')
+" call minpac#add('Shougo/deoplete.nvim')
 call minpac#add('habamax/vim-asciidoctor')
-call minpac#add('pangloss/vim-javascript')
-call minpac#add('leafgarland/typescript-vim')
-call minpac#add('HerringtonDarkholme/yats.vim')
+" call minpac#add('pangloss/vim-javascript')
+" call minpac#add('leafgarland/typescript-vim')
+" call minpac#add('HerringtonDarkholme/yats.vim')
 call minpac#add('cespare/vim-toml')
 call minpac#add('rust-lang/rust.vim')
 call minpac#add('vim-python/python-syntax')
@@ -46,15 +48,17 @@ let g:gruvbox_guisp_fallback = "bg" " fix spell colors for gruvbox
 let g:rustfmt_autosave = 1
 let g:python_highlight_all = 1
 let g:goyo_height = '95%'
-let g:coc_global_extensions = [
-  \ 'coc-pairs',
-  \ 'coc-prettier', 
-  \ 'coc-json', 
-  \ 'coc-emmet',
-  \ 'coc-tsserver',
-  \ 'coc-rls',
-  \ 'coc-pyright'
-  \ ]
+let g:ale_fix_on_save = 1
+let js_fixers = ['prettier', 'eslint']
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript':      js_fixers,
+\   'javascript.jsx':  js_fixers,
+\   'typescript':      js_fixers,
+\   'typescriptreact': js_fixers,
+\   'css':  ['prettier'],
+\   'json': ['prettier'],
+\}
 
 syntax on           " syntax highlighting
 set mouse=a         " use mouse controls
@@ -103,6 +107,13 @@ endfunction
 nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>g :Goyo<CR>
 nnoremap <leader>s :call ToggleSignColumn()<CR>
+nmap <silent> <leader>aj :ALENext<CR>
+nmap <silent> <leader>ak :ALEPrevious<CR>
+nnoremap K :ALEHover<CR>
+nnoremap <silent> gr :ALEFindReferences<CR>
+nnoremap <leader>rn :ALERename<CR>
+nnoremap <leader>qf :ALECodeAction<CR>
+vnoremap <leader>qf :ALECodeAction<CR>
 
 " Ctrl+hjkl to navigate splits
 nnoremap <C-J> <C-W><C-J>
@@ -145,64 +156,3 @@ if &diff
   map <leader>2 :diffget BASE<CR>
   map <leader>3 :diffget REMOTE<CR>
 endif
-
-" CoC readme settings
-if has("patch-8.1.1564")
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
-set scl=no
-
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
-inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-autocmd CursorHold * silent call CocActionAsync('highlight')
-augroup mygroup
-  autocmd!
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-command! -nargs=0 Format :call CocAction('format') " Add `:Format` command to format current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>) " Add `:Fold` command to fold current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport') " Add `:OR` command for organize imports of the current buffer.
-
-" CoC mappings
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gr <Plug>(coc-references)
-nmap <leader>qf  <Plug>(coc-fix-current)
-nmap <leader>c  <Plug>(coc-codeaction)
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-nnoremap <silent> K :call <SID>show_documentation()<CR>
