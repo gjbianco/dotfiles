@@ -12,8 +12,7 @@ call minpac#add('ap/vim-buftabline')
 call minpac#add('kien/ctrlp.vim')
 call minpac#add('morhetz/gruvbox')
 call minpac#add('junegunn/goyo.vim')
-call minpac#add('ptzz/lf.vim', {'rev': 'v1.3~1'})
-call minpac#add('rbgrouleff/bclose.vim') " required for LF
+call minpac#add('preservim/nerdtree')
 
 " git
 call minpac#add('airblade/vim-gitgutter')
@@ -39,14 +38,11 @@ call minpac#add('vim-python/python-syntax')
 " custom filetype syntax mappings
 au BufNewFile,BufRead Jenkinsfile setf groovy
 au BufNewFile,BufRead Containerfile setf Dockerfile
-" au BufNewFile,BufRead *.toml setf config
 
 let mapleader = "," " set leader to space
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)|node_modules$'
 let g:buftabline_indicators = 1
 let g:gruvbox_guisp_fallback = "bg" " fix spell colors for gruvbox
-let g:lf_map_keys = 0
-let g:lf_replace_netrw = 1 " open lf when vim opens a directory
 let g:rustfmt_autosave = 1
 let g:python_highlight_all = 1
 let g:goyo_height = '95%'
@@ -104,8 +100,7 @@ function! ToggleSignColumn()
 	endif
 endfunction
 
-nnoremap <leader>n :Lf<CR>
-nnoremap <leader>pn :LfWorkingDirectory<CR>
+nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>g :Goyo<CR>
 nnoremap <leader>s :call ToggleSignColumn()<CR>
 
