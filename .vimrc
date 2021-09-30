@@ -115,6 +115,8 @@ nnoremap <leader>e :bnext<CR>
 nnoremap <leader>w :bprev<CR>
 nnoremap <leader>q :bp<cr>:bd #<cr>
 
+nnoremap <leader>a A;<Esc>
+
 " custom autocommands
 augroup HiglightTODO
   autocmd!
@@ -199,6 +201,8 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gr <Plug>(coc-references)
+nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>c  <Plug>(coc-codeaction)
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
