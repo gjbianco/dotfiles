@@ -13,6 +13,7 @@ call minpac#add('kien/ctrlp.vim')
 call minpac#add('morhetz/gruvbox')
 call minpac#add('junegunn/goyo.vim')
 call minpac#add('preservim/nerdtree')
+" call minpac#add('github/copilot.vim')
 
 " git
 call minpac#add('airblade/vim-gitgutter')
@@ -101,6 +102,7 @@ function! ToggleSignColumn()
 endfunction
 
 nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <leader>fn :NERDTreeFind<CR>
 nnoremap <leader>g :Goyo<CR>
 nnoremap <leader>s :call ToggleSignColumn()<CR>
 
