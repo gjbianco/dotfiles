@@ -29,7 +29,7 @@ call minpac#add('tpope/vim-unimpaired')
 " language plugins
 call minpac#add('dense-analysis/ale')
 " call minpac#add('Shougo/deoplete.nvim')
-call minpac#add('habamax/vim-asciidoctor')
+" call minpac#add('habamax/vim-asciidoctor')
 " call minpac#add('pangloss/vim-javascript')
 " call minpac#add('leafgarland/typescript-vim')
 " call minpac#add('HerringtonDarkholme/yats.vim')
@@ -49,15 +49,18 @@ let g:rustfmt_autosave = 1
 let g:python_highlight_all = 1
 let g:goyo_height = '95%'
 let g:ale_fix_on_save = 1
-let js_fixers = ['prettier', 'eslint']
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript':      js_fixers,
-\   'javascript.jsx':  js_fixers,
-\   'typescript':      js_fixers,
-\   'typescriptreact': js_fixers,
-\   'css':  ['prettier'],
-\   'json': ['prettier'],
+" let js_fixers = ['prettier', 'eslint']
+" let g:ale_fixers = {
+" \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+" \   'javascript':      js_fixers,
+" \   'javascript.jsx':  js_fixers,
+" \   'typescript':      js_fixers,
+" \   'typescriptreact': js_fixers,
+" \   'css':  ['prettier'],
+" \   'json': ['prettier'],
+" \}
+let g:ale_linters = {
+\   'asciidoc': ['vale']
 \}
 
 syntax on           " syntax highlighting
