@@ -1,0 +1,10 @@
+/* dark background */
+body > center > table#hnmain,    /* HN */
+body > div#app > header.masthead /* ROLE */
+{
+  background-color: #242627 !important;
+}
+
+body {
+  margin-top: 0;
+}
