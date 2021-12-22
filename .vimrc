@@ -28,6 +28,7 @@ call minpac#add('tpope/vim-unimpaired')
 " minpac#add('tpope/vim-projectionist')
 
 " language-specific plugins
+call minpac#add('lilyinstarlight/vim-sonic-pi')
 call minpac#add('habamax/vim-asciidoctor')
 call minpac#add('pangloss/vim-javascript')
 call minpac#add('leafgarland/typescript-vim')
