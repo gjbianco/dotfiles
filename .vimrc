@@ -49,6 +49,8 @@ let g:gruvbox_guisp_fallback = "bg" " fix spell colors for gruvbox
 let g:rustfmt_autosave = 1
 let g:python_highlight_all = 1
 let g:goyo_height = '95%'
+let g:sonic_pi_enabled = 1
+let g:sonic_pi_autolog_enabled = 0
 let g:coc_global_extensions = [
   \ 'coc-pairs',
   \ 'coc-prettier', 
@@ -106,6 +108,8 @@ endfunction
 nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>fn :NERDTreeFind<CR>
 nnoremap <leader>g :Goyo<CR>
+nnoremap <leader>pa :SonicPiStartServer<CR>
+nnoremap <leader>pq :SonicPiStopServer<CR>
 nnoremap <leader>s :call ToggleSignColumn()<CR>
 
 " Ctrl+hjkl to navigate splits
