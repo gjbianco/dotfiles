@@ -1,25 +1,33 @@
-git
-neovim
-tmux
-iina
-sonic-pi
-htop
-bottom
+asciidoctor
 bat
+bat-extras
+bottom
+git
 fish
+htop
+iina
 mosh
+neovim
+nnn
+par
 podman
 qemu
-nnn
+tmux
 
-ruby
-nodejs
 ansible
+nodejs
+ruby
 sqlite
 
-kitty
+bitwig-studio
 cool-retro-term
-obs
-ffmpeg
-steam
+--cask dash
 discord
+ffmpeg
+kitty
+obs
+rectangle
+sonic-pi
+splice
+steam
+tree
