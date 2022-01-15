@@ -61,6 +61,11 @@ let g:coc_global_extensions = [
   \ 'coc-pyright'
   \ ]
 
+function! s:goyo_leave()
+         hi Normal guibg=NONE ctermbg=NONE
+endfunction
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
 syntax on           " syntax highlighting
 set mouse=a         " use mouse controls
 set number          " line numbers
