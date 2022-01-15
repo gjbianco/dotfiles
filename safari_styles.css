@@ -8,3 +8,8 @@ body > div#app > header.masthead /* ROLE */
 body {
   margin-top: 0;
 }
+
+/* hide google scrollbar */
+body[standardized-themed-scrollbar]::-webkit-scrollbar {
+  display: none !important;
+}
