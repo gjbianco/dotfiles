@@ -33,7 +33,7 @@ bind-key x pb-delete
 color background          black      default
 color listnormal          color7     default
 color listnormal_unread   green      default bold
-color listfocus           white      green bold
+color listfocus           black      green bold
 color listfocus_unread    cyan       green bold
 color info                cyan       color235 bold standout
 color article             white      default
