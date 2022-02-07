@@ -1,11 +1,11 @@
---theme="gruvbox"
+--theme="gruvbox-dark"
 
 # Enable this to use italic text on the terminal. This is not supported on all
 # terminal emulators (like tmux, by default):
 # --italic-text=always
 
 # --style=plain,changes,numbers,header,grid
-# --style=plain
+--style=plain
 
 --tabs=2
 

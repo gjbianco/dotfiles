@@ -12,5 +12,8 @@ indent_style = space
 [*.py]
 charset = utf-8
 
+[*.rs]
+indent_size = 4
+
 [Makefile]
 indent_style = tab

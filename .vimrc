@@ -13,6 +13,7 @@ call minpac#add('kien/ctrlp.vim')
 call minpac#add('morhetz/gruvbox')
 call minpac#add('junegunn/goyo.vim')
 call minpac#add('preservim/nerdtree')
+" call minpac#add('github/copilot.vim')
 
 " git
 call minpac#add('airblade/vim-gitgutter')
@@ -27,6 +28,7 @@ call minpac#add('tpope/vim-unimpaired')
 " minpac#add('tpope/vim-projectionist')
 
 " language-specific plugins
+call minpac#add('lilyinstarlight/vim-sonic-pi')
 call minpac#add('habamax/vim-asciidoctor')
 call minpac#add('pangloss/vim-javascript')
 call minpac#add('leafgarland/typescript-vim')
@@ -38,6 +40,7 @@ call minpac#add('vim-python/python-syntax')
 " custom filetype syntax mappings
 au BufNewFile,BufRead Jenkinsfile setf groovy
 au BufNewFile,BufRead Containerfile setf Dockerfile
+au BufNewFile,BufRead *.fish setf sh
 
 let mapleader = "," " set leader to space
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)|node_modules$'
@@ -46,6 +49,8 @@ let g:gruvbox_guisp_fallback = "bg" " fix spell colors for gruvbox
 let g:rustfmt_autosave = 1
 let g:python_highlight_all = 1
 let g:goyo_height = '95%'
+let g:sonic_pi_enabled = 1
+let g:sonic_pi_autolog_enabled = 0
 let g:coc_global_extensions = [
   \ 'coc-pairs',
   \ 'coc-prettier', 
@@ -55,6 +60,11 @@ let g:coc_global_extensions = [
   \ 'coc-rls',
   \ 'coc-pyright'
   \ ]
+
+function! s:goyo_leave()
+         hi Normal guibg=NONE ctermbg=NONE
+endfunction
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 syntax on           " syntax highlighting
 set mouse=a         " use mouse controls
@@ -101,7 +111,10 @@ function! ToggleSignColumn()
 endfunction
 
 nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <leader>fn :NERDTreeFind<CR>
 nnoremap <leader>g :Goyo<CR>
+nnoremap <leader>pa :SonicPiStartServer<CR>
+nnoremap <leader>pq :SonicPiStopServer<CR>
 nnoremap <leader>s :call ToggleSignColumn()<CR>
 
 " Ctrl+hjkl to navigate splits

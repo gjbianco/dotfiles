@@ -1,0 +1,15 @@
+/* dark background */
+body > center > table#hnmain,    /* HN */
+body > div#app > header.masthead /* ROLE */
+{
+  background-color: #242627 !important;
+}
+
+body {
+  margin-top: 0;
+}
+
+/* hide google scrollbar */
+body[standardized-themed-scrollbar]::-webkit-scrollbar {
+  display: none !important;
+}
