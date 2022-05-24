@@ -6,7 +6,7 @@
 
   "modules-left": ["sway/workspaces", "sway/mode"],
   "modules-center": ["sway/window"],
-  "modules-right": ["network", "cpu", "memory", "pulseaudio", "battery", "clock"],
+  "modules-right": ["cpu", "memory", "pulseaudio", "battery", "clock"],
 
   "sway/window": {
     "max-length": 250
