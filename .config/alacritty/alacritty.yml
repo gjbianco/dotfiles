@@ -1,0 +1,33 @@
+window:
+  # decorations: buttonless
+  opacity: 0.96
+  dimensions:
+    columns: 160
+    lines: 48
+    # columns: 240
+    # lines: 72
+
+scrolling:
+  history: 0
+
+font:
+  size: 11.0
+  normal:
+    family: 'JetBrains Mono'
+
+key_bindings:
+- key: K
+  mods: Control
+  action: None
+- key: W
+  mods: Control
+  action: None
+- key: N
+  mods: Control
+  action: SpawnNewInstance
+- key: F
+  mods: Super
+  action: ToggleFullscreen
+
+import:
+- gruvbox.yml

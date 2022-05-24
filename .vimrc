@@ -11,6 +11,7 @@ call minpac#add('editorconfig/editorconfig-vim')
 call minpac#add('ap/vim-buftabline')
 call minpac#add('kien/ctrlp.vim')
 call minpac#add('morhetz/gruvbox')
+" call minpac#add('dracula/vim')
 call minpac#add('junegunn/goyo.vim')
 call minpac#add('preservim/nerdtree')
 " call minpac#add('github/copilot.vim')
@@ -25,7 +26,7 @@ call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('tpope/vim-repeat')
 call minpac#add('tpope/vim-unimpaired')
-" minpac#add('tpope/vim-projectionist')
+call minpac#add('tpope/vim-projectionist')
 
 " language-specific plugins
 call minpac#add('lilyinstarlight/vim-sonic-pi')
@@ -68,8 +69,9 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 syntax on           " syntax highlighting
 set mouse=a         " use mouse controls
-set number          " line numbers
+" set number          " line numbers
 set linebreak       " AKA wordwrap
+filetype plugin indent on
 set autoindent      " \
 set tabstop=2       "  \
 set shiftwidth=2    "   } indentation
@@ -116,19 +118,17 @@ nnoremap <leader>g :Goyo<CR>
 nnoremap <leader>pa :SonicPiStartServer<CR>
 nnoremap <leader>pq :SonicPiStopServer<CR>
 nnoremap <leader>s :call ToggleSignColumn()<CR>
+nnoremap <leader>q :bp<cr>:bd #<cr>
+nnoremap <leader>; A;<Esc>
+nnoremap <leader>a :A<CR>
+nnoremap <leader>l :Electure 
+nnoremap <leader>e :Ege 
 
 " Ctrl+hjkl to navigate splits
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
-" navigate buffers
-nnoremap <leader>e :bnext<CR>
-nnoremap <leader>w :bprev<CR>
-nnoremap <leader>q :bp<cr>:bd #<cr>
-
-nnoremap <leader>a A;<Esc>
 
 " custom autocommands
 augroup HiglightTODO
@@ -141,6 +141,32 @@ augroup END
 "   au!
 "   au BufEnter *.adoc,*.asciidoc call AsciidoctorMappings()
 " augroup END
+
+" improve highlighting stability in large files
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+
+" projectionist global for GLS courses
+let g:projectionist_heuristics = {
+\ "guides/en-US/sg-chapters/topics/": {
+\   "guides/en-US/sg-chapters/topics/*-ge-content.adoc": {
+\      "type": "ge",
+\      "alternate": "guides/en-US/sg-chapters/topics/{}-lecture-content.adoc"
+\    },
+\    "guides/en-US/sg-chapters/topics/*-ge-content.xml": {
+\      "type": "gexml",
+\      "alternate": "guides/en-US/sg-chapters/topics/*-ge-content.adoc"
+\    },
+\    "guides/en-US/sg-chapters/topics/*-lecture-content.adoc": {
+\      "type": "lecture",
+\      "alternate": "guides/en-US/sg-chapters/topics/{}-ge-content.adoc"
+\    },
+\    "guides/en-US/sg-chapters/topics/*-lecture-content.xml": {
+\      "type": "lecturexml",
+\      "alternate": "guides/en-US/sg-chapters/topics/{}-lecture-content.adoc"
+\    }
+\   }
+\ }
 
 " terminal mode bindings
 if has('nvim')
