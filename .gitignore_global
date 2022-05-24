@@ -1,5 +1,8 @@
 nohup.out
 
+# merge files
+*.orig
+
 # publican generated files?
 .fop
 ?
