@@ -15,6 +15,7 @@ call minpac#add('morhetz/gruvbox')
 call minpac#add('junegunn/goyo.vim')
 call minpac#add('preservim/nerdtree')
 " call minpac#add('github/copilot.vim')
+call minpac#add('vim-scripts/DrawIt')
 
 " git
 call minpac#add('airblade/vim-gitgutter')
