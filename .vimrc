@@ -112,14 +112,15 @@ function! ToggleSignColumn()
 	endif
 endfunction
 
+nnoremap <leader>s :call ToggleSignColumn()<CR>
+nnoremap <leader>b :bp<cr>:bd #<cr>
+nnoremap <leader>; A;<Esc>
+
 nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>fn :NERDTreeFind<CR>
 nnoremap <leader>g :Goyo<CR>
 nnoremap <leader>pa :SonicPiStartServer<CR>
 nnoremap <leader>pq :SonicPiStopServer<CR>
-nnoremap <leader>s :call ToggleSignColumn()<CR>
-nnoremap <leader>q :bp<cr>:bd #<cr>
-nnoremap <leader>; A;<Esc>
 nnoremap <leader>a :A<CR>
 nnoremap <leader>l :Electure 
 nnoremap <leader>e :Ege 
@@ -153,17 +154,18 @@ let g:projectionist_heuristics = {
 \      "type": "ge",
 \      "alternate": "guides/en-US/sg-chapters/topics/{}-lecture-content.adoc"
 \    },
-\    "guides/en-US/sg-chapters/topics/*-ge-content.xml": {
-\      "type": "gexml",
-\      "alternate": "guides/en-US/sg-chapters/topics/*-ge-content.adoc"
+\    "guides/en-US/sg-chapters/topics/*-mc-content.adoc": {
+\      "type": "quiz",
+\      "alternate": "guides/en-US/sg-chapters/topics/{}-lecture-content.adoc"
 \    },
 \    "guides/en-US/sg-chapters/topics/*-lecture-content.adoc": {
 \      "type": "lecture",
-\      "alternate": "guides/en-US/sg-chapters/topics/{}-ge-content.adoc"
 \    },
-\    "guides/en-US/sg-chapters/topics/*-lecture-content.xml": {
-\      "type": "lecturexml",
-\      "alternate": "guides/en-US/sg-chapters/topics/{}-lecture-content.adoc"
+\    "guides/en-US/sg-chapters/topics/*-lab-content.adoc": {
+\      "type": "lab"
+\    },
+\    "classroom/grading/src/*.py": {
+\      "type": "dyno"
 \    }
 \   }
 \ }
