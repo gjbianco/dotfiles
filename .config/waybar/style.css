@@ -2,9 +2,9 @@
   border: none;
   border-radius: 0;
   /* `otf-font-awesome` is required to be installed for icons */
-  font-family: LiberationMono, Roboto, Helvetica, Arial, sans-serif;
-  font-size: 15px;
-  font-weight: 600;
+  font-family: JetBrains Mono, LiberationMono, Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
   min-height: 0;
 }
 
