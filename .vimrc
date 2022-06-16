@@ -41,7 +41,7 @@ call minpac#add('vim-python/python-syntax')
 
 " custom filetype syntax mappings
 au BufNewFile,BufRead Jenkinsfile setf groovy
-au BufNewFile,BufRead Containerfile setf Dockerfile
+au BufNewFile,BufRead Containerfile setf dockerfile
 au BufNewFile,BufRead *.fish setf sh
 
 let mapleader = "," " set leader to space
