@@ -2,14 +2,18 @@
 {
   "layer": "bottom",
   "position": "top",
-  "height": 25,
+  "height": 23,
 
   "modules-left": ["sway/workspaces", "sway/mode"],
   "modules-center": ["sway/window"],
-  "modules-right": ["cpu", "memory", "pulseaudio", "battery", "clock"],
+  "modules-right": ["tray", "cpu", "memory", "pulseaudio", "network", "battery", "clock"],
 
   "sway/window": {
     "max-length": 250
+  },
+  "tray": {
+    "icon-size": 18,
+    "spacing": 10
   },
   "battery": {
     "interval": 10,
@@ -20,33 +24,36 @@
   "clock": {
     "interval": 30,
     /* "format-alt": "{:%a, %d. %b  %H:%M}" */
-    "format": "<b>{:%l:%M %p}</b>",
+    /* "format": "<b>{:%l:%M %p}</b>", */
+    "format": "<b>{:%I:%M %p}</b>",
     "format-alt": "<b>{:%m-%d-%Y}</b>",
     "tooltip-format": "<big>{:%B %d, %Y}</big>\n<tt><small>{calendar}</small></tt>"
   },
   "cpu": {
     "interval": 3,
-    "format": "  {usage}%",
+    "format": " {usage:3d}%",
+    "on-click": "alacritty -e s-tui"
     /* "tooltip": false */
   },
   "memory": {
     "interval": 5,
-    "format": "  {}%",
+    "format": " {percentage:3d}%",
     "tooltip-format": "{used:0.1f}G / {total:0.1f}G used"
   },
   "network": {
-    "interface": "wlp*",
-    "format-ethernet": "eth",
+    /* "interface": "eno*", */
+    /* "format-ethernet": "<b>🖧</b>", */
+    "format-ethernet": "<b>⛫</b>",
     "format-wifi": "",
     /* "tooltip-format": "{ifname} ({signalStrength}%): {ipaddr}/{cidr}", */
     "tooltip-format": "{essid} ({signalStrength}%): {ipaddr}/{cidr}",
     "format-disconnected": "NC",
-    "on-click": "nm-connection-editor",
+    "on-click": "alacritty -e nmtui-connect",
   },
   "pulseaudio": {
-    "scroll-step": 1,
+    "scroll-step": 5,
     /* "format": "{volume}% {icon} {format_source}", */
-    "format": "{icon}  {volume}%",
+    "format": "{icon} {volume:3d}%",
     "format-bluetooth": "{volume}% {icon} {format_source}",
     "format-bluetooth-muted": " {icon} {format_source}",
     /* TODO fix mute symbol to be non-emoji */
