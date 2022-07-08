@@ -67,6 +67,6 @@
       "car": "",
       "default": ["", "", ""]
     },
-    "on-click": "alacritty -e pamix"
+    "on-click": "pkill pavucontrol || pavucontrol"
   },
 }
