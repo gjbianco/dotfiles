@@ -38,6 +38,7 @@ call minpac#add('HerringtonDarkholme/yats.vim')
 call minpac#add('cespare/vim-toml')
 call minpac#add('rust-lang/rust.vim')
 call minpac#add('vim-python/python-syntax')
+call minpac#add('ziglang/zig.vim')
 
 " custom filetype syntax mappings
 au BufNewFile,BufRead Jenkinsfile setf groovy
@@ -60,7 +61,8 @@ let g:coc_global_extensions = [
   \ 'coc-emmet',
   \ 'coc-tsserver',
   \ 'coc-rls',
-  \ 'coc-pyright'
+  \ 'coc-pyright',
+  \ 'coc-zig'
   \ ]
 
 function! s:goyo_leave()
@@ -125,6 +127,7 @@ nnoremap <leader>pq :SonicPiStopServer<CR>
 nnoremap <leader>a :A<CR>
 nnoremap <leader>l :Electure 
 nnoremap <leader>e :Ege 
+nnoremap <leader>m :make<CR>
 
 " Ctrl+hjkl to navigate splits
 nnoremap <C-J> <C-W><C-J>
