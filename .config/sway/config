@@ -27,13 +27,14 @@ output DP-2 resolution 2560x1440@144Hz
 
 ### Idle configuration
 #
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
+# This will lock your screen after 20 minutes of inactivity, turn off
+# your displays after 15 minutes (non-additive), and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 exec swayidle -w \
-         timeout 300 $lock \
-         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-         before-sleep $lock
+         timeout 1200 "$lock" \
+         timeout 900 'swaymsg "output * dpms off"' \
+         resume 'swaymsg "output * dpms on"' \
+         before-sleep "$lock"
 
 # seat * hide_cursor 5000
 
@@ -177,6 +178,8 @@ input "type:keyboard" {
     bindsym $mod+Shift+0 move container to workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
+
+assign [class="steam_app*|DUSK*"] workspace number 7
 
 # Layout stuff:
 
