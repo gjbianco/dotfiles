@@ -29,3 +29,5 @@
 	defaultBranch = main
 [mergetool]
 	prompt = true
+[rerere]
+	enabled = true
