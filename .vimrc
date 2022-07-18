@@ -115,6 +115,8 @@ function! ToggleSignColumn()
 	endif
 endfunction
 
+map! <C-L> <Esc>
+
 nnoremap <leader>s :call ToggleSignColumn()<CR>
 nnoremap <leader>b :bp<cr>:bd #<cr>
 nnoremap <leader>; A;<Esc>
@@ -174,9 +176,9 @@ let g:projectionist_heuristics = {
 \   }
 \ }
 
-" terminal mode bindings
+" terminal mode ESC
 if has('nvim')
-  tnoremap <C-v><Esc> <Esc>
+  tnoremap <Esc> <C-\><C-n>
 endif
 
 " vimdiff config
