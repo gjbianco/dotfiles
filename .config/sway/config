@@ -21,9 +21,8 @@ set $lock swaylock -f -e -c 232323 -K --font Sans
 ### Output configuration
 
 # output * bg /usr/share/backgrounds/gnome/adwaita-d.jpg fill
-output * bg /home/guy/Pictures/spacewave.png fill
-# output DP-2 resolution 2560x1440@144Hz pos 1080,0
-output DP-2 resolution 2560x1440@144Hz
+# output * bg /home/guy/Pictures/spacewave.png fill
+output DP-2 resolution 2560x1440@144Hz pos 1080,0
 
 ### Idle configuration
 #
@@ -70,9 +69,11 @@ input "type:touchpad" {
     pointer_accel 0.4
     accel_profile "adaptive" # enable acceleration
 }
-# input "2:14:SynPS/2_Synaptics_TouchPad" {
-input "name:Elan TrackPoint" {
-    pointer_accel 0.7
+
+# input "name:Elan TrackPoint" {
+input "type:pointer" {
+    pointer_accel -0.25
+    accel_profile "adaptive" # enable acceleration
 }
 
 # You can get the names of your inputs by running: swaymsg -t get_inputs
@@ -274,5 +275,18 @@ bindsym XF86MonBrightnessUp exec brightnessctl set +10%
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl prev
+
+# Rotate screen (for tablet mode):
+set $rot_display eDP-1
+input "type:touch" {
+  map_to_output $rot_display
+}
+input "type:tablet_tool" {
+  map_to_output $rot_display
+}
+bindsym $mod+Minus exec swaymsg output $rot_display transform 270
+bindsym $mod+Underscore exec swaymsg output $rot_display transform 90
+bindsym $mod+Equal exec swaymsg output $rot_display transform 0
+bindsym $mod+Plus exec swaymsg output $rot_display transform 180
 
 # include /etc/sway/config.d/*
