@@ -1,11 +1,8 @@
 window:
   # decorations: buttonless
-  opacity: 0.975
   dimensions:
     columns: 160
     lines: 48
-    # columns: 240
-    # lines: 72
 
 scrolling:
   history: 0
