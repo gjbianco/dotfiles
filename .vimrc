@@ -6,20 +6,15 @@ packadd minpac
 call minpac#init()
 
 call minpac#add('k-takata/minpac', {'type': 'opt'})
-call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
 call minpac#add('editorconfig/editorconfig-vim')
 call minpac#add('ap/vim-buftabline')
 call minpac#add('kien/ctrlp.vim')
 call minpac#add('morhetz/gruvbox')
-" call minpac#add('dracula/vim')
-call minpac#add('junegunn/goyo.vim')
 call minpac#add('preservim/nerdtree')
-" call minpac#add('github/copilot.vim')
-call minpac#add('vim-scripts/DrawIt')
+call minpac#add('mihaicristiantanase/vim-toggle-qf')
 
 " git
 call minpac#add('airblade/vim-gitgutter')
-call minpac#add('itchyny/vim-gitbranch')
 call minpac#add('tpope/vim-fugitive')
 
 " all hail Pope Tim
@@ -30,15 +25,10 @@ call minpac#add('tpope/vim-unimpaired')
 call minpac#add('tpope/vim-projectionist')
 
 " language-specific plugins
-call minpac#add('lilyinstarlight/vim-sonic-pi')
 call minpac#add('habamax/vim-asciidoctor')
-call minpac#add('pangloss/vim-javascript')
 call minpac#add('leafgarland/typescript-vim')
 call minpac#add('HerringtonDarkholme/yats.vim')
-call minpac#add('cespare/vim-toml')
-call minpac#add('rust-lang/rust.vim')
-call minpac#add('vim-python/python-syntax')
-call minpac#add('ziglang/zig.vim')
+call minpac#add('fatih/vim-go')
 
 " custom filetype syntax mappings
 au BufNewFile,BufRead Jenkinsfile setf groovy
@@ -49,30 +39,19 @@ let mapleader = "," " set leader to space
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)|node_modules$'
 let g:buftabline_indicators = 1
 let g:gruvbox_guisp_fallback = "bg" " fix spell colors for gruvbox
-let g:rustfmt_autosave = 1
 let g:python_highlight_all = 1
-let g:goyo_height = '95%'
-let g:sonic_pi_enabled = 1
-let g:sonic_pi_autolog_enabled = 0
-let g:coc_global_extensions = [
-  \ 'coc-pairs',
-  \ 'coc-prettier', 
-  \ 'coc-json', 
-  \ 'coc-emmet',
-  \ 'coc-tsserver',
-  \ 'coc-rls',
-  \ 'coc-pyright',
-  \ 'coc-zig'
-  \ ]
-
-function! s:goyo_leave()
-         hi Normal guibg=NONE ctermbg=NONE
-endfunction
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_types = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_operators = 1
+let g:go_fmt_command = "goimports"
 
 syntax on           " syntax highlighting
 set mouse=a         " use mouse controls
 " set number          " line numbers
+set scl=no          " hide signs by default
 set linebreak       " AKA wordwrap
 filetype plugin indent on
 set autoindent      " \
@@ -97,14 +76,9 @@ set shortmess+=c    " /
 hi Normal guibg=NONE ctermbg=NONE
 
 " custom statusline
-function! StatuslineGit()
-  let l:branchname = gitbranch#name()
-  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
-endfunction
 function! SubbedCWD()
   return substitute(getcwd(), $HOME, '~', '')
 endfunction
-set statusline=%#PmenuSel#%{StatuslineGit()}%#StatusLineNC#
 set statusline+=%{expand('%:t')}%=\ %{SubbedCWD()}\ %y\ %l:%c
 
 function! ToggleSignColumn()
@@ -119,23 +93,22 @@ map! <C-L> <Esc>
 
 nnoremap <leader>s :call ToggleSignColumn()<CR>
 nnoremap <leader>b :bp<cr>:bd #<cr>
-nnoremap <leader>; A;<Esc>
 
 nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>fn :NERDTreeFind<CR>
-nnoremap <leader>g :Goyo<CR>
-nnoremap <leader>pa :SonicPiStartServer<CR>
-nnoremap <leader>pq :SonicPiStopServer<CR>
 nnoremap <leader>a :A<CR>
 nnoremap <leader>l :Electure 
 nnoremap <leader>e :Ege 
-nnoremap <leader>m :make<CR>
+nnoremap yoq :call QFToggleFun()<CR>
 
 " Ctrl+hjkl to navigate splits
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+autocmd FileType go nmap <leader>r :GoRun!<CR>
+autocmd FileType go nmap <leader>t :GoTest!<CR>
 
 " custom autocommands
 augroup HiglightTODO
@@ -144,10 +117,6 @@ augroup HiglightTODO
   autocmd WinEnter,VimEnter * :silent! call matchadd('Fixme', 'FIXME', -1)
   autocmd WinEnter,VimEnter * :silent! call matchadd('Note', 'NOTE', -1)
 augroup END
-" augroup asciidoctor
-"   au!
-"   au BufEnter *.adoc,*.asciidoc call AsciidoctorMappings()
-" augroup END
 
 " improve highlighting stability in large files
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
@@ -157,19 +126,35 @@ autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 let g:projectionist_heuristics = {
 \ "guides/en-US/sg-chapters/topics/": {
 \   "guides/en-US/sg-chapters/topics/*-ge-content.adoc": {
-\      "type": "ge",
+\      "type": "oge",
 \      "alternate": "guides/en-US/sg-chapters/topics/{}-lecture-content.adoc"
 \    },
 \    "guides/en-US/sg-chapters/topics/*-mc-content.adoc": {
-\      "type": "quiz",
+\      "type": "oquiz",
 \      "alternate": "guides/en-US/sg-chapters/topics/{}-lecture-content.adoc"
 \    },
 \    "guides/en-US/sg-chapters/topics/*-lecture-content.adoc": {
-\      "type": "lecture",
+\      "type": "olecture",
 \    },
 \    "guides/en-US/sg-chapters/topics/*-lab-content.adoc": {
+\      "type": "olab"
+\    },
+\
+\   "content/*/practice.adoc": {
+\      "type": "ge",
+\      "alternate": "content/*/lecture.adoc"
+\    },
+\    "content/*/matching.adoc": {
+\      "type": "quiz",
+\      "alternate": "content/*/lecture.adoc"
+\    },
+\    "content/*/lecture.adoc": {
+\      "type": "lecture",
+\    },
+\    "content/*/review/lab.adoc": {
 \      "type": "lab"
 \    },
+\
 \    "classroom/grading/src/*.py": {
 \      "type": "dyno"
 \    }
@@ -192,64 +177,3 @@ if &diff
   map <leader>2 :diffget BASE<CR>
   map <leader>3 :diffget REMOTE<CR>
 endif
-
-" CoC readme settings
-if has("patch-8.1.1564")
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
-set scl=no
-
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
-inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-autocmd CursorHold * silent call CocActionAsync('highlight')
-augroup mygroup
-  autocmd!
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-command! -nargs=0 Format :call CocAction('format') " Add `:Format` command to format current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>) " Add `:Fold` command to fold current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport') " Add `:OR` command for organize imports of the current buffer.
-
-" CoC mappings
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gr <Plug>(coc-references)
-nmap <leader>qf  <Plug>(coc-fix-current)
-nmap <leader>c  <Plug>(coc-codeaction)
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-nnoremap <silent> K :call <SID>show_documentation()<CR>
