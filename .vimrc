@@ -1,23 +1,22 @@
-" auto install minpac plugin manager
 if empty(glob('~/.vim/pack/minpac/opt/minpac/autoload/minpac/impl.vim'))
   silent !git clone https://github.com/k-takata/minpac.git ~/.vim/pack/minpac/opt/minpac
 endif
 packadd minpac
-call minpac#init()
 
+call minpac#init()
 call minpac#add('k-takata/minpac', {'type': 'opt'})
+call minpac#add('morhetz/gruvbox')
 call minpac#add('editorconfig/editorconfig-vim')
 call minpac#add('ap/vim-buftabline')
 call minpac#add('kien/ctrlp.vim')
-call minpac#add('morhetz/gruvbox')
 call minpac#add('preservim/nerdtree')
 call minpac#add('mihaicristiantanase/vim-toggle-qf')
-
-" git
+call minpac#add('kana/vim-fakeclip')
+call minpac#add('kana/vim-smartinput')
 call minpac#add('airblade/vim-gitgutter')
-call minpac#add('tpope/vim-fugitive')
 
 " all hail Pope Tim
+call minpac#add('tpope/vim-fugitive')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('tpope/vim-repeat')
@@ -30,16 +29,15 @@ call minpac#add('leafgarland/typescript-vim')
 call minpac#add('HerringtonDarkholme/yats.vim')
 call minpac#add('fatih/vim-go')
 
-" custom filetype syntax mappings
 au BufNewFile,BufRead Jenkinsfile setf groovy
 au BufNewFile,BufRead Containerfile setf dockerfile
 au BufNewFile,BufRead *.fish setf sh
 
-let mapleader = "," " set leader to space
+let mapleader = ","
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)|node_modules$'
 let g:buftabline_indicators = 1
 let g:gruvbox_guisp_fallback = "bg" " fix spell colors for gruvbox
-let g:python_highlight_all = 1
+
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
@@ -48,20 +46,20 @@ let g:go_highlight_extra_types = 1
 let g:go_highlight_operators = 1
 let g:go_fmt_command = "goimports"
 
+filetype plugin indent on
 syntax on           " syntax highlighting
 set mouse=a         " use mouse controls
 " set number          " line numbers
 set scl=no          " hide signs by default
-set linebreak       " AKA wordwrap
-filetype plugin indent on
+" set linebreak       " AKA wordwrap
 set autoindent      " \
 set tabstop=2       "  \
 set shiftwidth=2    "   } indentation
 set smarttab        "  /
 set expandtab       " /
-set ssop-=options   " do not store global and local values in a session
-set ssop-=folds     " do not store folds
-set ignorecase      " case insensitive search
+" set ssop-=options   " do not store global and local values in a session
+" set ssop-=folds     " do not store folds
+set ignorecase      " case insensitive search/completion
 set smartcase       " smart sensitive search
 set background=dark " \
 colorscheme gruvbox "  } colors
@@ -69,13 +67,13 @@ set t_Co=256        " /
 set backspace=indent,eol,start
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,node_modules/**,.git/**,yarn.lock,package-lock.json,build/**
 set hidden          " \
-set nobackup        "  \
-set nowritebackup   "   } for CoC
-set updatetime=300  "  /
-set shortmess+=c    " /
+" set nobackup        "  \
+" set nowritebackup   "   } for CoC
+" set updatetime=300  "  /
+" set shortmess+=c    " /
+set omnifunc=syntaxcomplete#Complete
 hi Normal guibg=NONE ctermbg=NONE
 
-" custom statusline
 function! SubbedCWD()
   return substitute(getcwd(), $HOME, '~', '')
 endfunction
@@ -89,19 +87,14 @@ function! ToggleSignColumn()
 	endif
 endfunction
 
-map! <C-L> <Esc>
-
-nnoremap <leader>s :call ToggleSignColumn()<CR>
-nnoremap <leader>b :bp<cr>:bd #<cr>
-
+nnoremap yog :call ToggleSignColumn()<CR>
+nnoremap yoq :call QFToggleFun()<CR>
 nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>fn :NERDTreeFind<CR>
+nnoremap <leader>b :bp<cr>:bd #<cr>
 nnoremap <leader>a :A<CR>
 nnoremap <leader>l :Electure 
 nnoremap <leader>e :Ege 
-nnoremap yoq :call QFToggleFun()<CR>
-
-" Ctrl+hjkl to navigate splits
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
@@ -121,6 +114,21 @@ augroup END
 " improve highlighting stability in large files
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
 autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+
+" terminal mode ESC
+if has('nvim')
+  tnoremap <Esc> <C-\><C-n>
+endif
+
+if &diff
+  highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+  highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+  highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+  highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
+  map <leader>1 :diffget LOCAL<CR>
+  map <leader>2 :diffget BASE<CR>
+  map <leader>3 :diffget REMOTE<CR>
+endif
 
 " projectionist global for GLS courses
 let g:projectionist_heuristics = {
@@ -160,20 +168,3 @@ let g:projectionist_heuristics = {
 \    }
 \   }
 \ }
-
-" terminal mode ESC
-if has('nvim')
-  tnoremap <Esc> <C-\><C-n>
-endif
-
-" vimdiff config
-if &diff
-  highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-  highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-  highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-  highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
-  " git mergetool commands
-  map <leader>1 :diffget LOCAL<CR>
-  map <leader>2 :diffget BASE<CR>
-  map <leader>3 :diffget REMOTE<CR>
-endif
