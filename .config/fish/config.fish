@@ -1,11 +1,10 @@
 set -x EDITOR vim
 fish_add_path $HOME/bin
 fish_add_path /opt/homebrew/bin
-# fish_add_path $HOME/go/bin
-# source ~/.asdf/asdf.fish
+fish_add_path $HOME/go/bin
 
-alias vim="nvim"
 alias sk="java -jar $HOME/code/gls/scaffolding/tools/sk/target/scaffolding.jar"
+alias vale="$HOME/bin/vale/bin/vale"
 alias valesk="vale content/**/*.adoc"
 alias valediff='vale (git diff --name-only main | grep -e ".*\.adoc\$")'
 
