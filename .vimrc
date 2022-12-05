@@ -45,6 +45,8 @@ let g:go_highlight_types = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_operators = 1
 let g:go_fmt_command = "goimports"
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
 
 filetype plugin indent on
 syntax on           " syntax highlighting
@@ -66,6 +68,7 @@ colorscheme gruvbox "  } colors
 set t_Co=256        " /
 set backspace=indent,eol,start
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,node_modules/**,.git/**,yarn.lock,package-lock.json,build/**
+set laststatus=2    " show statusline
 set hidden          " \
 " set nobackup        "  \
 " set nowritebackup   "   } for CoC
