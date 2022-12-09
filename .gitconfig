@@ -1,6 +1,7 @@
 [user]
 	name = Guy Bianco IV
 	email = gjbiancoiv@gmail.com
+	signingkey = /home/guy/.ssh/id_rsa.pub
 [core]
 	excludesfile = ~/.gitignore_global
 	autocrlf = input
@@ -31,3 +32,5 @@
 	prompt = true
 [rerere]
 	enabled = true
+[gpg]
+	format = ssh
