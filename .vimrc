@@ -2,8 +2,8 @@ if empty(glob('~/.vim/pack/minpac/opt/minpac/autoload/minpac/impl.vim'))
   silent !git clone https://github.com/k-takata/minpac.git ~/.vim/pack/minpac/opt/minpac
 endif
 packadd minpac
-
 call minpac#init()
+
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 call minpac#add('morhetz/gruvbox')
 call minpac#add('editorconfig/editorconfig-vim')
@@ -13,6 +13,11 @@ call minpac#add('mihaicristiantanase/vim-toggle-qf')
 call minpac#add('kana/vim-fakeclip')
 call minpac#add('kana/vim-smartinput')
 call minpac#add('airblade/vim-gitgutter')
+call minpac#add('tpope/vim-surround')
+call minpac#add('tpope/vim-commentary')
+call minpac#add('tpope/vim-repeat')
+call minpac#add('tpope/vim-unimpaired')
+call minpac#add('tpope/vim-projectionist')
 
 " snippets
 call minpac#add('MarcWeber/vim-addon-mw-utils')
@@ -20,14 +25,6 @@ call minpac#add('tomtom/tlib_vim')
 call minpac#add('garbas/vim-snipmate')
 call minpac#add('honza/vim-snippets')
 call minpac#add('gjbianco/vim-gls-snippets')
-
-" all hail Pope Tim
-" call minpac#add('tpope/vim-fugitive')
-call minpac#add('tpope/vim-surround')
-call minpac#add('tpope/vim-commentary')
-call minpac#add('tpope/vim-repeat')
-call minpac#add('tpope/vim-unimpaired')
-call minpac#add('tpope/vim-projectionist')
 
 " language-specific plugins
 call minpac#add('habamax/vim-asciidoctor')
@@ -46,7 +43,6 @@ let g:gruvbox_guisp_fallback = "bg" " fix spell colors for gruvbox
 filetype plugin indent on
 syntax on           " syntax highlighting
 set mouse=a         " use mouse controls
-" set number          " line numbers
 set scl=no          " hide signs by default
 set autoindent      " \
 set tabstop=2       "  \
@@ -56,36 +52,28 @@ set expandtab       " /
 set ssop-=options   " do not store global and local values in a session
 set ignorecase      " case insensitive search/completion
 set smartcase       " smart sensitive search
-set background=dark " \
-colorscheme gruvbox "  } colors
-set t_Co=256        " /
 set backspace=indent,eol,start
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,node_modules/**,.git/**,yarn.lock,package-lock.json,build/**
 set laststatus=2    " show statusline
 set hidden
 set updatetime=300  " update git column faster
 set omnifunc=syntaxcomplete#Complete
+set background=dark
+set t_Co=256
+colorscheme gruvbox
 hi Normal guibg=NONE ctermbg=NONE
 
 set statusline=%f%=%{substitute(getcwd(),$HOME,'~','')}\ %y\ %l:%c
 
 nnoremap yog :exe "set signcolumn=" .. (&signcolumn == "yes" ? "no" : "yes")<CR>
 nnoremap yoq :call QFToggleFun()<CR>
-
 nnoremap <leader>wr :r! ssh workstation -q 
 nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>fn :NERDTreeFind<CR>
 nnoremap <leader>b :bp<cr>:bd #<cr>
 nnoremap <leader>l :Electure 
 nnoremap <leader>e :Ege
-
 imap <C-l> <Plug>snipMateShow
-
-" improve highlighting stability in large files
-autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
-autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
-
-" terminal mode ESC
 tnoremap <Esc> <C-\><C-n>
 
 if &diff
@@ -98,7 +86,6 @@ if &diff
   map <leader>3 :diffget REMOTE<CR>
 endif
 
-" projectionist global for GLS courses
 let g:projectionist_heuristics = {
 \ "guides/en-US/sg-chapters/topics/": {
 \   "content/*/lecture.adoc": {
