@@ -15,13 +15,10 @@ font:
 key_bindings:
 - key: K
   mods: Control
-  action: None
+  action: ReceiveChar
 - key: W
   mods: Control
-  action: None
-- key: N
-  mods: Control
-  action: SpawnNewInstance
+  action: ReceiveChar
 - key: F
   mods: Super
   action: ToggleFullscreen
