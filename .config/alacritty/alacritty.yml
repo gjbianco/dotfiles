@@ -1,5 +1,6 @@
 window:
   # decorations: buttonless
+  opacity: 0.96
   dimensions:
     columns: 160
     lines: 48
