@@ -12,41 +12,18 @@ function fish_prompt
             end
         end
 
-        function _is_git_dirty
-            echo (git status -s --ignore-submodules=dirty 2>/dev/null)
-        end
-
         function _is_git_repo
             type -q git
             or return 1
             git rev-parse --git-dir >/dev/null 2>&1
         end
 
-        function _hg_branch_name
-            echo (hg branch 2>/dev/null)
-        end
-
-        function _is_hg_dirty
-            echo (hg status -mard 2>/dev/null)
-        end
-
-        function _is_hg_repo
-            fish_print_hg_root >/dev/null
-        end
-
         function _repo_branch_name
             _$argv[1]_branch_name
         end
 
-        function _is_repo_dirty
-            _is_$argv[1]_dirty
-        end
-
         function _repo_type
-            if _is_hg_repo
-                echo 'hg'
-                return 0
-            else if _is_git_repo
+            if _is_git_repo
                 echo 'git'
                 return 0
             end
@@ -76,15 +53,6 @@ function fish_prompt
     if set -l repo_type (_repo_type)
         set -l repo_branch $red(_repo_branch_name $repo_type)
         set repo_info "$blue $repo_type:($repo_branch$blue)"
-
-        if [ (_is_repo_dirty $repo_type) ]
-            set -l dirty "$yellow ✗"
-            set repo_info "$repo_info$dirty"
-        end
-    end
-
-    if set -q VIRTUAL_ENV
-        echo -n -s (set_color green) "(" (set_color blue) (basename "$VIRTUAL_ENV") (set_color green) ")" (set_color normal) " "
     end
 
     echo -n -s $arrow ' '$cwd $repo_info $normal ' '
