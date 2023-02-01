@@ -12,22 +12,23 @@ set $menu dmenu_path | dmenu | xargs swaymsg exec --
 set $file alacritty -e nnn
 set $lock swaylock -f -e -c 232323 -K --font Sans
 
-output * bg /usr/share/backgrounds/gnome/libadwaita-d.jpg fill
+# output * bg /usr/share/backgrounds/gnome/libadwaita-d.jpg fill
+output * bg /usr/share/backgrounds/gnome/adwaita-d.webp fill
 output DP-1 resolution 2560x1440@144Hz
 output eDP-1 resolution 1920x1080@60Hz pos 0,0 scale 1.2
 
 # lock screen after 20 minutes of inactivity, turn off displays after 15 minutes (non-additive)
 exec swayidle -w timeout 1200 "$lock" timeout 900 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' before-sleep "$lock"
 exec dunst
-seat * hide_cursor 5000
+# seat * hide_cursor 5000
 bar {
   swaybar_command waybar
 }
 
 # kill firefox sharing indicator
-# for_window [app_id="firefox" title="Firefox — Sharing Indicator"] {
-#   kill
-# }
+for_window [app_id="firefox" title="Firefox — Sharing Indicator"] {
+  kill
+}
 
 input "type:pointer" {
     dwt enabled
