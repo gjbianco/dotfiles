@@ -1,99 +1,31 @@
-nohup.out
-
-# merge files
-*.orig
-
-# publican generated files?
-.fop
-?
-
-# SSH Keys #
 id_rsa
 id_rsa.pub
 id_dsa
 id_dsa.pub
 
-# Compiled source #
-###################
-*.com
+nohup.out
 *.class
-*.dll
-*.exe
-*.o
-*.so
-
-# IntelliJ files #
-##################
-.idea/
-
-# Packages #
-############
-# it's better to unpack these files and commit the raw source
-# git has its own built in compression methods
 *.7z
-*.dmg
 *.gz
 *.iso
 *.jar
 *.rar
 *.tar
 *.zip
-
-# Logs and databases #
-######################
 *.log
-#*.sql
-*.sqlite
 
-# OS generated files #
-######################
 .DS_Store
 .DS_Store?
 ._*
 .Spotlight-V100
 .Trashes
-# Icon?
 ehthumbs.db
 Thumbs.db
 
-# Eclipse files #
-#############
-/.project
-.classpath
-.settings/
-/.metadata
-target/
-*.prefs
-*.name
-*.container
-*.component
-*.project
-*.buildscript
-MANIFEST.MF
-
-# Maven Files #
-###############
-*.sha1
-*.repositories
-*.Final.pom*
-*.lastUpdated
-
-
-# Dropbox Files #
-###############
-*/Dropbox/
-
-# Vim Files #
-###############
 *.swp
-Session.vim
 *.vim
+*.orig
 # explicitly allow tracking of ~/.vim/
 !.vim
 
-# Sublime Text Projects *
-*.sublime-project
-*.sublime-workspace
-
-# VSCode
 .vscode

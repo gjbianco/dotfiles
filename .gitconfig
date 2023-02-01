@@ -1,7 +1,6 @@
 [user]
 	name = Guy Bianco IV
 	email = gjbiancoiv@gmail.com
-	signingkey = /home/guy/.ssh/id_rsa.pub
 [core]
 	excludesfile = ~/.gitignore_global
 	autocrlf = input
@@ -9,7 +8,6 @@
 	st = status
 	co = checkout
 	contributors = shortlog -sn
-	last = for-each-ref --count=10 --sort=-committerdate refs/heads/ --format="%(refname:short)"
 	graph-simple = log --graph --simplify-by-decoration --pretty=format:'%d' --all	
   graph = log --graph --full-history --all --color --pretty=tformat:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s%x20%x1b[33m(%an)%x1b[0m"
   files = diff --name-only
