@@ -13,7 +13,7 @@ call minpac#add('kana/vim-fakeclip')
 call minpac#add('kana/vim-smartinput')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('dense-analysis/ale')
-call minpac#add('habamax/vim-asciidoctor')
+call minpac#add('gjbianco/vim-asciidoc-syntax')
 call minpac#add('justinmk/vim-dirvish')
 call minpac#add('gjbianco/vim-dirvish-dovish')
 call minpac#add('tpope/vim-surround')
@@ -65,9 +65,12 @@ hi Normal guibg=NONE ctermbg=NONE
 
 set statusline=%f%=%{substitute(getcwd(),$HOME,'~','')}\ %y\ %l:%c
 
+xnoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
+onoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
 nnoremap yog :exe "set signcolumn=" .. (&signcolumn == "yes" ? "no" : "yes")<CR>
 nnoremap yoq :call QFToggleFun()<CR>
-nnoremap <leader>w :r! ssh workstation -q 
+xnoremap <leader>ws :keepp s/\\\n//g<CR>
+nnoremap <leader>wr :r! ssh workstation -q 
 nnoremap <leader>b :bd<CR>
 nnoremap <leader>a :ALECodeAction<CR>
 nnoremap <leader>gd :ALEGoToDefinition<CR>
