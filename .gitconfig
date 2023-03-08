@@ -24,6 +24,10 @@
 	rebase = false
 [diff]
 	tool = vimdiff
+[difftool]
+  trustExitCode = true
+[mergetool "vimdiff"]
+    trustExitCode = true
 [init]
 	defaultBranch = main
 [mergetool]
@@ -32,3 +36,8 @@
 	enabled = true
 [gpg]
 	format = ssh
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
