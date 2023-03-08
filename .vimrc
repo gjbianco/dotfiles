@@ -14,8 +14,7 @@ call minpac#add('kana/vim-smartinput')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('dense-analysis/ale')
 call minpac#add('gjbianco/vim-asciidoc-syntax')
-call minpac#add('justinmk/vim-dirvish')
-call minpac#add('gjbianco/vim-dirvish-dovish')
+call minpac#add('mcchrish/nnn.vim')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('tpope/vim-repeat')
@@ -32,13 +31,14 @@ call minpac#add('gjbianco/vim-gls-snippets')
 let g:buftabline_indicators = 1
 let g:snipMate = {'snippet_version': 1}
 let g:gruvbox_guisp_fallback = "bg" " fix spell colors for gruvbox
-let g:dirvish_mode = 2
+let g:nnn#session = 'local'
 let g:ale_fix_on_save = 1
 let g:ale_linters = {'rust': ['analyzer']}
 let g:ale_fixers = {'rust': ['rustfmt'], 'python': ['black']}
 
 au BufNewFile,BufRead Jenkinsfile setf groovy
 au BufNewFile,BufRead Containerfile setf dockerfile
+au FileType asciidoc setlocal commentstring=//\ %s
 
 filetype plugin indent on
 syntax on           " syntax highlighting
@@ -54,6 +54,7 @@ set ignorecase      " case insensitive search/completion
 set smartcase       " smart sensitive search
 set laststatus=2    " show statusline
 set updatetime=300  " update git column faster
+set ttyfast
 set hidden
 set backspace=indent,eol,start
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,node_modules/**,.git/**,yarn.lock,package-lock.json,build/**
@@ -69,6 +70,8 @@ xnoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
 onoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
 nnoremap yog :exe "set signcolumn=" .. (&signcolumn == "yes" ? "no" : "yes")<CR>
 nnoremap yoq :call QFToggleFun()<CR>
+nnoremap <leader>en :NnnExplorer<CR>
+nnoremap <leader>fn :NnnPicker %:p:h<CR>
 xnoremap <leader>ws :keepp s/\\\n//g<CR>
 nnoremap <leader>wr :r! ssh workstation -q 
 nnoremap <leader>b :bd<CR>
@@ -95,16 +98,13 @@ let g:projectionist_heuristics = {
 \   },
 \   "content/*/ge.adoc": {
 \      "type": "ge",
-\      "alternate": "content/*/lecture.adoc"
 \    },
 \    "content/*/matching.adoc": {
 \      "type": "quiz",
-\      "alternate": "content/*/lecture.adoc"
 \    },
 \    "content/*/review/lab.adoc": {
 \      "type": "lab"
 \    },
-\
 \    "classroom/grading/src/*.py": {
 \      "type": "dyno"
 \    }
