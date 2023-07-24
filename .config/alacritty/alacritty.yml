@@ -9,7 +9,7 @@ scrolling:
   history: 0
 
 font:
-  size: 13.5
+  size: 12
   normal:
     family: 'JetBrains Mono'
 
