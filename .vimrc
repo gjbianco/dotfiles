@@ -8,13 +8,13 @@ call minpac#add('k-takata/minpac', {'type': 'opt'})
 call minpac#add('morhetz/gruvbox')
 call minpac#add('editorconfig/editorconfig-vim')
 call minpac#add('ap/vim-buftabline')
+call minpac#add('preservim/nerdtree')
 call minpac#add('mihaicristiantanase/vim-toggle-qf')
 call minpac#add('kana/vim-fakeclip')
 call minpac#add('kana/vim-smartinput')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('dense-analysis/ale')
 call minpac#add('gjbianco/vim-asciidoc-syntax')
-call minpac#add('mcchrish/nnn.vim')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('tpope/vim-repeat')
@@ -34,7 +34,7 @@ let g:gruvbox_guisp_fallback = "bg" " fix spell colors for gruvbox
 let g:nnn#session = 'local'
 let g:ale_fix_on_save = 1
 let g:ale_linters = {'rust': ['analyzer']}
-let g:ale_fixers = {'rust': ['rustfmt'], 'python': ['black']}
+let g:ale_fixers = {'rust': ['rustfmt'], 'python': ['black'], 'typescriptreact': ['prettier']}
 
 au BufNewFile,BufRead Jenkinsfile setf groovy
 au BufNewFile,BufRead Containerfile setf dockerfile
@@ -54,6 +54,7 @@ set ignorecase      " case insensitive search/completion
 set smartcase       " smart sensitive search
 set laststatus=2    " show statusline
 set updatetime=300  " update git column faster
+set linebreak       " handle line wrapping better
 set ttyfast
 set hidden
 set backspace=indent,eol,start
@@ -70,16 +71,17 @@ xnoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
 onoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
 nnoremap yog :exe "set signcolumn=" .. (&signcolumn == "yes" ? "no" : "yes")<CR>
 nnoremap yoq :call QFToggleFun()<CR>
-nnoremap <leader>en :NnnExplorer<CR>
-nnoremap <leader>fn :NnnPicker %:p:h<CR>
+nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <leader>fn :NERDTreeFind<CR>
 xnoremap <leader>ws :keepp s/\\\n//g<CR>
 nnoremap <leader>wr :r! ssh workstation -q 
 nnoremap <leader>b :bd<CR>
 nnoremap <leader>a :ALECodeAction<CR>
-nnoremap <leader>gd :ALEGoToDefinition<CR>
+nnoremap <leader>d :ALEGoToDefinition<CR>
 nnoremap K :ALEHover<CR>
 imap <C-l> <Plug>snipMateShow
 tnoremap <Esc> <C-\><C-n>
+tnoremap <C-v><Esc> <Esc>
 
 if &diff
   highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
@@ -99,7 +101,7 @@ let g:projectionist_heuristics = {
 \   "content/*/ge.adoc": {
 \      "type": "ge",
 \    },
-\    "content/*/matching.adoc": {
+\    "content/*/multichoice.adoc": {
 \      "type": "quiz",
 \    },
 \    "content/*/review/lab.adoc": {
