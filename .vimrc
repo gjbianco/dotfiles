@@ -15,6 +15,8 @@ call minpac#add('kana/vim-smartinput')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('dense-analysis/ale')
 call minpac#add('gjbianco/vim-asciidoc-syntax')
+call minpac#add('Yggdroot/indentLine')
+call minpac#add('wfxr/minimap.vim')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('tpope/vim-repeat')
@@ -31,7 +33,11 @@ call minpac#add('gjbianco/vim-gls-snippets')
 let g:buftabline_indicators = 1
 let g:snipMate = {'snippet_version': 1}
 let g:gruvbox_guisp_fallback = "bg" " fix spell colors for gruvbox
-let g:nnn#session = 'local'
+let g:indentLine_char = '│'
+let g:indentLine_enabled = 0
+let g:minimap_width = 20
+let g:minimap_git_colors = 1
+let g:minimap_auto_start_win_enter = 1
 let g:ale_fix_on_save = 1
 let g:ale_linters = {'rust': ['analyzer']}
 let g:ale_fixers = {'rust': ['rustfmt'], 'python': ['black'], 'typescriptreact': ['prettier']}
@@ -71,6 +77,8 @@ xnoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
 onoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
 nnoremap yog :exe "set signcolumn=" .. (&signcolumn == "yes" ? "no" : "yes")<CR>
 nnoremap yoq :call QFToggleFun()<CR>
+nnoremap yoo :IndentLinesToggle<CR>
+nnoremap yom :MinimapToggle<CR>
 nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>fn :NERDTreeFind<CR>
 xnoremap <leader>ws :keepp s/\\\n//g<CR>
