@@ -9,7 +9,6 @@ call minpac#add('morhetz/gruvbox')
 call minpac#add('editorconfig/editorconfig-vim')
 call minpac#add('ap/vim-buftabline')
 call minpac#add('preservim/nerdtree')
-call minpac#add('mihaicristiantanase/vim-toggle-qf')
 call minpac#add('kana/vim-fakeclip')
 call minpac#add('kana/vim-smartinput')
 call minpac#add('airblade/vim-gitgutter')
@@ -40,7 +39,8 @@ let g:minimap_git_colors = 1
 let g:minimap_auto_start_win_enter = 1
 let g:ale_fix_on_save = 1
 let g:ale_linters = {'rust': ['analyzer']}
-let g:ale_fixers = {'rust': ['rustfmt'], 'python': ['black'], 'typescriptreact': ['prettier']}
+let g:ale_fixers = {'rust': ['rustfmt'], 'python': ['black'], 'typescriptreact': ['prettier'], 'javascript': ['prettier'], 'yaml': ['prettier']}
+let g:ale_virtualtext_cursor = 'disabled'
 
 au BufNewFile,BufRead Jenkinsfile setf groovy
 au BufNewFile,BufRead Containerfile setf dockerfile
@@ -73,20 +73,33 @@ hi Normal guibg=NONE ctermbg=NONE
 
 set statusline=%f%=%{substitute(getcwd(),$HOME,'~','')}\ %y\ %l:%c
 
-xnoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
-onoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
+" mode toggles in the style of vim-unimpaired
 nnoremap yog :exe "set signcolumn=" .. (&signcolumn == "yes" ? "no" : "yes")<CR>
 nnoremap yoq :call QFToggleFun()<CR>
 nnoremap yoo :IndentLinesToggle<CR>
 nnoremap yom :MinimapToggle<CR>
-nnoremap <leader>n :NERDTreeToggle<CR>
-nnoremap <leader>fn :NERDTreeFind<CR>
+
+" work-specific shortcuts
 xnoremap <leader>ws :keepp s/\\\n//g<CR>
 nnoremap <leader>wr :r! ssh workstation -q 
-nnoremap <leader>b :bd<CR>
-nnoremap <leader>a :ALECodeAction<CR>
-nnoremap <leader>d :ALEGoToDefinition<CR>
+nnoremap <leader>wb :!sk flamel && rm -rf guides/tmp && flamel sg<CR>
+nnoremap <leader>wm :!scp guides/tmp/en-US/pdf/*.pdf guys-macbook-air:Desktop<CR>
+nnoremap <leader>wp :!open guides/tmp/en-US/pdf/*.pdf &<CR>
+nnoremap <leader>ww :!scp "%" workstation:<CR>
+xnoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
+onoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
+
+" ALE mappings
 nnoremap K :ALEHover<CR>
+nnoremap <leader>aa :ALECodeAction<CR>
+nnoremap <leader>ad :ALEGoToDefinition<CR>
+nnoremap <leader>an :ALENext<cr>
+nnoremap <leader>ap :ALEPrevious<cr>
+
+nnoremap <Space> za
+nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <leader>fn :NERDTreeFind<CR>
+nnoremap <leader>b :bd<CR>
 imap <C-l> <Plug>snipMateShow
 tnoremap <Esc> <C-\><C-n>
 tnoremap <C-v><Esc> <Esc>
@@ -102,21 +115,21 @@ if &diff
 endif
 
 let g:projectionist_heuristics = {
-\ "guides/en-US/sg-chapters/topics/": {
-\   "content/*/lecture.adoc": {
-\     "type": "lecture"
-\   },
-\   "content/*/ge.adoc": {
-\      "type": "ge",
-\    },
-\    "content/*/multichoice.adoc": {
-\      "type": "quiz",
-\    },
-\    "content/*/review/lab.adoc": {
-\      "type": "lab"
-\    },
-\    "classroom/grading/src/*.py": {
-\      "type": "dyno"
-\    }
+\   "guides/en-US/sg-chapters/topics/": {
+\     "content/*/lecture.adoc": {
+\       "type": "lecture"
+\     },
+\     "content/*/ge.adoc": {
+\       "type": "ge",
+\     },
+\     "content/*/multichoice.adoc": {
+\       "type": "quiz",
+\     },
+\     "content/*/review/lab.adoc": {
+\       "type": "lab"
+\     },
+\     "classroom/grading/src/*.py": {
+\       "type": "dyno"
+\     }
 \   }
 \ }
