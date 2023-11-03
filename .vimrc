@@ -6,21 +6,24 @@ call minpac#init()
 
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 call minpac#add('morhetz/gruvbox')
-call minpac#add('editorconfig/editorconfig-vim')
+" call minpac#add('editorconfig/editorconfig-vim')
 call minpac#add('ap/vim-buftabline')
 call minpac#add('preservim/nerdtree')
-call minpac#add('kana/vim-fakeclip')
+" call minpac#add('kana/vim-fakeclip')
 call minpac#add('kana/vim-smartinput')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('dense-analysis/ale')
-call minpac#add('gjbianco/vim-asciidoc-syntax')
 call minpac#add('Yggdroot/indentLine')
-call minpac#add('wfxr/minimap.vim')
+" call minpac#add('wfxr/minimap.vim')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('tpope/vim-repeat')
 call minpac#add('tpope/vim-unimpaired')
 call minpac#add('tpope/vim-projectionist')
+
+" language-specific
+call minpac#add('gjbianco/vim-asciidoc-syntax')
+call minpac#add('fatih/vim-go')
 
 " snippets
 call minpac#add('MarcWeber/vim-addon-mw-utils')
@@ -34,17 +37,26 @@ let g:snipMate = {'snippet_version': 1}
 let g:gruvbox_guisp_fallback = "bg" " fix spell colors for gruvbox
 let g:indentLine_char = '│'
 let g:indentLine_enabled = 0
-let g:minimap_width = 20
-let g:minimap_git_colors = 1
-let g:minimap_auto_start_win_enter = 1
+" let g:minimap_width = 20
+" let g:minimap_git_colors = 1
+" let g:minimap_auto_start_win_enter = 1
 let g:ale_fix_on_save = 1
 let g:ale_linters = {'rust': ['analyzer']}
-let g:ale_fixers = {'rust': ['rustfmt'], 'python': ['black'], 'typescriptreact': ['prettier'], 'javascript': ['prettier'], 'yaml': ['prettier']}
+let g:ale_fixers = {'rust': ['rustfmt'], 'python': ['black'], 'typescriptreact': ['prettier'], 'javascript': ['prettier'], 'yaml': ['prettier'], 'go': ['gofmt','goimports']}
 let g:ale_virtualtext_cursor = 'disabled'
 
-au BufNewFile,BufRead Jenkinsfile setf groovy
-au BufNewFile,BufRead Containerfile setf dockerfile
-au FileType asciidoc setlocal commentstring=//\ %s
+let g:go_doc_popup_window = 1
+let g:go_list_autoclose = 1
+let g:go_fmt_fail_silently = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_function = 1
+let g:go_highlight_function_parameters = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_format_strings = 1
+let g:go_highlight_variable_declarations = 1
+let g:go_highlight_variable_assignments = 1
 
 filetype plugin indent on
 syntax on           " syntax highlighting
@@ -67,9 +79,13 @@ set backspace=indent,eol,start
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,node_modules/**,.git/**,yarn.lock,package-lock.json,build/**
 set omnifunc=ale#completion#OmniFunc
 
+au BufNewFile,BufRead Jenkinsfile setf groovy
+au BufNewFile,BufRead Containerfile setf dockerfile
+au FileType asciidoc setlocal commentstring=//\ %s
+
 colorscheme gruvbox
 set background=dark
-hi Normal guibg=NONE ctermbg=NONE
+" hi Normal guibg=NONE ctermbg=NONE
 
 set statusline=%f%=%{substitute(getcwd(),$HOME,'~','')}\ %y\ %l:%c
 
@@ -77,14 +93,14 @@ set statusline=%f%=%{substitute(getcwd(),$HOME,'~','')}\ %y\ %l:%c
 nnoremap yog :exe "set signcolumn=" .. (&signcolumn == "yes" ? "no" : "yes")<CR>
 nnoremap yoq :call QFToggleFun()<CR>
 nnoremap yoo :IndentLinesToggle<CR>
-nnoremap yom :MinimapToggle<CR>
+" nnoremap yom :MinimapToggle<CR>
 
 " work-specific shortcuts
-xnoremap <leader>ws :keepp s/\\\n//g<CR>
+xnoremap <leader>wl :keepp s/\\\n//g<CR>
 nnoremap <leader>wr :r! ssh workstation -q 
 nnoremap <leader>wb :!sk flamel && rm -rf guides/tmp && flamel sg<CR>
-nnoremap <leader>wm :!scp guides/tmp/en-US/pdf/*.pdf guys-macbook-air:Desktop<CR>
-nnoremap <leader>wp :!open guides/tmp/en-US/pdf/*.pdf &<CR>
+nnoremap <leader>wsm :!scp guides/tmp/en-US/pdf/*.pdf guys-macbook-air:Desktop<CR>
+nnoremap <leader>wp :!zathura guides/tmp/en-US/pdf/*.pdf &<CR>
 nnoremap <leader>ww :!scp "%" workstation:<CR>
 xnoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
 onoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
