@@ -55,5 +55,9 @@ function fish_prompt
         set repo_info "$blue $repo_type:($repo_branch$blue)"
     end
 
+    if set -q VIRTUAL_ENV
+        echo -n -s (set_color blue) "(" (basename "$VIRTUAL_ENV") ")" (set_color normal) " "
+    end
+
     echo -n -s $arrow ' '$cwd $repo_info $normal ' '
 end
