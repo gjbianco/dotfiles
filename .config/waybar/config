@@ -6,20 +6,30 @@
 
   "modules-left": ["sway/workspaces", "sway/mode"],
   "modules-center": ["sway/window"],
-  "modules-right": ["tray", "cpu", "memory", "pulseaudio", "network", "battery", "clock"],
+  /* "modules-right": ["tray", "cpu", "memory", "pulseaudio", "network", "battery", "clock"], */
+  "modules-right": ["idle_inhibitor", "cpu", "memory", "pulseaudio", "battery", "tray", "clock"],
 
+  "sway/workspaces": {
+    "disable-scroll": true
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+        "activated": "",
+        "deactivated": ""
+    }
+  },
   "sway/window": {
     "max-length": 250
   },
   "tray": {
     "icon-size": 18,
-    "spacing": 10
+    "spacing": 8
   },
   "battery": {
     "interval": 10,
-    "format": "{icon}  {capacity}%",
+    "format": "{capacity}%",
     "full-at": 99,
-    "format-icons": ["", "", "", "", ""]
   },
   "clock": {
     "interval": 30,
@@ -31,18 +41,16 @@
   },
   "cpu": {
     "interval": 3,
-    "format": " {usage:3d}%",
+    "format": "{usage:3d}%",
     "on-click": "alacritty -e s-tui"
     /* "tooltip": false */
   },
   "memory": {
     "interval": 5,
-    "format": " {percentage:3d}%",
+    "format": "{percentage:3d}%",
     "tooltip-format": "{used:0.1f}G / {total:0.1f}G used"
   },
   "network": {
-    /* "interface": "eno*", */
-    /* "format-ethernet": "<b>🖧</b>", */
     "format-ethernet": "<b>⛫</b>",
     "format-wifi": "",
     /* "tooltip-format": "{ifname} ({signalStrength}%): {ipaddr}/{cidr}", */
@@ -52,14 +60,14 @@
   },
   "pulseaudio": {
     "scroll-step": 5,
-    /* "format": "{volume}% {icon} {format_source}", */
-    "format": "{icon} {volume:3d}%",
+    "format": "{volume}% {icon} {format_source}",
+    /* "format": "{icon} {volume:3d}%", */
     "format-bluetooth": "{volume}% {icon} {format_source}",
     "format-bluetooth-muted": " {icon} {format_source}",
     /* TODO fix mute symbol to be non-emoji */
     "format-muted": "{volume}% 🔇{format_source}",
-    "format-source": "{volume}% ",
-    "format-source-muted": "{volume}% ",
+    "format-source": "{volume}%",
+    "format-source-muted": "",
     "format-icons": {
       "headphone": "",
       "phone": "",
