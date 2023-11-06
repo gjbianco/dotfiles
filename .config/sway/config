@@ -8,19 +8,20 @@ set $down j
 set $up k
 set $right l
 set $term alacritty
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
+set $menu bemenu-run -p "" --fn jetbrains-mono 10 --ch 0 -H 16 --hp 10 -B 0 \
+  --tb "#285577" --hb "#285577" --tf "#eeeeee" --hf "#eeeeee" --nf "#bbbbbb" --bdr "#111111"
 set $file alacritty -e nnn
 set $lock swaylock -f -e -c 232323 -K --font Sans
 
 # output * bg /usr/share/backgrounds/gnome/libadwaita-d.jpg fill
-output * bg /usr/share/backgrounds/gnome/adwaita-d.webp fill
-output DP-1 resolution 2560x1440@144Hz
-output eDP-1 resolution 1920x1080@60Hz pos 0,0 scale 1.2
+output LVDS-1 resolution 1366x768@60Hz pos 0,0 scale 1
 
 # lock screen after 20 minutes of inactivity, turn off displays after 15 minutes (non-additive)
 exec swayidle -w timeout 1200 "$lock" timeout 900 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' before-sleep "$lock"
 exec dunst
-# seat * hide_cursor 5000
+exec nm-applet
+seat * hide_cursor 5000
+seat * hide_cursor when-typing enable
 bar {
   swaybar_command waybar
 }
@@ -30,29 +31,20 @@ for_window [app_id="firefox" title="Firefox — Sharing Indicator"] {
   kill
 }
 
-input "type:pointer" {
-    dwt enabled
-    natural_scroll disabled
-    accel_profile "flat" # disable acceleration
-    pointer_accel 0 # mouse sensitivity (between -1 and 1)
-}
+# input "type:pointer" {
+#     dwt enabled
+#     natural_scroll disabled
+#     accel_profile "flat" # disable acceleration
+#     pointer_accel 0 # mouse sensitivity (between -1 and 1)
+# }
 
 input "type:touchpad" {
-    dwt enabled
-    tap enabled
-    natural_scroll enabled
-    middle_emulation enabled
-    pointer_accel 0.1
-    # accel_profile "adaptive" # enable acceleration
+  events disabled
 }
 
-input "1267:51:Elan_TrackPoint" {
-    pointer_accel -0.5
-}
-
-input "1149:32934:Kensington_ORBIT_WIRELESS_TB_Mouse" {
-    middle_emulation enabled
-}
+# input "1267:51:Elan_TrackPoint" {
+#     pointer_accel -0.5
+# }
 
 input "type:keyboard" {
     xkb_layout us,de
@@ -129,8 +121,10 @@ bindsym $mod+r mode "resize"
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
-bindsym XF86MonBrightnessUp exec brightnessctl set +10%
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl prev
+bindsym XF86Launch1 exec systemctl suspend
+
+bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +10%
