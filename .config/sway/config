@@ -2,7 +2,8 @@ default_border none
 gaps inner 5
 smart_gaps on
 
-set $mod Mod1
+# set $mod Mod1
+set $mod Mod4
 set $left h
 set $down j
 set $up k
@@ -13,8 +14,7 @@ set $menu bemenu-run -p "" --fn jetbrains-mono 10 --ch 0 -H 16 --hp 10 -B 0 \
 set $file alacritty -e nnn
 set $lock swaylock -f -e -c 232323 -K --font Sans
 
-# output * bg /usr/share/backgrounds/gnome/libadwaita-d.jpg fill
-output LVDS-1 resolution 1366x768@60Hz pos 0,0 scale 1
+output DP-1 resolution 2560x1440@144Hz
 
 # lock screen after 20 minutes of inactivity, turn off displays after 15 minutes (non-additive)
 exec swayidle -w timeout 1200 "$lock" timeout 900 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' before-sleep "$lock"
@@ -42,14 +42,19 @@ input "type:touchpad" {
   events disabled
 }
 
-# input "1267:51:Elan_TrackPoint" {
-#     pointer_accel -0.5
-# }
+input "type:touch" {
+  events disabled
+}
+
+input "1267:51:Elan_TrackPoint" {
+    pointer_accel -0.25
+    natural_scroll enabled
+}
 
 input "type:keyboard" {
     xkb_layout us,de
     xkb_variant ,nodeadkeys
-    xkb_options ctrl:nocaps
+    xkb_options ctrl:nocaps,altwin:swap_alt_win
 }
 
 floating_modifier $mod normal
