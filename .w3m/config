@@ -1,0 +1,17 @@
+display_link 1
+graphic_char 2
+display_image 0
+ext_image_viewer 1
+imgdisplay w3mimgdisplay
+image_viewer imv %s
+editor vim -c "set filetype=html"
+
+color 1
+basic_color terminal
+anchor_color blue
+image_color green
+form_color cyan
+mark_color yellow
+bg_color terminal
+active_style 0
+visited_anchor 0
