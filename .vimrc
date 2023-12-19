@@ -6,15 +6,12 @@ call minpac#init()
 
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 call minpac#add('morhetz/gruvbox')
-" call minpac#add('editorconfig/editorconfig-vim')
 call minpac#add('ap/vim-buftabline')
 call minpac#add('preservim/nerdtree')
-" call minpac#add('kana/vim-fakeclip')
 call minpac#add('kana/vim-smartinput')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('dense-analysis/ale')
 call minpac#add('Yggdroot/indentLine')
-" call minpac#add('wfxr/minimap.vim')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('tpope/vim-repeat')
@@ -24,6 +21,7 @@ call minpac#add('tpope/vim-projectionist')
 " language-specific
 call minpac#add('gjbianco/vim-asciidoc-syntax')
 call minpac#add('fatih/vim-go')
+call minpac#add('mattn/emmet-vim')
 
 " snippets
 call minpac#add('MarcWeber/vim-addon-mw-utils')
@@ -37,12 +35,9 @@ let g:snipMate = {'snippet_version': 1}
 let g:gruvbox_guisp_fallback = "bg" " fix spell colors for gruvbox
 let g:indentLine_char = '│'
 let g:indentLine_enabled = 0
-" let g:minimap_width = 20
-" let g:minimap_git_colors = 1
-" let g:minimap_auto_start_win_enter = 1
 let g:ale_fix_on_save = 1
 let g:ale_linters = {'rust': ['analyzer']}
-let g:ale_fixers = {'rust': ['rustfmt'], 'python': ['black'], 'typescriptreact': ['prettier'], 'javascript': ['prettier'], 'yaml': ['prettier'], 'go': ['gofmt','goimports']}
+let g:ale_fixers = {'rust': ['rustfmt'], 'python': ['black'], 'typescriptreact': ['prettier'], 'javascript': ['prettier'], 'yaml': ['prettier'], 'go': ['gofmt','goimports'], 'html': ['prettier'], 'gohtmltmpl': ['prettier']}
 let g:ale_virtualtext_cursor = 'disabled'
 
 let g:go_doc_popup_window = 1
@@ -85,6 +80,7 @@ au FileType asciidoc setlocal commentstring=//\ %s
 
 colorscheme gruvbox
 set background=dark
+" set background=light
 " hi Normal guibg=NONE ctermbg=NONE
 
 set statusline=%f%=%{substitute(getcwd(),$HOME,'~','')}\ %y\ %l:%c
@@ -93,13 +89,13 @@ set statusline=%f%=%{substitute(getcwd(),$HOME,'~','')}\ %y\ %l:%c
 nnoremap yog :exe "set signcolumn=" .. (&signcolumn == "yes" ? "no" : "yes")<CR>
 nnoremap yoq :call QFToggleFun()<CR>
 nnoremap yoo :IndentLinesToggle<CR>
-" nnoremap yom :MinimapToggle<CR>
 
 " work-specific shortcuts
 xnoremap <leader>wl :keepp s/\\\n//g<CR>
 nnoremap <leader>wr :r! ssh workstation -q 
 nnoremap <leader>wb :!sk flamel && rm -rf guides/tmp && flamel sg<CR>
 nnoremap <leader>wsm :!scp guides/tmp/en-US/pdf/*.pdf guys-macbook-air:Desktop<CR>
+nnoremap <leader>wst :!scp guides/tmp/en-US/pdf/*.pdf abra:/tmp<CR>
 nnoremap <leader>wp :!zathura guides/tmp/en-US/pdf/*.pdf &<CR>
 nnoremap <leader>ww :!scp "%" workstation:<CR>
 xnoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
@@ -109,8 +105,8 @@ onoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
 nnoremap K :ALEHover<CR>
 nnoremap <leader>aa :ALECodeAction<CR>
 nnoremap <leader>ad :ALEGoToDefinition<CR>
-nnoremap <leader>an :ALENext<cr>
-nnoremap <leader>ap :ALEPrevious<cr>
+nnoremap ]z :ALENext<cr>
+nnoremap [z :ALEPrevious<cr>
 
 nnoremap <Space> za
 nnoremap <leader>n :NERDTreeToggle<CR>
@@ -119,6 +115,8 @@ nnoremap <leader>b :bd<CR>
 imap <C-l> <Plug>snipMateShow
 tnoremap <Esc> <C-\><C-n>
 tnoremap <C-v><Esc> <Esc>
+inoremap jh <Esc>
+inoremap jj <Esc>
 
 if &diff
   highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
