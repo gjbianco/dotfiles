@@ -19,7 +19,7 @@ provider: YouTube
 shell: sh
 legacy_input_handling: false
 env:
-  browser: firefox
   terminal-emulator: alacritty
+  browser: firefox
   youtube-downloader: yt-dlp
   video-player: mpv
