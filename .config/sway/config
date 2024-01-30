@@ -14,14 +14,20 @@ set $menu bemenu-run -p "" --fn jetbrains-mono 10 --ch 0 -H 16 --hp 10 -B 0 \
 set $file alacritty -e nnn
 set $lock swaylock -f -e -c 232323 -K --font Sans
 
+# output * bg /usr/share/backgrounds/gnome/blobs-d.svg fill
+output * bg /home/guy/Pictures/pattern-04_ice-sparkes.gif tile
+# output * bg ./sawayama.png fill
 output DP-1 resolution 2560x1440@144Hz
+# output DP-1 transform 90
 
 # lock screen after 20 minutes of inactivity, turn off displays after 15 minutes (non-additive)
 exec swayidle -w timeout 1200 "$lock" timeout 900 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' before-sleep "$lock"
 exec dunst
 exec nm-applet
-seat * hide_cursor 5000
-seat * hide_cursor when-typing enable
+# exec blueman-applet
+exec dbus-update-activation-environment
+# seat * hide_cursor 5000
+seat * hide_cursor when-typing disable
 bar {
   swaybar_command waybar
 }
@@ -31,12 +37,12 @@ for_window [app_id="firefox" title="Firefox — Sharing Indicator"] {
   kill
 }
 
-# input "type:pointer" {
-#     dwt enabled
-#     natural_scroll disabled
-#     accel_profile "flat" # disable acceleration
-#     pointer_accel 0 # mouse sensitivity (between -1 and 1)
-# }
+input "type:pointer" {
+    dwt enabled
+    natural_scroll disabled
+    accel_profile "flat" # disable acceleration
+    pointer_accel 0 # mouse sensitivity (between -1 and 1)
+}
 
 input "type:touchpad" {
   events disabled
