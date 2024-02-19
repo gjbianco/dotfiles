@@ -29,3 +29,10 @@ Thumbs.db
 !.vim
 
 .vscode
+
+# sk build
+*.en-US.epub
+*.en-US.html
+*.en-US.pdf
+*.en-US.xhtml
+*.en-US.xml

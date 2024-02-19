@@ -3,6 +3,7 @@ fishd.*
 fish_variables
 
 fundle/
+cookie
 
 # minpac manages vim plugins
 .vim/*
