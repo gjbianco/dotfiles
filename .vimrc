@@ -16,12 +16,12 @@ call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('tpope/vim-repeat')
 call minpac#add('tpope/vim-unimpaired')
-call minpac#add('tpope/vim-projectionist')
+" call minpac#add('tpope/vim-projectionist')
 
 " language-specific
 call minpac#add('gjbianco/vim-asciidoc-syntax')
-call minpac#add('fatih/vim-go')
 call minpac#add('mattn/emmet-vim')
+" call minpac#add('fatih/vim-go')
 
 " snippets
 call minpac#add('MarcWeber/vim-addon-mw-utils')
@@ -36,22 +36,29 @@ let g:gruvbox_guisp_fallback = "bg" " fix spell colors for gruvbox
 let g:indentLine_char = '│'
 let g:indentLine_enabled = 0
 let g:ale_fix_on_save = 1
-let g:ale_linters = {'rust': ['analyzer']}
-let g:ale_fixers = {'rust': ['rustfmt'], 'python': ['black'], 'typescriptreact': ['prettier'], 'javascript': ['prettier'], 'yaml': ['prettier'], 'go': ['gofmt','goimports'], 'html': ['prettier'], 'gohtmltmpl': ['prettier']}
+let g:ale_fixers = {
+  \ 'go': ['gofmt','goimports'],
+  \ 'gohtmltmpl': ['prettier'],
+  \ 'html': ['prettier'],
+  \ 'javascript': ['prettier'],
+  \ 'python': ['black'],
+  \ 'typescriptreact': ['prettier'],
+  \ 'yaml': ['prettier']
+\}
 let g:ale_virtualtext_cursor = 'disabled'
 
-let g:go_doc_popup_window = 1
-let g:go_list_autoclose = 1
-let g:go_fmt_fail_silently = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_function = 1
-let g:go_highlight_function_parameters = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_format_strings = 1
-let g:go_highlight_variable_declarations = 1
-let g:go_highlight_variable_assignments = 1
+" let g:go_doc_popup_window = 1
+" let g:go_list_autoclose = 1
+" let g:go_fmt_fail_silently = 1
+" let g:go_highlight_operators = 1
+" let g:go_highlight_function = 1
+" let g:go_highlight_function_parameters = 1
+" let g:go_highlight_function_calls = 1
+" let g:go_highlight_types = 1
+" let g:go_highlight_fields = 1
+" let g:go_highlight_format_strings = 1
+" let g:go_highlight_variable_declarations = 1
+" let g:go_highlight_variable_assignments = 1
 
 filetype plugin indent on
 syntax on           " syntax highlighting
@@ -73,21 +80,16 @@ set hidden
 set backspace=indent,eol,start
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,node_modules/**,.git/**,yarn.lock,package-lock.json,build/**
 set omnifunc=ale#completion#OmniFunc
+colorscheme gruvbox
+set background=dark
+set statusline=%f%=%{substitute(getcwd(),$HOME,'~','')}\ %y\ %l:%c
 
 au BufNewFile,BufRead Jenkinsfile setf groovy
 au BufNewFile,BufRead Containerfile setf dockerfile
 au FileType asciidoc setlocal commentstring=//\ %s
 
-colorscheme gruvbox
-set background=dark
-" set background=light
-" hi Normal guibg=NONE ctermbg=NONE
-
-set statusline=%f%=%{substitute(getcwd(),$HOME,'~','')}\ %y\ %l:%c
-
 " mode toggles in the style of vim-unimpaired
 nnoremap yog :exe "set signcolumn=" .. (&signcolumn == "yes" ? "no" : "yes")<CR>
-nnoremap yoq :call QFToggleFun()<CR>
 nnoremap yoo :IndentLinesToggle<CR>
 
 " work-specific shortcuts
@@ -95,7 +97,6 @@ xnoremap <leader>wl :keepp s/\\\n//g<CR>
 nnoremap <leader>wr :r! ssh workstation -q 
 nnoremap <leader>wb :!sk flamel && rm -rf guides/tmp && flamel sg<CR>
 nnoremap <leader>wsm :!scp guides/tmp/en-US/pdf/*.pdf guys-macbook-air:Desktop<CR>
-nnoremap <leader>wst :!scp guides/tmp/en-US/pdf/*.pdf abra:/tmp<CR>
 nnoremap <leader>wp :!zathura guides/tmp/en-US/pdf/*.pdf &<CR>
 nnoremap <leader>ww :!scp "%" workstation:<CR>
 xnoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
@@ -115,8 +116,6 @@ nnoremap <leader>b :bd<CR>
 imap <C-l> <Plug>snipMateShow
 tnoremap <Esc> <C-\><C-n>
 tnoremap <C-v><Esc> <Esc>
-inoremap jh <Esc>
-inoremap jj <Esc>
 
 if &diff
   highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
@@ -128,22 +127,16 @@ if &diff
   map <leader>3 :diffget REMOTE<CR>
 endif
 
-let g:projectionist_heuristics = {
-\   "guides/en-US/sg-chapters/topics/": {
-\     "content/*/lecture.adoc": {
-\       "type": "lecture"
-\     },
-\     "content/*/ge.adoc": {
-\       "type": "ge",
-\     },
-\     "content/*/multichoice.adoc": {
-\       "type": "quiz",
-\     },
-\     "content/*/review/lab.adoc": {
-\       "type": "lab"
-\     },
-\     "classroom/grading/src/*.py": {
-\       "type": "dyno"
-\     }
-\   }
-\ }
+" let g:projectionist_heuristics = {
+" \   "guides/en-US/sg-chapters/topics/": {
+" \     "content/*/lecture.adoc": {
+" \       "type": "lecture"
+" \     },
+" \     "content/*/ge.adoc": {
+" \       "type": "ge",
+" \     },
+" \     "classroom/grading/src/*.py": {
+" \       "type": "dyno"
+" \     }
+" \   }
+" \ }
