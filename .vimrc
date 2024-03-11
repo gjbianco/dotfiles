@@ -21,6 +21,7 @@ call minpac#add('tpope/vim-unimpaired')
 " language-specific
 call minpac#add('gjbianco/vim-asciidoc-syntax')
 call minpac#add('mattn/emmet-vim')
+call minpac#add('vim-scripts/todo-txt.vim')
 " call minpac#add('fatih/vim-go')
 
 " snippets
