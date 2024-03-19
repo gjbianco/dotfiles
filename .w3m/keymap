@@ -29,9 +29,11 @@ keymap M-:  MARK_MID
 # Scroll screen up one line
 keymap C-e  UP
 keymap J    UP
+keymap Down UP
 # Scroll screen down one line
 keymap K    DOWN
 keymap C-y  DOWN
+keymap Up   DOWN
 # Scroll screen left
 keymap M-,  LEFT
 # Scroll screen right
@@ -54,10 +56,10 @@ keymap =    NEXT_PAGE
 keymap +    NEXT_PAGE
 keymap C-d  NEXT_PAGE
 keymap SPC  NEXT_PAGE
-keymap DOWN NEXT_PAGE
+# keymap DOWN NEXT_PAGE
 keymap -    PREV_PAGE
 keymap C-u  PREV_PAGE
-keymap UP   PREV_PAGE
+# keymap UP   PREV_PAGE
 
 keymap TAB  NEXT_LINK
 keymap M-TAB PREV_LINK
