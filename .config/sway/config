@@ -2,7 +2,6 @@ default_border none
 gaps inner 5
 smart_gaps on
 
-# set $mod Mod1
 set $mod Mod4
 set $left h
 set $down j
@@ -26,8 +25,8 @@ exec dunst
 exec nm-applet
 # exec blueman-applet
 exec dbus-update-activation-environment
-# seat * hide_cursor 5000
-seat * hide_cursor when-typing disable
+seat * hide_cursor 5000
+seat * hide_cursor when-typing enable
 bar {
   swaybar_command waybar
 }
@@ -45,11 +44,8 @@ input "type:pointer" {
 }
 
 input "type:touchpad" {
-  events disabled
-}
-
-input "type:touch" {
-  events disabled
+  events enabled
+  tap enabled
 }
 
 input "1267:51:Elan_TrackPoint" {
