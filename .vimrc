@@ -12,11 +12,11 @@ call minpac#add('kana/vim-smartinput')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('dense-analysis/ale')
 call minpac#add('Yggdroot/indentLine')
+call minpac#add('jpalardy/vim-slime')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('tpope/vim-repeat')
 call minpac#add('tpope/vim-unimpaired')
-" call minpac#add('tpope/vim-projectionist')
 
 " language-specific
 call minpac#add('gjbianco/vim-asciidoc-syntax')
@@ -36,6 +36,9 @@ let g:snipMate = {'snippet_version': 1}
 let g:gruvbox_guisp_fallback = "bg" " fix spell colors for gruvbox
 let g:indentLine_char = '│'
 let g:indentLine_enabled = 0
+let g:slime_target = "tmux"
+let g:slime_bracketed_paste = 1
+let g:slime_default_config = {"socket_name": "default", "target_pane": "{last}"}
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
   \ 'go': ['gofmt','goimports'],
@@ -97,7 +100,9 @@ nnoremap yoo :IndentLinesToggle<CR>
 xnoremap <leader>wl :keepp s/\\\n//g<CR>
 nnoremap <leader>wr :r! ssh workstation -q 
 nnoremap <leader>wb :!sk flamel && rm -rf guides/tmp && flamel sg<CR>
+nnoremap <leader>wg :!rsync -r classroom workstation:grading --delete<CR>
 nnoremap <leader>wsm :!scp guides/tmp/en-US/pdf/*.pdf guys-macbook-air:Desktop<CR>
+nnoremap <leader>wsw :!scp guides/tmp/en-US/pdf/*.pdf workpad:Downloads<CR>
 nnoremap <leader>wp :!zathura guides/tmp/en-US/pdf/*.pdf &<CR>
 nnoremap <leader>ww :!scp "%" workstation:<CR>
 xnoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
