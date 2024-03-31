@@ -10,9 +10,9 @@ call minpac#add('ap/vim-buftabline')
 call minpac#add('preservim/nerdtree')
 call minpac#add('kana/vim-smartinput')
 call minpac#add('airblade/vim-gitgutter')
-call minpac#add('dense-analysis/ale')
 call minpac#add('Yggdroot/indentLine')
 call minpac#add('jpalardy/vim-slime')
+call minpac#add('yegappan/lsp')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('tpope/vim-repeat')
@@ -22,7 +22,6 @@ call minpac#add('tpope/vim-unimpaired')
 call minpac#add('gjbianco/vim-asciidoc-syntax')
 call minpac#add('mattn/emmet-vim')
 call minpac#add('vim-scripts/todo-txt.vim')
-" call minpac#add('fatih/vim-go')
 
 " snippets
 call minpac#add('MarcWeber/vim-addon-mw-utils')
@@ -39,30 +38,6 @@ let g:indentLine_enabled = 0
 let g:slime_target = "tmux"
 let g:slime_bracketed_paste = 1
 let g:slime_default_config = {"socket_name": "default", "target_pane": "{last}"}
-let g:ale_fix_on_save = 1
-let g:ale_fixers = {
-  \ 'go': ['gofmt','goimports'],
-  \ 'gohtmltmpl': ['prettier'],
-  \ 'html': ['prettier'],
-  \ 'javascript': ['prettier'],
-  \ 'python': ['black'],
-  \ 'typescriptreact': ['prettier'],
-  \ 'yaml': ['prettier']
-\}
-let g:ale_virtualtext_cursor = 'disabled'
-
-" let g:go_doc_popup_window = 1
-" let g:go_list_autoclose = 1
-" let g:go_fmt_fail_silently = 1
-" let g:go_highlight_operators = 1
-" let g:go_highlight_function = 1
-" let g:go_highlight_function_parameters = 1
-" let g:go_highlight_function_calls = 1
-" let g:go_highlight_types = 1
-" let g:go_highlight_fields = 1
-" let g:go_highlight_format_strings = 1
-" let g:go_highlight_variable_declarations = 1
-" let g:go_highlight_variable_assignments = 1
 
 filetype plugin indent on
 syntax on           " syntax highlighting
@@ -83,7 +58,6 @@ set ttyfast
 set hidden
 set backspace=indent,eol,start
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,node_modules/**,.git/**,yarn.lock,package-lock.json,build/**
-set omnifunc=ale#completion#OmniFunc
 colorscheme gruvbox
 set background=dark
 set statusline=%f%=%{substitute(getcwd(),$HOME,'~','')}\ %y\ %l:%c
@@ -108,13 +82,6 @@ nnoremap <leader>ww :!scp "%" workstation:<CR>
 xnoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
 onoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
 
-" ALE mappings
-nnoremap K :ALEHover<CR>
-nnoremap <leader>aa :ALECodeAction<CR>
-nnoremap <leader>ad :ALEGoToDefinition<CR>
-nnoremap ]z :ALENext<cr>
-nnoremap [z :ALEPrevious<cr>
-
 nnoremap <Space> za
 nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>fn :NERDTreeFind<CR>
@@ -133,16 +100,26 @@ if &diff
   map <leader>3 :diffget REMOTE<CR>
 endif
 
-" let g:projectionist_heuristics = {
-" \   "guides/en-US/sg-chapters/topics/": {
-" \     "content/*/lecture.adoc": {
-" \       "type": "lecture"
-" \     },
-" \     "content/*/ge.adoc": {
-" \       "type": "ge",
-" \     },
-" \     "classroom/grading/src/*.py": {
-" \       "type": "dyno"
-" \     }
-" \   }
-" \ }
+let lspOpts = #{autoHighlightDiags: v:false}
+autocmd User LspSetup call LspOptionsSet(lspOpts)
+
+let lspServers = [
+\  #{
+\    name: 'tsserver',
+\    filetype: ['javascript', 'typescript', 'typescriptreact'],
+\    path: 'typescript-language-server',
+\    args: ['--stdio']
+\  },
+\  #{
+\    name: 'pyright',
+\    filetype: 'python',
+\    path: 'pyright-langserver',
+\    args: ['--stdio'],
+\    workspaceConfig: #{
+\      python: #{
+\        pythonPath: 'python'
+\      }
+\    }
+\  }
+\]
+autocmd User LspSetup call LspAddServer(lspServers)
