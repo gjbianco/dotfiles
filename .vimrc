@@ -70,12 +70,16 @@ au FileType asciidoc setlocal commentstring=//\ %s
 nnoremap yog :exe "set signcolumn=" .. (&signcolumn == "yes" ? "no" : "yes")<CR>
 nnoremap yoo :IndentLinesToggle<CR>
 
+" LSP commands
+nnoremap K :LspHover<CR>
+nnoremap <leader>d :LspPeekDefinition<CR>
+nnoremap <C-]> :LspGotoDefinition<CR>
+
 " work-specific shortcuts
 xnoremap <leader>wl :keepp s/\\\n//g<CR>
 nnoremap <leader>wr :r! ssh workstation -q 
 nnoremap <leader>wb :!sk flamel && rm -rf guides/tmp && flamel sg<CR>
 nnoremap <leader>wg :!rsync -r classroom workstation:grading --delete<CR>
-nnoremap <leader>wsm :!scp guides/tmp/en-US/pdf/*.pdf guys-macbook-air:Desktop<CR>
 nnoremap <leader>wsw :!scp guides/tmp/en-US/pdf/*.pdf workpad:Downloads<CR>
 nnoremap <leader>wp :!zathura guides/tmp/en-US/pdf/*.pdf &<CR>
 nnoremap <leader>ww :!scp "%" workstation:<CR>
@@ -100,7 +104,19 @@ if &diff
   map <leader>3 :diffget REMOTE<CR>
 endif
 
-let lspOpts = #{autoHighlightDiags: v:false}
+let lspOpts = #{
+\  autoComplete: v:false,
+\  completionMatcher: 'fuzzy',
+\  diagVirtualTextAlign: 'after',
+\  hoverInPreview: v:false,
+\  ignoreMissingServer: v:true,
+\  noNewlineInCompletion: v:true,
+\  semanticHighlight: v:true,
+\  showDiagInPopup: v:false,
+\  showDiagOnStatusLine: v:true,
+\  usePopupInCodeAction: v:true,
+\  filterCompletionDuplicates: v:true,
+\}
 autocmd User LspSetup call LspOptionsSet(lspOpts)
 
 let lspServers = [
@@ -108,11 +124,11 @@ let lspServers = [
 \    name: 'tsserver',
 \    filetype: ['javascript', 'typescript', 'typescriptreact'],
 \    path: 'typescript-language-server',
-\    args: ['--stdio']
+\    args: ['--stdio'],
 \  },
 \  #{
 \    name: 'pyright',
-\    filetype: 'python',
+\    filetype: ['python'],
 \    path: 'pyright-langserver',
 \    args: ['--stdio'],
 \    workspaceConfig: #{
@@ -120,6 +136,6 @@ let lspServers = [
 \        pythonPath: 'python'
 \      }
 \    }
-\  }
+\  },
 \]
 autocmd User LspSetup call LspAddServer(lspServers)
