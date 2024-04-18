@@ -1,0 +1,30 @@
+---
+version: 2
+
+locations:
+  sync:
+    cron: "0 */6 * * *"
+    from:
+      - ~/Sync
+      - ~/Camera
+      - ~/Music
+      - ~/photos
+    to:
+      - rsync
+
+#   portable:
+#     from:
+#       - /mnt/porygon2/gaia
+#       - ~/Sync
+#       - ~/Camera
+#       - ~/Music
+#       - ~/photos
+#     to: portable_ssd
+
+backends:
+  rsync:
+    type: sftp
+    path: rsync:data-backup
+#   portable_ssd:
+#     type: local
+#     path: /path/to/mounted/ssd
