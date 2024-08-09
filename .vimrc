@@ -10,9 +10,8 @@ call minpac#add('ap/vim-buftabline')
 call minpac#add('preservim/nerdtree')
 call minpac#add('kana/vim-smartinput')
 call minpac#add('airblade/vim-gitgutter')
-call minpac#add('Yggdroot/indentLine')
-call minpac#add('jpalardy/vim-slime')
 call minpac#add('yegappan/lsp')
+call minpac#add('prettier/vim-prettier')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('tpope/vim-repeat')
@@ -21,23 +20,12 @@ call minpac#add('tpope/vim-unimpaired')
 " language-specific
 call minpac#add('gjbianco/vim-asciidoc-syntax')
 call minpac#add('mattn/emmet-vim')
-call minpac#add('vim-scripts/todo-txt.vim')
-
-" snippets
-call minpac#add('MarcWeber/vim-addon-mw-utils')
-call minpac#add('tomtom/tlib_vim')
-call minpac#add('garbas/vim-snipmate')
-call minpac#add('honza/vim-snippets')
-call minpac#add('gjbianco/vim-gls-snippets')
 
 let g:buftabline_indicators = 1
-let g:snipMate = {'snippet_version': 1}
 let g:gruvbox_guisp_fallback = "bg" " fix spell colors for gruvbox
-let g:indentLine_char = '│'
-let g:indentLine_enabled = 0
-let g:slime_target = "tmux"
-let g:slime_bracketed_paste = 1
-let g:slime_default_config = {"socket_name": "default", "target_pane": "{last}"}
+let g:prettier#autoformat = 1
+let g:prettier#autoformat_require_pragma = 0
+let NERDTreeMinimalUI = 1
 
 filetype plugin indent on
 syntax on           " syntax highlighting
@@ -61,14 +49,16 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,node_modules/**,.git/**,yarn.lock,packa
 colorscheme gruvbox
 set background=dark
 set statusline=%f%=%{substitute(getcwd(),$HOME,'~','')}\ %y\ %l:%c
+set noswapfile
+let mapleader = ","
 
 au BufNewFile,BufRead Jenkinsfile setf groovy
 au BufNewFile,BufRead Containerfile setf dockerfile
+au BufNewFile,BufRead *.html set filetype=liquid
 au FileType asciidoc setlocal commentstring=//\ %s
 
 " mode toggles in the style of vim-unimpaired
 nnoremap yog :exe "set signcolumn=" .. (&signcolumn == "yes" ? "no" : "yes")<CR>
-nnoremap yoo :IndentLinesToggle<CR>
 
 " LSP commands
 nnoremap K :LspHover<CR>
@@ -80,8 +70,6 @@ xnoremap <leader>wl :keepp s/\\\n//g<CR>
 nnoremap <leader>wr :r! ssh workstation -q 
 nnoremap <leader>wb :!sk flamel && rm -rf guides/tmp && flamel sg<CR>
 nnoremap <leader>wg :!rsync -r classroom workstation:grading --delete<CR>
-nnoremap <leader>wsw :!scp guides/tmp/en-US/pdf/*.pdf workpad:Downloads<CR>
-nnoremap <leader>wp :!zathura guides/tmp/en-US/pdf/*.pdf &<CR>
 nnoremap <leader>ww :!scp "%" workstation:<CR>
 xnoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
 onoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
@@ -90,7 +78,6 @@ nnoremap <Space> za
 nnoremap <leader>n :NERDTreeToggle<CR>
 nnoremap <leader>fn :NERDTreeFind<CR>
 nnoremap <leader>b :bd<CR>
-imap <C-l> <Plug>snipMateShow
 tnoremap <Esc> <C-\><C-n>
 tnoremap <C-v><Esc> <Esc>
 
@@ -137,5 +124,17 @@ let lspServers = [
 \      }
 \    }
 \  },
+\  #{
+\    name: 'rustlang',
+\    filetype: ['rust'],
+\    path: 'rust-analyzer',
+\    args: ['serve'],
+\    syncInit: v:true
+\  },
+\  #{
+\    name: 'openscad',
+\    filetype: ['openscad'],
+\    path: 'openscad-lsp'
+\  }
 \]
 autocmd User LspSetup call LspAddServer(lspServers)
