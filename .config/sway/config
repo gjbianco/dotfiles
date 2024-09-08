@@ -1,7 +1,5 @@
 set $mod Mod4
-set $term alacritty
-set $lock swaylock -f -e -c 232323 -K --font Sans -c "232323" -s "solid_color"
-
+floating_modifier $mod normal
 default_border none
 gaps inner 3
 smart_gaps on
@@ -9,16 +7,15 @@ smart_gaps on
 output DP-1 resolution 2560x1440@144Hz
 # seat * hide_cursor 5000
 seat * hide_cursor when-typing disable
-bar {
-  swaybar_command waybar
-}
-
-exec swayidle -w timeout 1200 "$lock" timeout 900 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' before-sleep "$lock"
+exec swayidle -w timeout 1200 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
 exec dunst
 exec nm-applet
 exec dbus-update-activation-environment
-for_window [app_id="firefox" title="Firefox — Sharing Indicator"] { kill }
 
+for_window [app_id="firefox" title="Firefox — Sharing Indicator"] { kill }
+bar {
+  swaybar_command waybar
+}
 input "type:pointer" {
     dwt enabled
     natural_scroll disabled
@@ -39,17 +36,21 @@ input "type:keyboard" {
     xkb_options ctrl:nocaps,altwin:swap_alt_win
 }
 
-floating_modifier $mod normal
-
 bindsym $mod+Shift+c reload
-bindsym $mod+Return exec $term
+bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
-bindsym $mod+z exec $lock
-bindsym $mod+c exec $term -e python3
+bindsym $mod+z exec swaylock -f -e -c 232323 -K --font Sans -c "232323" -s "solid_color"
+bindsym $mod+c exec alacritty -e python3
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' -b 'Yes' 'swaymsg exit'
 bindsym $mod+p exec bemenu-run -p "" --fn jetbrains-mono 10 --ch 0 -H 16 --hp 10 -B 0 --tb "#285577" --hb "#285577" --tf "#eeeeee" --hf "#eeeeee" --nf "#bbbbbb" --bdr "#111111"
 bindsym Print exec grim -t png "$HOME/Pictures/$(date +%F\ %T).png" && notify-send "Screenshot taken" -u low || notify-send "Failed to take screenshot" -u critical
-
+bindsym $mod+up exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym $mod+down exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym $mod+right exec playerctl next
+bindsym $mod+left exec playerctl previous
+bindsym $mod+grave exec playerctl play-pause
+bindsym $mod+Next exec brightnessctl set 10%-
+bindsym $mod+Prior exec brightnessctl set +10%
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
@@ -91,12 +92,3 @@ mode "resize" {
   bindsym l resize grow width 10px
   bindsym Escape mode "default"
 }
-
-bindsym $mod+up exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym $mod+down exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym $mod+right exec playerctl next
-bindsym $mod+left exec playerctl previous
-bindsym $mod+grave exec playerctl play-pause
-
-bindsym $mod+Next exec brightnessctl set 10%-
-bindsym $mod+Prior exec brightnessctl set +10%
