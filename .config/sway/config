@@ -1,55 +1,38 @@
-default_border none
-gaps inner 5
-smart_gaps on
-
 set $mod Mod4
-set $left h
-set $down j
-set $up k
-set $right l
 set $term alacritty
-set $menu bemenu-run -p "" --fn jetbrains-mono 10 --ch 0 -H 16 --hp 10 -B 0 \
-  --tb "#285577" --hb "#285577" --tf "#eeeeee" --hf "#eeeeee" --nf "#bbbbbb" --bdr "#111111"
-set $file alacritty -e nnn
 set $lock swaylock -f -e -c 232323 -K --font Sans -c "232323" -s "solid_color"
 
-# output DP-1 resolution 2560x1440@144Hz
+default_border none
+gaps inner 3
+smart_gaps on
 # output * bg /path/to/image.png fill|tile
-
-# lock screen after 20 minutes of inactivity, turn off displays after 15 minutes (non-additive)
-exec swayidle -w timeout 1200 "$lock" timeout 900 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' before-sleep "$lock"
-exec dunst
-exec nm-applet
-# exec blueman-applet
-exec dbus-update-activation-environment
-seat * hide_cursor 5000
-seat * hide_cursor when-typing enable
+output DP-1 resolution 2560x1440@144Hz
+# seat * hide_cursor 5000
+seat * hide_cursor when-typing disable
 bar {
   swaybar_command waybar
 }
 
-# kill firefox sharing indicator
-for_window [app_id="firefox" title="Firefox — Sharing Indicator"] {
-  kill
-}
+exec swayidle -w timeout 1200 "$lock" timeout 900 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' before-sleep "$lock"
+exec dunst
+exec nm-applet
+exec dbus-update-activation-environment
+for_window [app_id="firefox" title="Firefox — Sharing Indicator"] { kill }
 
 input "type:pointer" {
     dwt enabled
     natural_scroll disabled
     accel_profile "flat" # disable acceleration
-    pointer_accel 0 # mouse sensitivity (between -1 and 1)
+    pointer_accel 0
 }
-
 input "type:touchpad" {
   events enabled
   tap enabled
 }
-
 input "1267:51:Elan_TrackPoint" {
     pointer_accel -0.25
     natural_scroll enabled
 }
-
 input "type:keyboard" {
     xkb_layout us,de
     xkb_variant ,nodeadkeys
@@ -61,24 +44,20 @@ floating_modifier $mod normal
 bindsym $mod+Shift+c reload
 bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
-bindsym $mod+p exec $menu
 bindsym $mod+z exec $lock
-bindsym $mod+Shift+f exec $file
-bindsym $mod+m exec mpv "$(wl-paste)"
-bindsym $mod+c exec $term -e bpython -i bin/calc.py
+bindsym $mod+c exec $term -e python3
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' -b 'Yes' 'swaymsg exit'
+bindsym $mod+p exec bemenu-run -p "" --fn jetbrains-mono 10 --ch 0 -H 16 --hp 10 -B 0 --tb "#285577" --hb "#285577" --tf "#eeeeee" --hf "#eeeeee" --nf "#bbbbbb" --bdr "#111111"
 bindsym Print exec grim -t png "$HOME/Pictures/$(date +%F\ %T).png" && notify-send "Screenshot taken" -u low || notify-send "Failed to take screenshot" -u critical
-bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 
-bindsym $mod+$left focus left
-bindsym $mod+$down focus down
-bindsym $mod+$up focus up
-bindsym $mod+$right focus right
-
-bindsym $mod+Shift+$left move left
-bindsym $mod+Shift+$down move down
-bindsym $mod+Shift+$up move up
-bindsym $mod+Shift+$right move right
-
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
 bindsym $mod+3 workspace number 3
@@ -89,7 +68,6 @@ bindsym $mod+7 workspace number 7
 bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
 bindsym $mod+0 workspace number 10
-
 bindsym $mod+Shift+1 move container to workspace number 1
 bindsym $mod+Shift+2 move container to workspace number 2
 bindsym $mod+Shift+3 move container to workspace number 3
@@ -100,45 +78,25 @@ bindsym $mod+Shift+7 move container to workspace number 7
 bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
-
 bindsym $mod+b splith
 bindsym $mod+v splitv
-
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
 bindsym $mod+f fullscreen
 bindsym $mod+Shift+space floating toggle
-bindsym $mod+space focus mode_toggle
-bindsym $mod+a focus parent
-
+bindsym $mod+space layout toggle split
+bindsym $mod+r mode "resize"
 mode "resize" {
-  bindsym $left resize shrink width 10px
-  bindsym $down resize grow height 10px
-  bindsym $up resize shrink height 10px
-  bindsym $right resize grow width 10px
-  bindsym Return mode "default"
+  bindsym h resize shrink width 10px
+  bindsym j resize grow height 10px
+  bindsym k resize shrink height 10px
+  bindsym l resize grow width 10px
   bindsym Escape mode "default"
 }
-bindsym $mod+r mode "resize"
 
-set $volup pactl set-sink-volume @DEFAULT_SINK@ +5%
-set $voldown pactl set-sink-volume @DEFAULT_SINK@ -5%
-
-bindsym $mod+up exec $volup
-bindsym $mod+down exec $voldown
-bindsym XF86AudioRaiseVolume exec $volup
-bindsym XF86AudioLowerVolume exec $voldown
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
-bindsym $mod+grave exec playerctl play-pause
+bindsym $mod+up exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym $mod+down exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym $mod+right exec playerctl next
 bindsym $mod+left exec playerctl previous
+bindsym $mod+grave exec playerctl play-pause
 
-bindsym XF86Launch1 exec systemctl suspend
-
-bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
-bindsym XF86MonBrightnessUp exec brightnessctl set +10%
+bindsym $mod+Next exec brightnessctl set 10%-
+bindsym $mod+Prior exec brightnessctl set +10%
