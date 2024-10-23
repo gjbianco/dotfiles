@@ -6,26 +6,27 @@ call minpac#init()
 
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 call minpac#add('morhetz/gruvbox')
-call minpac#add('ap/vim-buftabline')
-call minpac#add('preservim/nerdtree')
-call minpac#add('kana/vim-smartinput')
-call minpac#add('airblade/vim-gitgutter')
-call minpac#add('yegappan/lsp')
-call minpac#add('prettier/vim-prettier')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('tpope/vim-repeat')
 call minpac#add('tpope/vim-unimpaired')
-
-" language-specific
+call minpac#add('tpope/vim-vinegar')
+call minpac#add('kana/vim-smartinput')
+call minpac#add('airblade/vim-gitgutter')
+call minpac#add('yegappan/lsp')
+call minpac#add('prettier/vim-prettier')
 call minpac#add('gjbianco/vim-asciidoc-syntax')
 call minpac#add('mattn/emmet-vim')
+call minpac#add('govim/govim')
 
-let g:buftabline_indicators = 1
 let g:gruvbox_guisp_fallback = "bg" " fix spell colors for gruvbox
 let g:prettier#autoformat = 1
 let g:prettier#autoformat_require_pragma = 0
-let NERDTreeMinimalUI = 1
+let g:markdown_fenced_languages = ['html', 'js=javascript', 'ruby', 'go', 'rust']
+
+au BufNewFile,BufRead Jenkinsfile setf groovy
+au BufNewFile,BufRead Containerfile setf dockerfile
+au FileType asciidoc setlocal commentstring=//\ %s
 
 filetype plugin indent on
 syntax on           " syntax highlighting
@@ -48,22 +49,17 @@ set backspace=indent,eol,start
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,node_modules/**,.git/**,yarn.lock,package-lock.json,build/**
 colorscheme gruvbox
 set background=dark
-set statusline=%f%=%{substitute(getcwd(),$HOME,'~','')}\ %y\ %l:%c
+set statusline=%m%f%=%y\ %l:%c
 set noswapfile
 let mapleader = ","
 
-au BufNewFile,BufRead Jenkinsfile setf groovy
-au BufNewFile,BufRead Containerfile setf dockerfile
-au BufNewFile,BufRead *.html set filetype=liquid
-au FileType asciidoc setlocal commentstring=//\ %s
-
-" mode toggles in the style of vim-unimpaired
+nnoremap <Space> za
+nnoremap <leader>b :bd<CR>
+nnoremap <leader>, ,
+nnoremap <leader>e :e **/
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-v><Esc> <Esc>
 nnoremap yog :exe "set signcolumn=" .. (&signcolumn == "yes" ? "no" : "yes")<CR>
-
-" LSP commands
-nnoremap K :LspHover<CR>
-nnoremap <leader>d :LspPeekDefinition<CR>
-nnoremap <C-]> :LspGotoDefinition<CR>
 
 " work-specific shortcuts
 xnoremap <leader>wl :keepp s/\\\n//g<CR>
@@ -74,28 +70,18 @@ nnoremap <leader>ww :!scp "%" workstation:<CR>
 xnoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
 onoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
 
-nnoremap <Space> za
-nnoremap <leader>n :NERDTreeToggle<CR>
-nnoremap <leader>fn :NERDTreeFind<CR>
-nnoremap <leader>b :bd<CR>
-tnoremap <Esc> <C-\><C-n>
-tnoremap <C-v><Esc> <Esc>
+" LSP config
+nnoremap K :LspHover<CR>
+nnoremap <leader>d :LspPeekDefinition<CR>
+nnoremap <C-]> :LspGotoDefinition<CR>
+nnoremap <leader>a :LspCodeAction<CR>
 
-if &diff
-  highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-  highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-  highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
-  highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
-  map <leader>1 :diffget LOCAL<CR>
-  map <leader>2 :diffget BASE<CR>
-  map <leader>3 :diffget REMOTE<CR>
-endif
-
-let lspOpts = #{
+au User LspSetup call LspOptionsSet(#{
 \  autoComplete: v:false,
+\  omniComplete: v:true,
 \  completionMatcher: 'fuzzy',
 \  diagVirtualTextAlign: 'after',
-\  hoverInPreview: v:false,
+\  hideDisabledCodeActions: v:true,
 \  ignoreMissingServer: v:true,
 \  noNewlineInCompletion: v:true,
 \  semanticHighlight: v:true,
@@ -103,10 +89,9 @@ let lspOpts = #{
 \  showDiagOnStatusLine: v:true,
 \  usePopupInCodeAction: v:true,
 \  filterCompletionDuplicates: v:true,
-\}
-autocmd User LspSetup call LspOptionsSet(lspOpts)
+\})
 
-let lspServers = [
+au User LspSetup call LspAddServer([
 \  #{
 \    name: 'tsserver',
 \    filetype: ['javascript', 'typescript', 'typescriptreact'],
@@ -125,16 +110,8 @@ let lspServers = [
 \    }
 \  },
 \  #{
-\    name: 'rustlang',
-\    filetype: ['rust'],
-\    path: 'rust-analyzer',
-\    args: ['serve'],
-\    syncInit: v:true
-\  },
-\  #{
 \    name: 'openscad',
 \    filetype: ['openscad'],
 \    path: 'openscad-lsp'
 \  }
-\]
-autocmd User LspSetup call LspAddServer(lspServers)
+\])
