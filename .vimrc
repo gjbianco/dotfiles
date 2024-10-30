@@ -26,7 +26,6 @@ call minpac#init()
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 call minpac#add('morhetz/gruvbox')
 call minpac#add('tpope/vim-repeat')
-call minpac#add('tpope/vim-vinegar')
 call minpac#add('tpope/vim-sensible')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-commentary')
@@ -38,9 +37,11 @@ call minpac#add('ap/vim-buftabline')
 call minpac#add('kana/vim-smartinput')
 call minpac#add('prettier/vim-prettier')
 call minpac#add('airblade/vim-gitgutter')
+call minpac#add('jeetsukumaran/vim-filebeagle')
 call minpac#add('gjbianco/vim-asciidoc-syntax')
 
 let g:buftabline_indicators=1
+let g:filebeagle_check_gitignore=1
 let g:prettier#autoformat=1
 let g:prettier#autoformat_require_pragma=0
 let g:gruvbox_guisp_fallback="bg"
