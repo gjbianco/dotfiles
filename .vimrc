@@ -42,6 +42,7 @@ call minpac#add('gjbianco/vim-asciidoc-syntax')
 
 let g:buftabline_indicators=1
 let g:filebeagle_check_gitignore=1
+let g:filebeagle_show_parent=0
 let g:prettier#autoformat=1
 let g:prettier#autoformat_require_pragma=0
 let g:gruvbox_guisp_fallback="bg"
@@ -73,7 +74,7 @@ xnoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
 onoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
 nnoremap K :LspHover<CR>
 nnoremap <leader>d :LspPeekDefinition<CR>
-nnoremap <C-]> :LspGotoDefinition<CR>
+nnoremap <leader>g :LspGotoDefinition<CR>
 nnoremap <leader>a :LspCodeAction<CR>
 
 au User LspSetup call LspOptionsSet(#{
