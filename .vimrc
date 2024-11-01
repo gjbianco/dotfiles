@@ -40,14 +40,14 @@ call minpac#add('airblade/vim-gitgutter')
 call minpac#add('jeetsukumaran/vim-filebeagle')
 call minpac#add('gjbianco/vim-asciidoc-syntax')
 
-let g:buftabline_indicators=1
-let g:filebeagle_check_gitignore=1
-let g:filebeagle_show_parent=0
-let g:prettier#autoformat=1
-let g:prettier#autoformat_require_pragma=0
-let g:gruvbox_guisp_fallback="bg"
 let g:markdown_fenced_languages=['html', 'js=javascript', 'ruby', 'go', 'rust']
+let g:prettier#autoformat_require_pragma=0
+let g:prettier#autoformat=1
+let g:filebeagle_show_parent=0
+let g:filebeagle_check_gitignore=1
+let g:gruvbox_guisp_fallback="bg"
 let g:go_metalinter_autosave=1
+let g:buftabline_indicators=1
 let g:go_highlight_types=1
 let g:go_highlight_fields=1
 let g:go_highlight_functions=1
