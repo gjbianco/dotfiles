@@ -1,22 +1,3 @@
-colorscheme gruvbox
-set background=dark
-set mouse=a        " use mouse controls
-set scl=no         " hide sign column
-set autoindent     " \
-set tabstop=2      "  \
-set shiftwidth=2   "   } indentation
-set expandtab      "  /
-set ignorecase     " case insensitive search/completion
-set smartcase      " smart sensitive search
-set updatetime=300 " update git column faster
-set linebreak      " handle line wrapping better
-set hidden         " hide modified buffer without abandoning
-set noswapfile
-set ttyfast
-set statusline=%m%f%=%y\ %l:%c
-set wildignore+=node_modules/**,.git/**
-let mapleader=","
-
 if empty(glob('~/.vim/pack/minpac/opt/minpac/autoload/minpac/impl.vim'))
   silent !git clone https://github.com/k-takata/minpac.git ~/.vim/pack/minpac/opt/minpac
 endif
@@ -60,6 +41,25 @@ au BufNewFile,BufRead Jenkinsfile setf groovy
 au BufNewFile,BufRead Containerfile setf dockerfile
 au FileType asciidoc setlocal commentstring=//\ %s
 
+colorscheme gruvbox
+set background=dark
+set mouse=a        " use mouse controls
+set scl=no         " hide sign column
+set autoindent     " \
+set tabstop=2      "  \
+set shiftwidth=2   "   } indentation
+set expandtab      "  /
+set ignorecase     " case insensitive search/completion
+set smartcase      " smart sensitive search
+set updatetime=300 " update git column faster
+set linebreak      " handle line wrapping better
+set hidden         " hide modified buffer without abandoning
+set noswapfile
+set ttyfast
+set statusline=%m%f%=%y\ %l:%c
+set wildignore+=node_modules/**,.git/**
+let mapleader=","
+
 nnoremap <Space> za
 nnoremap <leader>b :bd<CR>
 nnoremap <leader>, ,
@@ -72,26 +72,26 @@ nnoremap <leader>wr :r! ssh workstation -q
 nnoremap <leader>wb :!sk flamel && rm -rf guides/tmp && flamel sg<CR>
 xnoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
 onoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
+
+" LSP config
 nnoremap K :LspHover<CR>
 nnoremap <leader>d :LspPeekDefinition<CR>
 nnoremap <leader>g :LspGotoDefinition<CR>
 nnoremap <leader>a :LspCodeAction<CR>
-
 au User LspSetup call LspOptionsSet(#{
 \  autoComplete: v:false,
 \  omniComplete: v:true,
 \  completionMatcher: 'fuzzy',
-\  diagVirtualTextAlign: 'after',
+\  diagVirtualTextAlign: 'below',
 \  hideDisabledCodeActions: v:true,
 \  ignoreMissingServer: v:true,
 \  noNewlineInCompletion: v:true,
 \  semanticHighlight: v:true,
-\  showDiagInPopup: v:false,
+\  showDiagWithSign: v:false,
 \  showDiagOnStatusLine: v:true,
 \  usePopupInCodeAction: v:true,
 \  filterCompletionDuplicates: v:true,
 \})
-
 au User LspSetup call LspAddServer([
 \  #{
 \    name: 'tsserver',
@@ -100,11 +100,10 @@ au User LspSetup call LspAddServer([
 \    args: ['--stdio'],
 \  },
 \  #{
-\    name: 'pyright',
+\    name: 'ruff',
 \    filetype: ['python'],
-\    path: 'pyright-langserver',
-\    args: ['--stdio'],
-\    workspaceConfig: #{ python: #{ pythonPath: 'python' } }
+\    path: 'ruff',
+\    args: ['server']
 \  },
 \  #{
 \    name: 'openscad',
@@ -112,3 +111,4 @@ au User LspSetup call LspAddServer([
 \    path: 'openscad-lsp'
 \  }
 \])
+au BufWritePre *.py :LspFormat
