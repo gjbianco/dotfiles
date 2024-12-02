@@ -1,26 +1,31 @@
 https://drewdevault.com/blog/index.xml
-http://ratfactor.com/atom.xml
-https://secluded.site/posts/index.xml
-https://feed.ctrl.blog/latest.atom
-https://www.paritybit.ca/feed.xml
-https://thathtml.blog/feed.xml programming
-https://www.netmeister.org/blog/rss.xml
-http://onethingwell.org/rss
-https://www.omglinux.com/feed/ linux
-https://hackerstations.com/index.xml
+https://feeds.npr.org/1001/rss.xml
 https://www.inkandswitch.com/index.xml
-http://flexion.org/rss.xml
-https://lwn.net/headlines/rss linux
 file:///home/guy/Sync/tooread/tooread.xml
-https://vkc.sh/feed/ linux
 https://hackaday.com/blog/feed/
 https://www.doityourself.com/feed
 http://feeds.feedburner.com/RockPaperShotgun
 https://feeds.feedburner.com/codinghorror
 http://rss.sciam.com/sciam/60secsciencepodcast
 https://www.nasa.gov/rss/dyn/breaking_news.rss
+
+---linux---
+https://lwn.net/headlines/rss linux
+https://vkc.sh/feed/ linux
 https://micronews.debian.org/feeds/feed.rss
+http://onethingwell.org/rss
+https://www.omglinux.com/feed/ linux
+
+---small---
 https://smol.pub/atom.xml
+http://ratfactor.com/atom.xml
+https://secluded.site/posts/index.xml
+https://feed.ctrl.blog/latest.atom
+https://www.paritybit.ca/feed.xml
+https://www.netmeister.org/blog/rss.xml
+http://flexion.org/rss.xml
+https://thathtml.blog/feed.xml programming
+https://hackerstations.com/index.xml
 
 ---PODCASTS---
 https://feeds.jupiterbroadcasting.com/lup jupiter podcast
