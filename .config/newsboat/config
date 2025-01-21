@@ -5,13 +5,15 @@ unbind-key H
 unbind-key L
 unbind-key c
 unbind-key n
+unbind-key N
 unbind-key s
 unbind-key S
 unbind-key g
 unbind-key G
 unbind-key ,
 #browser "firefox --new-tab %u"
-browser w3m
+#browser w3m
+browser firefox
 max-items 1000
 text-width 80
 player "mpv --no-video"
@@ -26,7 +28,7 @@ reload-threads 16
 highlight feedlist "---.*---" blue default bold
 highlight feedlist ".*0/0.." default default invis
 
-macro w set browser "mpv %u" ; open-in-browser ; set browser "brave %u"
+macro w set browser "mpv %u" ; open-in-browser ; set browser "w3m %u"
 
 # bind keys
 bind-key \ macro-prefix
@@ -40,7 +42,8 @@ bind-key RIGHT open
 bind-key H prev-feed
 bind-key L next-feed
 bind-key c toggle-show-read-feeds
-bind-key n toggle-show-read-feeds
+bind-key n toggle-article-read
+bind-key N toggle-show-read-feeds
 bind-key g home
 bind-key G end
 bind-key s sort
