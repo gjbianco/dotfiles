@@ -56,8 +56,8 @@ bindsym $mod+down exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym $mod+right exec playerctl next
 bindsym $mod+left exec playerctl previous
 bindsym $mod+grave exec playerctl play-pause
-bindsym $mod+Next exec brightnessctl set 10%-
-bindsym $mod+Prior exec brightnessctl set +10%
+bindsym $mod+Next exec ddcutil setvcp 10 - 10
+bindsym $mod+Prior exec ddcutil setvcp 10 + 10
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
