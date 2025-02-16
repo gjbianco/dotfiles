@@ -3,7 +3,6 @@ if empty(glob('~/.vim/pack/minpac/opt/minpac/autoload/minpac/impl.vim'))
 endif
 packadd minpac
 call minpac#init()
-
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 call minpac#add('morhetz/gruvbox')
 call minpac#add('tpope/vim-repeat')
@@ -12,8 +11,6 @@ call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('tpope/vim-unimpaired')
 call minpac#add('yegappan/lsp')
-call minpac#add('fatih/vim-go')
-call minpac#add('mattn/emmet-vim')
 call minpac#add('ap/vim-buftabline')
 call minpac#add('kana/vim-smartinput')
 call minpac#add('prettier/vim-prettier')
@@ -27,15 +24,7 @@ let g:prettier#autoformat=1
 let g:filebeagle_show_parent=0
 let g:filebeagle_check_gitignore=1
 let g:gruvbox_guisp_fallback="bg"
-let g:go_metalinter_autosave=1
 let g:buftabline_indicators=1
-let g:go_highlight_types=1
-let g:go_highlight_fields=1
-let g:go_highlight_functions=1
-let g:go_highlight_operators=1
-let g:go_highlight_extra_types=1
-let g:go_highlight_function_calls=1
-let g:go_highlight_build_constraints=1
 
 au BufNewFile,BufRead Jenkinsfile setf groovy
 au BufNewFile,BufRead Containerfile setf dockerfile
@@ -43,17 +32,17 @@ au FileType asciidoc setlocal commentstring=//\ %s
 
 colorscheme gruvbox
 set background=dark
-set mouse=a        " use mouse controls
-set scl=no         " hide sign column
-set autoindent     " \
-set tabstop=2      "  \
-set shiftwidth=2   "   } indentation
-set expandtab      "  /
-set ignorecase     " case insensitive search/completion
-set smartcase      " smart sensitive search
+set mouse=a
+set scl=no
+set autoindent
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set ignorecase
+set smartcase
 set updatetime=300 " update git column faster
 set linebreak      " handle line wrapping better
-set hidden         " hide modified buffer without abandoning
+set hidden
 set noswapfile
 set ttyfast
 set statusline=%m%f%=%y\ %l:%c
@@ -64,20 +53,19 @@ nnoremap <Space> za
 nnoremap <leader>b :bd<CR>
 nnoremap <leader>, ,
 nnoremap <leader>e :e **/
-tnoremap <Esc> <C-\><C-n>
-tnoremap <C-v><Esc> <Esc>
 nnoremap yog :exe "set signcolumn=" .. (&signcolumn == "yes" ? "no" : "yes")<CR>
 xnoremap <leader>wl :keepp s/\\\n//g<CR>
 nnoremap <leader>wr :r! ssh workstation -q 
 nnoremap <leader>wb :!sk flamel && rm -rf guides/tmp && flamel sg<CR>
+nnoremap <leader>wg :!rsync -r classroom/grading/ workstation:grading --delete<CR>
 xnoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
 onoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
 
-" LSP config
 nnoremap K :LspHover<CR>
 nnoremap <leader>d :LspPeekDefinition<CR>
 nnoremap <leader>g :LspGotoDefinition<CR>
 nnoremap <leader>a :LspCodeAction<CR>
+nnoremap <leader>e :LspDiagCurrent<CR>
 au User LspSetup call LspOptionsSet(#{
 \  autoComplete: v:false,
 \  omniComplete: v:true,
