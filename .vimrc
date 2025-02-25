@@ -17,6 +17,7 @@ call minpac#add('prettier/vim-prettier')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('jeetsukumaran/vim-filebeagle')
 call minpac#add('gjbianco/vim-asciidoc-syntax')
+call minpac#add('madox2/vim-ai')
 
 let g:markdown_fenced_languages=['html', 'js=javascript', 'ruby', 'go', 'rust']
 let g:prettier#autoformat_require_pragma=0
@@ -25,6 +26,45 @@ let g:filebeagle_show_parent=0
 let g:filebeagle_check_gitignore=1
 let g:gruvbox_guisp_fallback="bg"
 let g:buftabline_indicators=1
+
+let complete_engine_config = {
+\  "engine": "complete",
+\  "options": {
+\    "model": "granite-3-8b-instruct",
+\    "endpoint_url": "https://granite-3-8b-instruct-maas-apicast-production.apps.prod.rhoai.rh-aiservices-bu.com:443/v1/completions",
+\    "max_tokens": 15,
+\    "max_completion_tokens": 15,
+\    "temperature": 0.7,
+\    "selection_boundary": "",
+\    "token_file_path": "~/.config/editor1.token",
+\    "stream": 0,
+\    "enable_auth": 1,
+\  },
+\  "ui": {
+\    "paste_mode": 1,
+\  },
+\ }
+let g:vim_ai_complete = complete_engine_config
+let g:vim_ai_edit = complete_engine_config
+let g:vim_ai_chat = {
+\  "engine": "chat",
+\  "options": {
+\    "model": "granite-3-8b-instruct",
+\    "endpoint_url": "https://granite-3-8b-instruct-maas-apicast-production.apps.prod.rhoai.rh-aiservices-bu.com:443/v1/chat/completions",
+\    "max_tokens": 1000,
+\    "max_completion_tokens": 1000,
+\    "temperature": 0.7,
+\    "selection_boundary": "",
+\    "token_file_path": "~/.config/editor1.token",
+\    "stream": 0,
+\    "enable_auth": 1,
+\  },
+\  "ui": {
+\    "paste_mode": 1,
+\  },
+\ }
+nnoremap <leader>v :AI<CR>
+xnoremap <leader>v :AI<CR>
 
 au BufNewFile,BufRead Jenkinsfile setf groovy
 au BufNewFile,BufRead Containerfile setf dockerfile
