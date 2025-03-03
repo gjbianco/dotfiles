@@ -19,7 +19,7 @@ call minpac#add('jeetsukumaran/vim-filebeagle')
 call minpac#add('gjbianco/vim-asciidoc-syntax')
 call minpac#add('madox2/vim-ai')
 
-let g:markdown_fenced_languages=['html', 'js=javascript', 'ruby', 'go', 'rust']
+let g:markdown_fenced_languages=['html', 'js=javascript', 'typescript', 'ruby', 'go', 'rust', 'bash']
 let g:prettier#autoformat_require_pragma=0
 let g:prettier#autoformat=1
 let g:filebeagle_show_parent=0
@@ -27,44 +27,7 @@ let g:filebeagle_check_gitignore=1
 let g:gruvbox_guisp_fallback="bg"
 let g:buftabline_indicators=1
 
-let complete_engine_config = {
-\  "engine": "complete",
-\  "options": {
-\    "model": "granite-3-8b-instruct",
-\    "endpoint_url": "https://granite-3-8b-instruct-maas-apicast-production.apps.prod.rhoai.rh-aiservices-bu.com:443/v1/completions",
-\    "max_tokens": 15,
-\    "max_completion_tokens": 15,
-\    "temperature": 0.7,
-\    "selection_boundary": "",
-\    "token_file_path": "~/.config/editor1.token",
-\    "stream": 0,
-\    "enable_auth": 1,
-\  },
-\  "ui": {
-\    "paste_mode": 1,
-\  },
-\ }
-let g:vim_ai_complete = complete_engine_config
-let g:vim_ai_edit = complete_engine_config
-let g:vim_ai_chat = {
-\  "engine": "chat",
-\  "options": {
-\    "model": "granite-3-8b-instruct",
-\    "endpoint_url": "https://granite-3-8b-instruct-maas-apicast-production.apps.prod.rhoai.rh-aiservices-bu.com:443/v1/chat/completions",
-\    "max_tokens": 1000,
-\    "max_completion_tokens": 1000,
-\    "temperature": 0.7,
-\    "selection_boundary": "",
-\    "token_file_path": "~/.config/editor1.token",
-\    "stream": 0,
-\    "enable_auth": 1,
-\  },
-\  "ui": {
-\    "paste_mode": 1,
-\  },
-\ }
-nnoremap <leader>v :AI<CR>
-xnoremap <leader>v :AI<CR>
+let g:vim_ai_roles_config_file = "~/.ai_roles.ini"
 
 au BufNewFile,BufRead Jenkinsfile setf groovy
 au BufNewFile,BufRead Containerfile setf dockerfile
@@ -100,12 +63,17 @@ nnoremap <leader>wb :!sk flamel && rm -rf guides/tmp && flamel sg<CR>
 nnoremap <leader>wg :!rsync -r classroom/grading/ workstation:grading --delete<CR>
 xnoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
 onoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
+nnoremap <leader>vr :AIRedo<CR>
+nnoremap <leader>v :AI<CR>
+xnoremap <leader>v :AI<CR>
+nnoremap <leader>vc :AIC<CR>
+inoremap <C-a> <Esc>:exec 'AI '.getline('.')<CR>A
 
 nnoremap K :LspHover<CR>
 nnoremap <leader>d :LspPeekDefinition<CR>
 nnoremap <leader>g :LspGotoDefinition<CR>
 nnoremap <leader>a :LspCodeAction<CR>
-nnoremap <leader>e :LspDiagCurrent<CR>
+" nnoremap <leader>e :LspDiagCurrent<CR>
 au User LspSetup call LspOptionsSet(#{
 \  autoComplete: v:false,
 \  omniComplete: v:true,
