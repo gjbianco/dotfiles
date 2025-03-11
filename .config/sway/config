@@ -11,7 +11,7 @@ output DP-1 resolution 2560x1440@180Hz
 # seat * hide_cursor 5000
 seat * hide_cursor when-typing disable
 exec swayidle -w timeout 1200 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
-exec dunst
+exec mako
 exec nm-applet
 exec dbus-update-activation-environment
 
