@@ -7,7 +7,13 @@ fish_add_path $HOME/.local/bin
 
 alias vale="$HOME/bin/vale/bin/vale"
 alias wb="sk flamel && rm -rf guides/tmp && flamel sg"
-alias ws="scp 'guides/tmp/en-US/pdf/*.pdf' guys-macbook-air:Desktop"
+alias wsm="scp 'guides/tmp/en-US/pdf/*.pdf' macbook:Desktop"
 alias wp="zathura 'guides/tmp/en-US/pdf/*.pdf' &"
+alias m="aerc"
+alias n="newsboat"
+
+function f
+  find . -iname "*$argv*"
+end
 
 . ~/.config/fish/functions/fishmarks.fish

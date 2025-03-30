@@ -1,38 +1,46 @@
+# NPR Text-Only
+# https://feeds.npr.org/1001/rss.xml
+https://cdn.feedcontrol.net/4632/13101-jcwMZGwS7NxR0.xml
+
 https://drewdevault.com/blog/index.xml
-http://ratfactor.com/atom.xml
-https://secluded.site/posts/index.xml
-https://feed.ctrl.blog/latest.atom
-https://www.paritybit.ca/feed.xml
-https://thathtml.blog/feed.xml programming
-https://www.netmeister.org/blog/rss.xml
-http://onethingwell.org/rss
-https://www.omglinux.com/feed/ linux
-https://hackerstations.com/index.xml
-https://www.inkandswitch.com/index.xml
-http://flexion.org/rss.xml
-https://lwn.net/headlines/rss linux
-file:///home/guy/Sync/tooread/tooread.xml
-https://vkc.sh/feed/ linux
+# https://www.inkandswitch.com/index.xml
 https://hackaday.com/blog/feed/
-https://www.doityourself.com/feed
-http://feeds.feedburner.com/RockPaperShotgun
+# https://www.doityourself.com/feed
+# http://feeds.feedburner.com/RockPaperShotgun
 https://feeds.feedburner.com/codinghorror
-http://rss.sciam.com/sciam/60secsciencepodcast
-https://www.nasa.gov/rss/dyn/breaking_news.rss
-https://micronews.debian.org/feeds/feed.rss
+# http://rss.sciam.com/sciam/60secsciencepodcast
+# https://www.nasa.gov/rss/dyn/breaking_news.rss
+# file:///home/guy/Sync/tooread/tooread.xml
+
+# ---linux---
+https://lwn.net/headlines/rss linux
+https://vkc.sh/feed/ linux
+# https://micronews.debian.org/feeds/feed.rss
+# http://onethingwell.org/rss
+# https://www.omglinux.com/feed/ linux
+
+# ---small---
 https://smol.pub/atom.xml
+# http://ratfactor.com/atom.xml
+https://secluded.site/posts/index.xml
+# https://feed.ctrl.blog/latest.atom
+# https://www.paritybit.ca/feed.xml
+# https://www.netmeister.org/blog/rss.xml
+http://flexion.org/rss.xml
+https://thathtml.blog/feed.xml programming
+# https://hackerstations.com/index.xml
 
----PODCASTS---
-https://feeds.jupiterbroadcasting.com/lup jupiter podcast
-https://selfhosted.show/rss jupiter podcast
-https://coder.show/rss jupiter podcast
-https://feeds.npr.org/510308/podcast.xml
-https://fantasticworldspod.com/feed/fbs/
+#---PODCASTS---
+#https://feeds.jupiterbroadcasting.com/lup jupiter podcast
+#https://selfhosted.show/rss jupiter podcast
+#https://coder.show/rss jupiter podcast
+#https://feeds.npr.org/510308/podcast.xml
+#https://fantasticworldspod.com/feed/fbs/
 
----VIDEO---
-https://tinkerbetter.tube/feeds/videos.xml?videoChannelId=2 video
-https://vid.puffyan.us/feed/channel/UCaxar6TBM-94_ezoS00fLkA video day9
-https://vid.puffyan.us/feed/channel/UCXuqSBlHAE6Xw-yeJA0Tunw video ltt
-https://vid.puffyan.us/feed/channel/UC4PooiX37Pld1T8J5SYT-SQ video gmm
-https://vid.puffyan.us/feed/channel/UCy0tKL1T7wFoYcxCe0xjN6Q video tech_connections
-https://vid.puffyan.us/feed/channel/UC3tNpTOHsTnkmbwztCs30sA video northernlion
+#---VIDEO---
+#https://tinkerbetter.tube/feeds/videos.xml?videoChannelId=2 video
+#https://vid.puffyan.us/feed/channel/UCaxar6TBM-94_ezoS00fLkA video day9
+#https://vid.puffyan.us/feed/channel/UCXuqSBlHAE6Xw-yeJA0Tunw video ltt
+#https://vid.puffyan.us/feed/channel/UC4PooiX37Pld1T8J5SYT-SQ video gmm
+#https://vid.puffyan.us/feed/channel/UCy0tKL1T7wFoYcxCe0xjN6Q video tech_connections
+#https://vid.puffyan.us/feed/channel/UC3tNpTOHsTnkmbwztCs30sA video northernlion

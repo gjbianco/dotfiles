@@ -3,12 +3,15 @@ floating_modifier $mod normal
 default_border none
 gaps inner 3
 smart_gaps on
+
 # output * bg /path/to/image.png fill|tile
-output DP-1 resolution 2560x1440@144Hz
+output * bg ~/Sync/pictures/wallpapers/pattern/cartographer.webp tile
+output DP-1 resolution 2560x1440@180Hz
+
 # seat * hide_cursor 5000
 seat * hide_cursor when-typing disable
 exec swayidle -w timeout 1200 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
-exec dunst
+exec mako
 exec nm-applet
 exec dbus-update-activation-environment
 
@@ -17,23 +20,27 @@ bar {
   swaybar_command waybar
 }
 input "type:pointer" {
-    dwt enabled
-    natural_scroll disabled
-    accel_profile "flat" # disable acceleration
-    pointer_accel 0
+  dwt enabled
+  natural_scroll disabled
+  accel_profile "flat" # disable acceleration
+  pointer_accel 0
+}
+input "2:1:PS/2_Logitech_Mouse" {
+  pointer_accel 1
+  calibration_matrix 20 0 0 0 20 0
 }
 input "type:touchpad" {
   events enabled
   tap enabled
 }
 input "1267:51:Elan_TrackPoint" {
-    pointer_accel -0.25
-    natural_scroll enabled
+  pointer_accel -0.25
+  natural_scroll enabled
 }
 input "type:keyboard" {
-    xkb_layout us,de
-    xkb_variant ,nodeadkeys
-    xkb_options ctrl:nocaps,altwin:swap_alt_win
+  xkb_layout us,de
+  xkb_variant ,nodeadkeys
+  xkb_options ctrl:nocaps,altwin:swap_alt_win
 }
 
 bindsym $mod+Shift+c reload
@@ -49,8 +56,8 @@ bindsym $mod+down exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym $mod+right exec playerctl next
 bindsym $mod+left exec playerctl previous
 bindsym $mod+grave exec playerctl play-pause
-bindsym $mod+Next exec brightnessctl set 10%-
-bindsym $mod+Prior exec brightnessctl set +10%
+bindsym $mod+Next exec ddcutil setvcp 10 - 10
+bindsym $mod+Prior exec ddcutil setvcp 10 + 10
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
