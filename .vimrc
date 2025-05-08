@@ -31,7 +31,7 @@ au BufNewFile,BufRead Jenkinsfile setf groovy
 au BufNewFile,BufRead Containerfile setf dockerfile
 au FileType asciidoc setlocal commentstring=//\ %s
 
-au BufWritePost *.c,*.h :silent! !uncrustify -f % -o %
+au BufWritePost *.c,*.h :silent! !uncrustify % --no-backup
 au BufWritePost *.c,*.h :silent! checktime | edit! | redraw!
 
 colorscheme gruvbox
