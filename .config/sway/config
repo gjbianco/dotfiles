@@ -6,10 +6,10 @@ smart_gaps on
 
 # output * bg /path/to/image.png fill|tile
 output * bg ~/Sync/pictures/wallpapers/pattern/cartographer.webp tile
-output DP-1 resolution 2560x1440@180Hz
+output DP-2 resolution 2560x1440@180Hz
 
 # seat * hide_cursor 5000
-seat * hide_cursor when-typing disable
+seat * hide_cursor when-typing enable
 exec swayidle -w timeout 1200 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
 exec mako
 exec nm-applet
@@ -43,19 +43,28 @@ input "type:keyboard" {
   xkb_options ctrl:nocaps,altwin:swap_alt_win
 }
 
+set $lock swaylock -f -e -c 232323 -K --font Sans -c "232323" -s "solid_color"
+set $set_volume pactl set-sink-volume @DEFAULT_SINK@
+set $raise_volume $set_volume +5%
+set $lower_volume $set_volume -5%
+
 bindsym $mod+Shift+c reload
 bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
-bindsym $mod+z exec swaylock -f -e -c 232323 -K --font Sans -c "232323" -s "solid_color"
-bindsym $mod+c exec alacritty -e python3
+bindsym $mod+z exec $lock
+bindsym Scroll_Lock exec $lock
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' -b 'Yes' 'swaymsg exit'
 bindsym $mod+p exec bemenu-run -p "" --fn jetbrains-mono 10 --ch 0 -H 16 --hp 10 -B 0 --tb "#285577" --hb "#285577" --tf "#eeeeee" --hf "#eeeeee" --nf "#bbbbbb" --bdr "#111111"
 bindsym Print exec grim -t png "$HOME/Pictures/$(date +%F\ %T).png" && notify-send "Screenshot taken" -u low || notify-send "Failed to take screenshot" -u critical
-bindsym $mod+up exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym $mod+down exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym Shift+Print exec grim -g "$(slurp)" -t png "$HOME/Pictures/$(date +%F\ %T).png" && notify-send "Screenshot taken" -u low || notify-send "Failed to take screenshot" -u critical
+bindsym XF86AudioRaiseVolume exec $raise_volume
+bindsym $mod+up exec $raise_volume
+bindsym XF86AudioLowerVolume exec $lower_volume
+bindsym $mod+down exec $lower_volume
 bindsym $mod+right exec playerctl next
 bindsym $mod+left exec playerctl previous
 bindsym $mod+grave exec playerctl play-pause
+bindsym Pause exec playerctl play-pause
 bindsym $mod+Next exec ddcutil setvcp 10 - 10
 bindsym $mod+Prior exec ddcutil setvcp 10 + 10
 bindsym $mod+h focus left
