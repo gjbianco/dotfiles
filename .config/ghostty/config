@@ -1,0 +1,11 @@
+foreground = #d9d9d9
+background = #232323
+cursor-style = block
+cursor-style-blink = false
+cursor-click-to-move = false
+shell-integration-features = no-cursor
+mouse-hide-while-typing = true
+auto-update = off
+
+macos-titlebar-proxy-icon = hidden
+macos-icon = retro
