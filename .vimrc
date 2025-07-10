@@ -18,7 +18,10 @@ call minpac#add('prettier/vim-prettier')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('jeetsukumaran/vim-filebeagle')
 call minpac#add('gjbianco/vim-asciidoc-syntax')
+call minpac#add('gjbianco/vim-vale')
+call minpac#add('tidalcycles/vim-tidal')
 
+let g:tidal_sc_enable = 1
 let g:markdown_fenced_languages=['html', 'js=javascript', 'typescript', 'ruby', 'go', 'rust', 'bash']
 let g:prettier#autoformat_require_pragma=0
 let g:prettier#autoformat=1
@@ -30,6 +33,7 @@ let g:buftabline_indicators=1
 au BufNewFile,BufRead Jenkinsfile setf groovy
 au BufNewFile,BufRead Containerfile setf dockerfile
 au FileType asciidoc setlocal commentstring=//\ %s
+au FileType tidal setlocal commentstring=--\ %s
 
 au BufWritePost *.c,*.h :silent! !uncrustify % --no-backup
 au BufWritePost *.c,*.h :silent! checktime | edit! | redraw!
@@ -57,13 +61,26 @@ nnoremap <Space> za
 nnoremap <leader>b :bd<CR>
 nnoremap <leader>, ,
 nnoremap <leader>e :e **/
+nnoremap <leader>m :make<CR>
 nnoremap yog :exe "set signcolumn=" .. (&signcolumn == "yes" ? "no" : "yes")<CR>
 xnoremap <leader>wl :keepp s/\\\n//g<CR>
 nnoremap <leader>wr :r! ssh workstation -q 
 nnoremap <leader>wb :!sk flamel && rm -rf guides/tmp && flamel sg<CR>
 nnoremap <leader>wg :!rsync -r classroom/grading/ workstation:grading --delete<CR>
+nnoremap <leader>wv :r !vale % --no-wrap --output line<CR>
 xnoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
 onoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
+
+function! ToggleQuickFix()
+  if getqflist({'winid' : 0}).winid
+    cclose
+  else
+    copen
+  endif
+endfunction
+command! -nargs=0 -bar ToggleQuickFix call ToggleQuickFix()
+
+nnoremap yoq :ToggleQuickFix<CR>
 
 nnoremap K :LspHover<CR>
 nnoremap <leader>d :LspPeekDefinition<CR>
