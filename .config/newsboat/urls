@@ -20,7 +20,7 @@ https://vkc.sh/feed/ linux
 # https://www.omglinux.com/feed/ linux
 
 # ---small---
-https://smol.pub/atom.xml
+# https://smol.pub/atom.xml
 # http://ratfactor.com/atom.xml
 https://secluded.site/posts/index.xml
 # https://feed.ctrl.blog/latest.atom
@@ -31,7 +31,7 @@ https://thathtml.blog/feed.xml programming
 # https://hackerstations.com/index.xml
 
 #---PODCASTS---
-#https://feeds.jupiterbroadcasting.com/lup jupiter podcast
+https://feeds.jupiterbroadcasting.com/lup jupiter podcast
 #https://selfhosted.show/rss jupiter podcast
 #https://coder.show/rss jupiter podcast
 #https://feeds.npr.org/510308/podcast.xml
