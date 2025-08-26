@@ -55,6 +55,7 @@ set noswapfile
 set ttyfast
 set statusline=%m%f%=%y\ %l:%c
 set wildignore+=node_modules/**,.git/**
+set modeline
 let mapleader=","
 
 nnoremap <Space> za
@@ -66,6 +67,8 @@ nnoremap yog :exe "set signcolumn=" .. (&signcolumn == "yes" ? "no" : "yes")<CR>
 xnoremap <leader>wl :keepp s/\\\n//g<CR>
 nnoremap <leader>wr :r! ssh workstation -q 
 nnoremap <leader>wb :!sk flamel && rm -rf guides/tmp && flamel sg<CR>
+" nnoremap <leader>wb :!sk build pdf<CR>
+nnoremap <leader>wp :!zathura guides/tmp/en-US/pdf/*.pdf &<CR>
 nnoremap <leader>wg :!rsync -r classroom/grading/ workstation:grading --delete<CR>
 nnoremap <leader>wv :r !vale % --no-wrap --output line<CR>
 xnoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
@@ -103,6 +106,23 @@ au User LspSetup call LspOptionsSet(#{
 \})
 au User LspSetup call LspAddServer([
 \  #{
+\    name: 'rustlang',
+\    filetype: ['rust'],
+\    path: 'rust-analyzer',
+\    args: [],
+\    syncInit: v:true,
+\    initializationOptions: #{
+\      inlayHints: #{
+\        typeHints: #{
+\          enable: v:true
+\        },
+\        parameterHints: #{
+\          enable: v:true
+\        }
+\      },
+\    }
+\  },
+\  #{
 \    name: 'tsserver',
 \    filetype: ['javascript', 'typescript', 'typescriptreact'],
 \    path: 'typescript-language-server',
@@ -120,4 +140,4 @@ au User LspSetup call LspAddServer([
 \    path: 'openscad-lsp'
 \  }
 \])
-au BufWritePre *.py :LspFormat
+au BufWritePre *.py,*.rs :LspFormat
