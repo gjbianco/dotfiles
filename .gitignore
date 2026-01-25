@@ -13,3 +13,9 @@ cookie
 # never store w3m cookies
 .w3m/cookie
 .w3m/history
+
+.config/darktable/*
+!.config/darktable/darktablerc
+!.config/darktable/luarc
+!.config/darktable/shortcutsrc
+!.config/darktable/user.css
