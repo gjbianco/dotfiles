@@ -21,7 +21,7 @@ call minpac#add('gjbianco/vim-asciidoc-syntax')
 call minpac#add('gjbianco/vim-vale')
 call minpac#add('tidalcycles/vim-tidal')
 
-let g:tidal_sc_enable = 1
+" let g:tidal_sc_enable = 1
 let g:markdown_fenced_languages=['html', 'js=javascript', 'typescript', 'ruby', 'go', 'rust', 'bash']
 let g:prettier#autoformat_require_pragma=0
 let g:prettier#autoformat=1
