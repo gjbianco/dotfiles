@@ -4,12 +4,22 @@ default_border none
 gaps inner 3
 smart_gaps on
 
+set $lock swaylock -f -e -c 232323 -K --font Sans -c "232323" -s "solid_color"
+set $set_volume pactl set-sink-volume @DEFAULT_SINK@
+set $raise_volume $set_volume +5%
+set $lower_volume $set_volume -5%
+set $output DP-1
+
 # output * bg /path/to/image.png fill|tile
 output * bg ~/Sync/pictures/wallpapers/pattern/cartographer.webp tile
-output DP-2 resolution 2560x1440@180Hz
+# output $output resolution 2560x1440@180Hz adaptive_sync on
+output $output resolution 2560x1440@180Hz
+output HDMI-A-1 resolution 1920x1080@60Hz
 
 # seat * hide_cursor 5000
-seat * hide_cursor when-typing enable
+seat * hide_cursor when-typing enabled
+
+exec systemctl --user import-environment DISPLAY
 exec swayidle -w timeout 1200 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
 exec mako
 exec nm-applet
@@ -37,16 +47,14 @@ input "1267:51:Elan_TrackPoint" {
   pointer_accel -0.25
   natural_scroll enabled
 }
+input "9639:64017:Nordic_2.4G_Wireless_Receiver_Mouse" {
+  pointer_accel 0.25
+}
 input "type:keyboard" {
   xkb_layout us,de
   xkb_variant ,nodeadkeys
   xkb_options ctrl:nocaps,altwin:swap_alt_win
 }
-
-set $lock swaylock -f -e -c 232323 -K --font Sans -c "232323" -s "solid_color"
-set $set_volume pactl set-sink-volume @DEFAULT_SINK@
-set $raise_volume $set_volume +5%
-set $lower_volume $set_volume -5%
 
 bindsym $mod+Shift+c reload
 bindsym $mod+Return exec alacritty
@@ -57,6 +65,8 @@ bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' -b 'Yes' 'swaymsg e
 bindsym $mod+p exec bemenu-run -p "" --fn jetbrains-mono 10 --ch 0 -H 16 --hp 10 -B 0 --tb "#285577" --hb "#285577" --tf "#eeeeee" --hf "#eeeeee" --nf "#bbbbbb" --bdr "#111111"
 bindsym Print exec grim -t png "$HOME/Pictures/$(date +%F\ %T).png" && notify-send "Screenshot taken" -u low || notify-send "Failed to take screenshot" -u critical
 bindsym Shift+Print exec grim -g "$(slurp)" -t png "$HOME/Pictures/$(date +%F\ %T).png" && notify-send "Screenshot taken" -u low || notify-send "Failed to take screenshot" -u critical
+bindsym $mod+c exec alacritty -e python
+bindsym XF86Calculator exec alacritty -e python
 bindsym XF86AudioRaiseVolume exec $raise_volume
 bindsym $mod+up exec $raise_volume
 bindsym XF86AudioLowerVolume exec $lower_volume
@@ -67,6 +77,13 @@ bindsym $mod+grave exec playerctl play-pause
 bindsym Pause exec playerctl play-pause
 bindsym $mod+Next exec ddcutil setvcp 10 - 10
 bindsym $mod+Prior exec ddcutil setvcp 10 + 10
+bindsym $mod+t exec alacritty -e bluetui
+bindsym $mod+w exec alacritty -e nmtui-connect
+bindsym $mod+m exec alacritty -e bashmount
+bindsym $mod+x exec swaymsg seat "*" hide_cursor when-typing 1 && notify-send "Hide mouse enabled" -u low
+bindsym $mod+Shift+x exec swaymsg seat "*" hide_cursor when-typing 0 && notify-send "Hide mouse disabled" -u low
+bindsym $mod+g exec swaymsg seat "*" hide_cursor when-typing 0 && swaymsg output $output adaptive_sync 1 && notify-send "Gaming mode enabled" -u low || notify-send "Failed to enable gaming mode" -u critical
+bindsym $mod+Shift+g exec swaymsg seat "*" hide_cursor when-typing 1 && swaymsg output $output adaptive_sync 0 && notify-send "Gaming mode disabled" -u low || notify-send "Failed to disable gaming mode" -u critical
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
