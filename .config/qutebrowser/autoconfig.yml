@@ -6,23 +6,13 @@
 
 config_version: 2
 settings:
-  auto_save.session:
-    global: true
-  bindings.commands:
-    global:
-      normal:
-        t: cmd-set-text -s :open -t
-        tSh: null
-        tph: null
-        tsH: null
-        tsh: null
-        tsu: null
-        yob: config-cycle colors.webpage.darkmode.enabled on off
   colors.webpage.darkmode.enabled:
     global: true
-  fonts.tabs.selected:
-    global: 11pt default_family
-  fonts.tabs.unselected:
-    global: 11pt default_family
+  colors.webpage.preferred_color_scheme:
+    global: dark
+  content.geolocation:
+    https://www.guitarcenter.com: false
+  content.notifications.enabled:
+    https://app.slack.com: true
   fonts.web.family.sans_serif:
-    global: JetBrains Mono
+    global: null

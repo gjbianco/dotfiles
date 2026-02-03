@@ -1,5 +1,6 @@
 c.auto_save.session = True
 c.colors.webpage.darkmode.enabled = True
+c.colors.webpage.preferred_color_scheme = 'dark'
 
 c.url.default_page = 'about:blank'
 c.qt.workarounds.disable_hangouts_extension = True
@@ -23,17 +24,17 @@ c.content.blocking.adblock.lists = ['https://easylist.to/easylist/easylist.txt',
 c.content.pdfjs = True
 c.content.prefers_reduced_motion = True
 
-c.fonts.web.family.sans_serif = 'JetBrains Mono'
-c.fonts.web.size.default = 16
-c.fonts.tabs.selected = '12pt default_family'
-c.fonts.tabs.unselected = '12pt default_family'
-c.fonts.statusbar = '12pt default_family'
+# c.fonts.web.family.sans_serif = 'JetBrains Mono'
+# c.fonts.web.size.default = 16
+# c.fonts.tabs.selected = '12pt default_family'
+# c.fonts.tabs.unselected = '12pt default_family'
+# c.fonts.statusbar = '12pt default_family'
 c.tabs.padding = {'top': 4, 'bottom': 4, 'left': 5, 'right': 5}
 c.statusbar.padding = {'top': 4, 'bottom': 4, 'left': 5, 'right': 5}
 c.statusbar.widgets = ['keypress', 'search_match', 'url', 'scroll', 'progress']
 
 config.source('gruvbox.py')
-config.load_autoconfig(False)
+config.load_autoconfig(True)
 
 config.bind('t', 'cmd-set-text -s :open -t')
 config.bind('yob', 'config-cycle colors.webpage.darkmode.enabled on off')
