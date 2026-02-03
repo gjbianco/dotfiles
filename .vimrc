@@ -10,7 +10,6 @@ call minpac#add('tpope/vim-sensible')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('tpope/vim-unimpaired')
-call minpac#add('mattn/emmet-vim')
 call minpac#add('yegappan/lsp')
 call minpac#add('ap/vim-buftabline')
 call minpac#add('kana/vim-smartinput')
@@ -19,9 +18,7 @@ call minpac#add('airblade/vim-gitgutter')
 call minpac#add('jeetsukumaran/vim-filebeagle')
 call minpac#add('gjbianco/vim-asciidoc-syntax')
 call minpac#add('gjbianco/vim-vale')
-call minpac#add('tidalcycles/vim-tidal')
 
-let g:tidal_sc_enable = 1
 let g:markdown_fenced_languages=['html', 'js=javascript', 'typescript', 'ruby', 'go', 'rust', 'bash']
 let g:prettier#autoformat_require_pragma=0
 let g:prettier#autoformat=1
@@ -33,10 +30,6 @@ let g:buftabline_indicators=1
 au BufNewFile,BufRead Jenkinsfile setf groovy
 au BufNewFile,BufRead Containerfile setf dockerfile
 au FileType asciidoc setlocal commentstring=//\ %s
-au FileType tidal setlocal commentstring=--\ %s
-
-au BufWritePost *.c,*.h :silent! !uncrustify % --no-backup
-au BufWritePost *.c,*.h :silent! checktime | edit! | redraw!
 
 colorscheme gruvbox
 set background=dark
@@ -58,22 +51,6 @@ set wildignore+=node_modules/**,.git/**
 set modeline
 let mapleader=","
 
-nnoremap <Space> za
-nnoremap <leader>b :bd<CR>
-nnoremap <leader>, ,
-nnoremap <leader>e :e **/
-nnoremap <leader>m :make<CR>
-nnoremap yog :exe "set signcolumn=" .. (&signcolumn == "yes" ? "no" : "yes")<CR>
-xnoremap <leader>wl :keepp s/\\\n//g<CR>
-nnoremap <leader>wr :r! ssh workstation -q 
-nnoremap <leader>wb :!sk flamel && rm -rf guides/tmp && flamel sg<CR>
-" nnoremap <leader>wb :!sk build pdf<CR>
-nnoremap <leader>wp :!zathura guides/tmp/en-US/pdf/*.pdf &<CR>
-nnoremap <leader>wg :!rsync -r classroom/grading/ workstation:grading --delete<CR>
-nnoremap <leader>wv :r !vale % --no-wrap --output line<CR>
-xnoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
-onoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
-
 function! ToggleQuickFix()
   if getqflist({'winid' : 0}).winid
     cclose
@@ -83,13 +60,24 @@ function! ToggleQuickFix()
 endfunction
 command! -nargs=0 -bar ToggleQuickFix call ToggleQuickFix()
 
+nnoremap <Space> za
+nnoremap <leader>b :bd<CR>
+nnoremap <leader>, ,
+nnoremap <leader>m :make<CR>
+xnoremap <leader>wl :keepp s/\\\n//g<CR>
+nnoremap <leader>wr :r! ssh workstation -q 
+nnoremap <leader>wg :!rsync -r classroom/grading/ workstation:grading --delete<CR>
+nnoremap <leader>wv :r !vale % --no-wrap --output line<CR>
+xnoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
+onoremap <silent> i* :<C-u>keepp normal! T*vt*<CR>
+nnoremap yog :exe "set signcolumn=" .. (&signcolumn == "yes" ? "no" : "yes")<CR>
 nnoremap yoq :ToggleQuickFix<CR>
 
 nnoremap K :LspHover<CR>
 nnoremap <leader>d :LspPeekDefinition<CR>
 nnoremap <leader>g :LspGotoDefinition<CR>
 nnoremap <leader>a :LspCodeAction<CR>
-" nnoremap <leader>e :LspDiagCurrent<CR>
+nnoremap <leader>e :LspDiagCurrent<CR>
 au User LspSetup call LspOptionsSet(#{
 \  autoComplete: v:false,
 \  omniComplete: v:true,
@@ -105,23 +93,6 @@ au User LspSetup call LspOptionsSet(#{
 \  filterCompletionDuplicates: v:true,
 \})
 au User LspSetup call LspAddServer([
-\  #{
-\    name: 'rustlang',
-\    filetype: ['rust'],
-\    path: 'rust-analyzer',
-\    args: [],
-\    syncInit: v:true,
-\    initializationOptions: #{
-\      inlayHints: #{
-\        typeHints: #{
-\          enable: v:true
-\        },
-\        parameterHints: #{
-\          enable: v:true
-\        }
-\      },
-\    }
-\  },
 \  #{
 \    name: 'tsserver',
 \    filetype: ['javascript', 'typescript', 'typescriptreact'],
