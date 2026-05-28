@@ -1,10 +1,14 @@
 c.auto_save.session = True
 c.colors.webpage.darkmode.enabled = True
 c.colors.webpage.preferred_color_scheme = 'dark'
+c.colors.webpage.bg = '#282828'
 
 c.url.default_page = 'about:blank'
 c.qt.workarounds.disable_hangouts_extension = True
 c.search.wrap = False
+c.url.searchengines = {
+    'DEFAULT': 'https://kagi.com/search?&q={}'
+}
 c.downloads.location.prompt = False
 c.downloads.position = 'bottom'
 c.url.yank_ignored_parameters = ['ref', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'utm_name']
