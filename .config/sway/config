@@ -1,3 +1,5 @@
+include /etc/sway/config.d/*
+
 set $mod Mod4
 floating_modifier $mod normal
 default_border none
@@ -17,11 +19,9 @@ output $output resolution 1920x1200@60Hz scale 1
 # seat * hide_cursor 5000
 seat * hide_cursor when-typing enabled
 
-exec systemctl --user import-environment DISPLAY
 exec swayidle -w timeout 1200 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
 exec mako
 exec nm-applet
-exec dbus-update-activation-environment
 
 for_window [app_id="firefox" title="Firefox — Sharing Indicator"] { kill }
 bar {
