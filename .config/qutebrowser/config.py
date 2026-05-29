@@ -2,6 +2,7 @@ c.auto_save.session = True
 c.colors.webpage.darkmode.enabled = True
 c.colors.webpage.preferred_color_scheme = 'dark'
 c.colors.webpage.bg = '#282828'
+c.scrolling.bar = 'when-searching'
 
 c.url.default_page = 'about:blank'
 c.qt.workarounds.disable_hangouts_extension = True
