@@ -19,3 +19,6 @@ cookie
 !.config/darktable/luarc
 !.config/darktable/shortcutsrc
 !.config/darktable/user.css
+
+# qutebrowser state
+qsettings
