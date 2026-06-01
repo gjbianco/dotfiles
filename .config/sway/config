@@ -19,7 +19,11 @@ output $output resolution 1920x1200@60Hz scale 1
 # seat * hide_cursor 5000
 seat * hide_cursor when-typing enabled
 
-exec swayidle -w timeout 1200 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
+# exec_always
+exec swayidle -w \
+        before-sleep '$lock' \
+        timeout 1200 'swaymsg "output * dpms off"' \
+        resume 'swaymsg "output * dpms on"'
 exec mako
 exec nm-applet
 
@@ -62,8 +66,8 @@ bindsym $mod+z exec $lock
 bindsym Scroll_Lock exec $lock
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit sway?' -b 'Yes' 'swaymsg exit'
 bindsym $mod+p exec wmenu-run
-bindsym Print exec grim -t png "$HOME/Pictures/$(date +%F\ %T).png" && notify-send "Screenshot taken" -u low || notify-send "Failed to take screenshot" -u critical
-bindsym Shift+Print exec grim -g "$(slurp)" -t png "$HOME/Pictures/$(date +%F\ %T).png" && notify-send "Screenshot taken" -u low || notify-send "Failed to take screenshot" -u critical
+bindsym Print exec grim -t png "$HOME/pictures/$(date +%F\ %T).png" && notify-send "Screenshot taken" -u low || notify-send "Failed to take screenshot" -u critical
+bindsym Shift+Print exec grim -g "$(slurp)" -t png "$HOME/pictures/$(date +%F\ %T).png" && notify-send "Screenshot taken" -u low || notify-send "Failed to take screenshot" -u critical
 bindsym $mod+c exec $term -e python
 bindsym XF86AudioRaiseVolume exec $raise_volume
 bindsym $mod+up exec $raise_volume
