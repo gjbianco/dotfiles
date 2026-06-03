@@ -5,6 +5,7 @@ export EDITOR=vim
 export RESTIC_REPOSITORY="sftp:rsync:data-backup"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/code/dotfiles/scripts:$PATH"
 
 # shortcuts
 export d="$HOME/code/dotfiles"
