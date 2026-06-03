@@ -13,7 +13,7 @@ unbind-key G
 unbind-key ,
 #browser "firefox --new-tab %u"
 #browser w3m
-browser firefox
+browser qutebrowser
 max-items 1000
 text-width 80
 player "mpv --no-video"
